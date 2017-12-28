@@ -1,0 +1,55 @@
+<div>
+
+  <mat-toolbar class="ngblog-site-header" layout="row" color="primary">
+    <mat-toolbar-row>
+      <span style="font-weight: bold;">{{personalInfo.name}}, {{personalInfo.title}}</span>
+      <span style="flex: 1 1 auto"></span>
+      <button mat-icon-button color="" matTooltip="Printable version" (click)="handlePrint()">
+        <mat-icon>print</mat-icon>
+      </button>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <div style="padding-top: 16px; padding-bottom: 16px;">
+    <mat-accordion class="ngblog-entry-headers-align">
+
+      <mat-expansion-panel *ngFor="let mde of docEntries; let i = index" [expanded]="step === i" (opened)="setStep(i)" hideToggle="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <b>{{mde.title}}</b>
+          </mat-panel-title>
+          <mat-panel-description>
+            {{mde.description}}
+            <mat-icon [color]="(step === i) ? 'accent' : ''">bookmark_border</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <!-- <common-mark-entry *ngIf="mde.skipDisplay == false" [markdown]="mde.markdownContent" [debug-enabled]="mde.debugEnabled" [renderer-options]="mde.rendererOptions"></common-mark-entry> -->
+        <!-- <common-mark-entry *ngIf="mde.skipDisplay == false" [url]="mde.markdownUrl" [markdown]="mde.markdownContent" [debug-enabled]="mde.debugEnabled" [renderer-options]="mde.rendererOptions"></common-mark-entry> -->
+        <!-- <common-mark-entry *ngIf="mde.skipDisplay == false" [delay]="delayInterval" [url]="mde.markdownUrl" [markdown]="mde.markdownContent" [debug-enabled]="mde.debugEnabled" [renderer-options]="mde.rendererOptions"></common-mark-entry> -->
+        <common-mark-entry *ngIf="mde.skipDisplay == false" [delay]="(i === step)? 0 : delayInterval" [url]="mde.markdownUrl" [markdown]="mde.markdownContent" [debug-enabled]="mde.debugEnabled" [renderer-options]="mde.rendererOptions"></common-mark-entry>
+
+        <mat-action-row>
+          <button color="accent" *ngIf="mde.showDetail" mat-icon-button matTooltip="More information" (click)="openDetailDialog(i);">
+            <mat-icon>message</mat-icon>
+          </button>
+          <span style="flex: 1 1 auto"></span>
+          <button *ngIf="i > 0" mat-button color="primary" (click)="prevStep()">Previous</button>
+          <button [disabled]="i >= docEntries.length-1" mat-button color="primary" (click)="nextStep()">Next</button>
+        </mat-action-row>
+      </mat-expansion-panel>
+
+    </mat-accordion>
+  </div>
+
+  <mat-toolbar class="ngblog-site-footer" layout="row" color="accent">
+    <mat-toolbar-row>
+      <span style="font-style: italic;">Copyright &copy; <common-date-year></common-date-year> {{personalInfo.name}}</span>
+      <span style="flex: 1 1 auto"></span>
+      <span *ngIf="hasNonBinaryVisitorToken" style="font-style: italic;">
+        <a mat-button href="mailto:{{contactInfo.email}}">{{contactInfo.email}}</a>
+      </span>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+</div>

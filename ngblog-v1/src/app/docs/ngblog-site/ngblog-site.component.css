@@ -1,0 +1,22 @@
+.ngblog-site-header {
+  z-index: 2;
+  font-size: 0.9em;
+  min-height: 48px;
+  max-height: 48px;
+}
+.ngblog-site-footer {
+  z-index: 2;
+  font-size: 0.85em;
+  min-height: 36px;
+  max-height: 36px;
+}
+
+.ngblog-entry-headers-align .mat-expansion-panel-header-title, 
+.ngblog-entry-headers-align .mat-expansion-panel-header-description {
+  flex-basis: 0;
+}
+
+.ngblog-entry-headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}
