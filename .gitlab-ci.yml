@@ -8,8 +8,8 @@ pages:
   script:
   - npm install -g @angular/cli
   - cd ngblog-v1
-  # - sed 's:href=\"/\":href=\"/ngblog/\":' src/index.html > src/index-modified.html
-  # - mv src/index-modified.html src/index.html
+  - sed 's:href=\"/\":href=\"/ngblog/\":' src/index.html > src/index-modified.html
+  - mv src/index-modified.html src/index.html
   - npm install
   - ng build --env=prod
   - mv dist ../public
