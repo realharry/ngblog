@@ -1,0 +1,20 @@
+image: node:6.10.1
+
+pages:
+  cache:
+    paths:
+    - ngblog-v1/node_modules/
+
+  script:
+  - npm install -g @angular/cli
+  - cd ngblog-v1
+  # - sed 's:href=\"/\":href=\"/ngblog/\":' src/index.html > src/index-modified.html
+  # - mv src/index-modified.html src/index.html
+  - npm install
+  - ng build --env=prod
+  - mv dist ../public
+  artifacts:
+    paths:
+    - public
+  only:
+  - master
