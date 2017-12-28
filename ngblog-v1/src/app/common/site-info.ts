@@ -1,4 +1,4 @@
-export class PersonalInfo {
+export class SiteInfo {
 
   // tbd:
   // public content: string;

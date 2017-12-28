@@ -13,14 +13,14 @@ import { environment } from '../../../environments/environment';
 import { ExpansionStep } from '../../helpers/core/expansion-step';
 import { AccordionUiHelper } from '../../helpers/accordion-ui-helper';
 
-import { PersonalInfo } from '../../common/personal-info';
+import { SiteInfo } from '../../common/site-info';
 import { ContactInfo } from '../../common/contact-info';
 
 import { MarkdownDocEntry } from '../../entry/markdown-doc-entry';
 import { docEntryNgBlogHeader } from './entries/ngblog-header';
 import { docEntryNgBlogFooter } from './entries/ngblog-footer';
 
-import { myPersonalInfo } from './info/my-personal-info';
+import { mySiteInfo } from './info/my-site-info';
 import { myContactInfo } from './info/my-contact-info';
 
 import { VisitorTokenService } from '../../services/visitor-token.service';
@@ -43,7 +43,7 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
   contactPhone: string = '';
   contactWebsite: string = '';
 
-  personalInfo: PersonalInfo;
+  siteInfo: SiteInfo;
   contactInfo: ContactInfo;
 
   docEntries: MarkdownDocEntry[] = [
@@ -67,7 +67,7 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
     private visitorTokenService: VisitorTokenService
   ) {
     // tbd:
-    this.personalInfo = myPersonalInfo;
+    this.siteInfo = mySiteInfo;
     this.contactInfo = myContactInfo;
   }
 
@@ -189,7 +189,7 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
     let html = `<div style="padding: 16px;">`;
 
     html += `<div style="padding-top: 4px; padding-bottom: 4px;">`;
-    html += `<span style="font-weight: bold; font-size: 1.2em;">${this.personalInfo.name}, ${this.personalInfo.title}</span><br>`;
+    html += `<span style="font-weight: bold; font-size: 1.2em;">${this.siteInfo.name}, ${this.siteInfo.title}</span><br>`;
     html += `<span style="font-style: italic;">Email: ${this.contactEmail}</span>`;
     if (this.contactPhone) {
       html += `<span style="font-style: italic;">;&nbsp; Phone: ${this.contactPhone}</span>`;
