@@ -11,7 +11,11 @@ export class PostMetadata {
 
   // This is not generally included in "post.json" file.
   // Web service/client will populate this field.
-  public url: (string | null) = null;
+  public url: (string | null) = null;   // Post (folder) URL.
+
+  // Summary is required, and
+  // Content is optional.
+  public hasContent: boolean = false;
 
   // tbd:
   constructor(

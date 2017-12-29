@@ -14,16 +14,18 @@ export class MarkdownDocEntry extends DocEntry {
     public id = '',
     public title: string = '',
     public description: string = '',
-    public markdownContent: string = '',
-    public markdownUrl: string = ''
+    public summaryContent: string = '',
+    public summaryUrl: string = '',
+    public contentUrl: (string | null) = null
   ) {
     super(id, title, description);
   }
 
   public toString(): string {
     let str = super.toString();
-    // str += `markdownContent:${this.markdownContent};`
-    str += `markdownUrl:${this.markdownUrl};`
+    // str += `summaryContent:${this.summaryContent};`
+    str += `summaryUrl:${this.summaryUrl};`
+    str += `contentUrl:${this.contentUrl};`
     str += `lazyLoaded:${this.lazyLoaded};`
     str += `debugEnabled:${this.debugEnabled};`
     str += `rendererOptions:${JSON.stringify(this.rendererOptions)};`

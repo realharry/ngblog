@@ -22,13 +22,15 @@ import { PostListService } from './services/post-list.service';
 import { AppComponent } from './app.component';
 import { NgBlogSiteComponent } from './docs/ngblog-site/ngblog-site.component';
 import { DetailDialogComponent } from './docs/detail-dialog/detail-dialog.component';
+import { NgBlogPostComponent } from './docs/ngblog-post/ngblog-post.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     NgBlogSiteComponent,
-    DetailDialogComponent
+    DetailDialogComponent,
+    NgBlogPostComponent
   ],
   imports: [
     BrowserModule,

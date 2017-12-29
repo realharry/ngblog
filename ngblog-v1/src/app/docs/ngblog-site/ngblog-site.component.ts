@@ -96,8 +96,15 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
     this.postListService.getDailyPosts(maxDates).subscribe(posts => {
       for (let pm of posts) {
         console.log(`post metadata = ${pm}`);
-        let entry = new MarkdownDocEntry(pm.url, pm.title, pm.description, "", this.dailyPostsHelper.getSummaryUrl(pm.url));
-        if (this.hasValidVisitorToken) {  // temporary
+        let entry = new MarkdownDocEntry(pm.url,
+          pm.title,
+          pm.description,
+          "",
+          this.dailyPostsHelper.getSummaryUrl(pm.url),
+          (pm.hasContent) ? this.dailyPostsHelper.getContentUrl(pm.url) : null
+        );
+        if (this.hasValidVisitorToken    // temporary
+          && pm.hasContent) {
           entry.showContent = true;
         }
         console.log(`entry = ${entry}`);
@@ -174,15 +181,15 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
     for (let mde of this.docEntries) {
       if (!mde.skipPrinting) {
         // markdownContent takes precedence over markdownUrl.
-        if (mde.markdownContent) {
-          mark += mde.markdownContent;
+        if (mde.summaryContent) {
+          mark += mde.summaryContent;
         } else {
-          if (mde.markdownUrl) {
+          if (mde.summaryUrl) {
             // tbd: async will not work here...
             // this.lazyLoaderService.loadText(mde.markdownUrl, true).subscribe(content => {
             //   mark += content;
             // });
-            let text = this.lazyLoaderService.getText(mde.markdownUrl);
+            let text = this.lazyLoaderService.getText(mde.summaryUrl);
             if (text) {
               mark += text;
             }
