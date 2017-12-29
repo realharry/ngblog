@@ -45,11 +45,11 @@ Add the following three files under today's folder:
 * `summary.md`: Summary of the post. Will be displayed in the "listing" page.
 * `content.md`: The post. This is optional. You can put all your content in `summary.md` instead.
 
-Note that we currently support markdown only (simply because I use markdown),
-but it is very easy to add support for simple text format or HTML content format.
-
 Refer to the sample folder `20171225` for an example.
 You may want to delete this folder once you start posting your own blog.
+
+Note that we currently support markdown only (simply because I use markdown),
+but it is very easy to add support for simple text format or HTML content format.
 
 
 
@@ -66,7 +66,15 @@ including S3 or GitLab Pages, etc.
 
 
 
+## Contribute
 
-_tbd_
+If you find this app useful, and start adding your own modifications,
+please consider contributing back.
+
+In general, I would personally prefer any (big) added features that add to the complexity
+should be optional so that we don't need to do 12 steps just to deploy the app.
+
+Pull requests are greatly appreciated.
+
 
 
