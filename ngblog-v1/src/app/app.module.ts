@@ -13,7 +13,6 @@ import { MaterialComponentsModule } from './material-components.module';
 
 import { AccordionUiHelper } from './helpers/accordion-ui-helper';
 import { DailyPostsHelper } from './helpers/daily-posts-helper';
-import { DetailInfoRegistry } from './docs/detail-dialog/registry/detail-info-registry';
 import { VisitorTokenRegistry } from './visitors/visitor-token-registry';
 import { GuestbookDataService } from './services/guestbook-data.service';
 import { VisitorTokenService } from './services/visitor-token.service';
@@ -40,6 +39,7 @@ import { DetailDialogComponent } from './docs/detail-dialog/detail-dialog.compon
       // }
       {
         path: '',
+        pathMatch: 'full',
         component: NgBlogSiteComponent
       }
     ]),
@@ -56,10 +56,12 @@ import { DetailDialogComponent } from './docs/detail-dialog/detail-dialog.compon
   ],
   providers: [
     AccordionUiHelper,
-    DetailInfoRegistry,
     VisitorTokenRegistry,
     GuestbookDataService,
-    VisitorTokenService
+    VisitorTokenService,
+    DailyPostsHelper,
+    BlogPostService,
+    PostListService
   ],
   bootstrap: [AppComponent]
 })

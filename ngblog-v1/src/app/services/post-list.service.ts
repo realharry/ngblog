@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/forkJoin';
 
 import { DateTimeUtil, DateIdUtil } from '@ngcore/core';
 import { LocalStorageService } from '@ngcore/core';
@@ -34,7 +33,7 @@ export class PostListService {
   public getDailyPosts(
     dayCount: number = PostListService.MAX_DATES,
     dateId: string = DateIdUtil.getTomorrowId(),
-    statuses: PostStatus[] = [ PostStatus.Posted ],
+    statuses: PostStatus[] = [PostStatus.Posted],
     useCache: boolean = false
   ): Observable<PostMetadata[]> {
     let urls = this.dailyPostsHelper.getDailyPostUrls(dayCount, dateId);
@@ -48,6 +47,7 @@ export class PostListService {
         let pms: PostMetadata[] = [];
         if (data) {
           for (let d of data) {
+            console.log(`### d = ${d}`)
             if (d && statuses.indexOf(d.status) != -1) {
               pms.push(d);
             }
@@ -73,16 +73,21 @@ export class PostListService {
     //     o.next(pm);
     //   });
     // })
-    return this.lazyLoaderService.loadJson(url, useCache).map(obj => {
-      let pm: (PostMetadata | null) = null;
-      if (obj) {
-        pm = PostMetadata.clone(obj);
-        if(!pm.url) {   // Is this check necessary or desired????
-          pm.url = url;
+    return this.lazyLoaderService.loadJson(this.dailyPostsHelper.getMetadataUrl(url), useCache)
+      .map(obj => {
+        let pm: (PostMetadata | null) = null;
+        if (obj) {
+          pm = PostMetadata.clone(obj);
+          if (!pm.url) {   // Is this check necessary or desired????
+            pm.url = url;
+          }
         }
-      }
-      return pm;
-    });
+        return pm;
+      })
+      .catch(err => {
+        console.log(`loadJson() error. url = ${url}; err = ${err}`);
+        return Observable.of(null);
+      });
   }
 
 

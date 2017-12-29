@@ -10,6 +10,7 @@ import { PostStatus } from '../blog/core/post-status';
 import { PostMetadata } from '../blog/post-metadata';
 import { PostSummary } from '../blog/post-summary';
 import { PostContent } from '../blog/post-content';
+import { DailyPostsHelper } from '../helpers/daily-posts-helper';
 
 
 @Injectable()
@@ -18,10 +19,11 @@ export class BlogPostService {
   constructor(
     private localStorageService: LocalStorageService,
     private lazyLoaderService: LazyLoaderService,
+    private dailyPostsHelper: DailyPostsHelper,
   ) { }
 
   public loadPostMetadata(url: string, useCache = false): Observable<PostMetadata> {
-    return this.lazyLoaderService.loadJson(url, useCache).map(obj => {
+    return this.lazyLoaderService.loadJson(this.dailyPostsHelper.getMetadataUrl(url), useCache).map(obj => {
       let pm = PostMetadata.clone(obj);
       pm.url = url;
       return pm;
@@ -29,7 +31,7 @@ export class BlogPostService {
   }
 
   public loadPostSummary(url: string, useCache = false): Observable<PostSummary> {
-    return this.lazyLoaderService.loadText(url, useCache).map(data => {
+    return this.lazyLoaderService.loadText(this.dailyPostsHelper.getSummaryUrl(url), useCache).map(data => {
       let ps = new PostSummary(data);
       ps.url = url;
       return ps;
@@ -37,7 +39,7 @@ export class BlogPostService {
   }
 
   public loadPostContent(url: string, useCache = false): Observable<PostContent> {
-    return this.lazyLoaderService.loadText(url, useCache).map(data => {
+    return this.lazyLoaderService.loadText(this.dailyPostsHelper.getContentUrl(url), useCache).map(data => {
       let ps = new PostContent(data);
       ps.url = url;
       return ps;

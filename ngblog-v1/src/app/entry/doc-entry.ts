@@ -6,7 +6,7 @@ export abstract class DocEntry {
   public skipDisplay: boolean = false;
 
   // public detailLink: (string | null) = null;  
-  public showDetail: boolean = false;
+  public showContent: boolean = false;
   
   constructor(
     public id = '',
@@ -21,7 +21,7 @@ export abstract class DocEntry {
     str += `description:${this.description};`
     str += `skipPrinting:${this.skipPrinting};`
     str += `skipDisplay:${this.skipDisplay};`
-    str += `hasDetail:${this.showDetail};`
+    str += `hasDetail:${this.showContent};`
     return str;
   }
 

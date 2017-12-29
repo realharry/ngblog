@@ -30,7 +30,7 @@
         <common-mark-entry *ngIf="mde.skipDisplay == false" [delay]="(i === step)? 0 : delayInterval" [url]="mde.markdownUrl" [markdown]="mde.markdownContent" [debug-enabled]="mde.debugEnabled" [renderer-options]="mde.rendererOptions"></common-mark-entry>
 
         <mat-action-row>
-          <button color="accent" *ngIf="mde.showDetail" mat-icon-button matTooltip="More information" (click)="openDetailDialog(i);">
+          <button color="accent" *ngIf="mde.showContent" mat-icon-button matTooltip="Read more" (click)="openContentDialog(i);">
             <mat-icon>message</mat-icon>
           </button>
           <span style="flex: 1 1 auto"></span>

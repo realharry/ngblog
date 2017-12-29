@@ -24,7 +24,9 @@ import { mySiteInfo } from './info/my-site-info';
 import { myContactInfo } from './info/my-contact-info';
 
 import { VisitorTokenService } from '../../services/visitor-token.service';
-import { DetailInfoRegistry } from '../detail-dialog/registry/detail-info-registry';
+import { DailyPostsHelper } from '../../helpers/daily-posts-helper';
+import { PostListService } from '../../services/post-list.service';
+import { BlogPostService } from '../../services/blog-post.service';
 import { DetailDialogComponent } from '../detail-dialog/detail-dialog.component';
 
 
@@ -48,7 +50,7 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
 
   docEntries: MarkdownDocEntry[] = [
     docEntryNgBlogHeader,
-    docEntryNgBlogFooter,
+    // docEntryNgBlogFooter,
   ];
 
   // temporary
@@ -63,8 +65,10 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
     private browserWindowService: BrowserWindowService,
     private lazyLoaderService: LazyLoaderService,
     private accordionUiHelper: AccordionUiHelper,
-    private detailInfoRegistry: DetailInfoRegistry,
-    private visitorTokenService: VisitorTokenService
+    private visitorTokenService: VisitorTokenService,
+    private dailyPostsHelper: DailyPostsHelper,
+    private postListService: PostListService,
+    private blogPostService: BlogPostService,
   ) {
     // tbd:
     this.siteInfo = mySiteInfo;
@@ -87,30 +91,45 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
       this.contactWebsite = '';
     }
 
+    // tempoary
+    let maxDates = 10;
+    this.postListService.getDailyPosts(maxDates).subscribe(posts => {
+      for (let pm of posts) {
+        console.log(`post metadata = ${pm}`);
+        let entry = new MarkdownDocEntry(pm.url, pm.title, pm.description, "", this.dailyPostsHelper.getSummaryUrl(pm.url));
+        if (this.hasValidVisitorToken) {  // temporary
+          entry.showContent = true;
+        }
+        console.log(`entry = ${entry}`);
+        this.docEntries.push(entry);
+      }
+    });
+
+
 
     // tbd:
     // docEntryNgBlogHeader.debugEnabled = true;
     // // docEntryNgBlogHeader.rendererOptions = {safe: false};
     // ...
 
-    // For now,
-    // Enable detail dialogs only in devel.
-    if (environment.detailEnabled
-      && this.hasValidVisitorToken) {
-      // tbd:
-      docEntryNgBlogHeader.showDetail = true;
+    // // For now,
+    // // Enable detail dialogs only in devel.
+    // if (environment.detailEnabled
+    //   && this.hasValidVisitorToken) {
+    //   // tbd:
+    //   docEntryNgBlogHeader.showContent = true;
 
-      // Just to make sure.
-      // If the detail content does not exist, set showDetail to false.
-      for (let ety of this.docEntries) {
-        let id = ety.id;
-        ety.showDetail = (ety.showDetail && this.detailInfoRegistry.hasDetailInfo(id));
-      }
-    }
+    //   // // Just to make sure.
+    //   // // If the detail content does not exist, set showContent to false.
+    //   // for (let ety of this.docEntries) {
+    //   //   let id = ety.id;
+    //   //   ety.showContent = (ety.showContent && this.detailInfoRegistry.hasDetailInfo(id));
+    //   // }
+    // }
 
     // tbd:
     docEntryNgBlogHeader.skipPrinting = true;
-    docEntryNgBlogFooter.skipPrinting = true;
+    // docEntryNgBlogFooter.skipPrinting = true;
 
     // // tbd:
     // if (!this.hasNonBinaryVisitorToken) {
@@ -235,7 +254,7 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
 
   // TBD:
   // Remove the stored step if "collapse" happens???
-  
+
   setStep(index: number) {
     // this.step = index;
     this.accordionUiHelper.step = index;
@@ -257,20 +276,20 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
   // }
 
 
-  // showDetailDialog(idx: number) {
+  // showContentDialog(idx: number) {
   //   if(this.step === idx) {
-  //     console.log("showDetailDialog() idx = " + idx);
+  //     console.log("showContentDialog() idx = " + idx);
   //     // Open the dialog.
   //   } else {
   //     // ignore
   //   }
   // }
 
-  openDetailDialog(idx: number) {
-    console.log("showDetailDialog() idx = " + idx);
+  openContentDialog(idx: number) {
+    console.log("showContentDialog() idx = " + idx);
 
     let entry = this.docEntries[idx];  // TBD: validate idx ???
-    console.log("showDetailDialog() entry = " + entry);
+    console.log("showContentDialog() entry = " + entry);
 
     let dialogRef = this.dialog.open(DetailDialogComponent, {
       width: '640px',

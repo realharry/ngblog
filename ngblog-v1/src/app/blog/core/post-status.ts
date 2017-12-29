@@ -1,8 +1,8 @@
 export enum PostStatus {
   Unknown = 0,
-  Draft,
-  Posted,
-  Hidden,
-  Deleted,   // Just use deleted timestamp ???
+  Draft = 1,
+  Posted = 2,
+  Hidden = 4,
+  Deleted = 8,   // Just use deleted timestamp ???
   // ...
 }
