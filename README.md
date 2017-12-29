@@ -16,8 +16,9 @@ Despite these (severe) limitations and lack of eatures, `NgBlog` provides other 
 * Data portablility. In `NgBlog`, a post is a simple markdown file (with JSON metadata). You can easily "export" or migrate your posts to different apps.
 
 
-It's really a trade-off. If you want a hosted service with a nice user interface, use Tumblr. Or, use a CMS platofrm like WordPress.
-If you are a developer and want full control over your daily blogging, then `NgBlog` cab be a great app,
+It's really a trade-off. If you want a hosted service with a nice user interface, use Tumblr. Or, use a CMS platofrm like WordPress. Or, use any of the hundreds of blogging apps out there.
+If you are a developer and want full control over your daily blogging, however, then `NgBlog` cab be a great app.
+`NgBlog` is developed in Angular and Angular Material and it can provide certain advantages over other static website generators, especially if you are an Angular developer.
 
 _Note: Since it's really frontend only, it's not really SEO-friendly. If you want SEO, you may consider adding SSR. But, again, it's a tradeoff. Doing so will add a complexity to the app (e.g., in terms of deployment, etc.)._
 
@@ -27,6 +28,7 @@ _Note: Since it's really frontend only, it's not really SEO-friendly. If you wan
 ### Clone the repo
 
 Clone or fork this repo: [NgBlog/ngblog](https://gitlab.com/ngblog/ngblog).
+
 
 ### Create a post
 
@@ -46,11 +48,16 @@ Add the following three files under today's folder:
 Note that we currently support markdown only (simply because I use markdown),
 but it is very easy to add support for simple text format or HTML content format.
 
+Refer to the sample folder `20171225` for an example.
+You may want to delete this folder once you start posting your own blog.
+
+
 
 ### Build
 
     npm i
     ng build
+
 
 ### Deploy
 
