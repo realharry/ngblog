@@ -7,14 +7,18 @@ import { NgCoreCoreModule } from '@ngcore/core';
 import { NgCoreBaseModule } from '@ngcore/base';
 import { NgCoreLazyModule } from '@ngcore/lazy';
 import { NgCoreMarkModule } from '@ngcore/mark';
+import { NgCoreTimeModule } from '@ngcore/time';
 
 import { MaterialComponentsModule } from './material-components.module';
 
 import { AccordionUiHelper } from './helpers/accordion-ui-helper';
+import { DailyPostsHelper } from './helpers/daily-posts-helper';
 import { DetailInfoRegistry } from './docs/detail-dialog/registry/detail-info-registry';
 import { VisitorTokenRegistry } from './visitors/visitor-token-registry';
 import { GuestbookDataService } from './services/guestbook-data.service';
 import { VisitorTokenService } from './services/visitor-token.service';
+import { BlogPostService } from './services/blog-post.service';
+import { PostListService } from './services/post-list.service';
 
 import { AppComponent } from './app.component';
 import { NgBlogSiteComponent } from './docs/ngblog-site/ngblog-site.component';
@@ -43,6 +47,7 @@ import { DetailDialogComponent } from './docs/detail-dialog/detail-dialog.compon
     NgCoreBaseModule.forRoot(),
     NgCoreLazyModule.forRoot(),
     NgCoreMarkModule.forRoot(),
+    NgCoreTimeModule.forRoot(),
     MaterialComponentsModule,
   ],
   entryComponents: [

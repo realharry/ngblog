@@ -4,8 +4,6 @@ import { VisitorTokenRegistry } from '../visitors/visitor-token-registry';
 
 
 // Tbd:
-// It should really have been a "visitor token" not a token...
-//....
 
 @Injectable()
 export class VisitorTokenService {
