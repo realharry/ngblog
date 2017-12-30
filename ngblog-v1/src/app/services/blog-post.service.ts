@@ -22,30 +22,56 @@ export class BlogPostService {
     // private dailyPostsHelper: DailyPostsHelper,
   ) { }
 
+  // Note that "useCache" is used on the server-side.
+  // These caches have nothing to do with useCache.
+  private pmCache: { [postUrl: string]: PostMetadata } = {};
+  private psCache: { [postUrl: string]: PostSummary } = {};
+  private pcCache: { [postUrl: string]: PostContent } = {};
+
   public loadPostMetadata(postUrl: string, useCache = false): Observable<PostMetadata> {
-    return this.lazyLoaderService.loadJson(DailyPostsHelper.getInstance().getMetadataUrl(postUrl), useCache).map(obj => {
-      let pm = PostMetadata.clone(obj);
-      pm.url = postUrl;
-      pm.dateId = DailyPostsHelper.getInstance().getDateId(pm.url);
-      return pm;
-    });
+    if (postUrl in this.pmCache) {
+      return Observable.create(o => {
+        let pm = this.pmCache[postUrl];
+        o.next(pm);
+      }).share();
+    } else {
+      return this.lazyLoaderService.loadJson(DailyPostsHelper.getInstance().getMetadataUrl(postUrl), useCache).map(obj => {
+        let pm = PostMetadata.clone(obj);
+        pm.url = postUrl;
+        pm.dateId = DailyPostsHelper.getInstance().getDateId(pm.url);
+        return pm;
+      });
+    }
   }
 
   public loadPostSummary(postUrl: string, useCache = false): Observable<PostSummary> {
-    return this.lazyLoaderService.loadText(DailyPostsHelper.getInstance().getSummaryUrl(postUrl), useCache).map(data => {
-      let ps = new PostSummary(data);
-      ps.url = postUrl;
-      return ps;
-    }).share();
+    if (postUrl in this.psCache) {
+      return Observable.create(o => {
+        let ps = this.psCache[postUrl];
+        o.next(ps);
+      }).share();
+    } else {
+      return this.lazyLoaderService.loadText(DailyPostsHelper.getInstance().getSummaryUrl(postUrl), useCache).map(data => {
+        let ps = new PostSummary(data);
+        ps.url = postUrl;
+        return ps;
+      }).share();
+    }
   }
 
   public loadPostContent(postUrl: string, useCache = false): Observable<PostContent> {
-    return this.lazyLoaderService.loadText(DailyPostsHelper.getInstance().getContentUrl(postUrl), useCache).map(data => {
-      let pc = new PostContent(data);
-      pc.url = postUrl;
-      return pc;
-    }).share();
+    if (postUrl in this.pcCache) {
+      return Observable.create(o => {
+        let pc = this.pcCache[postUrl];
+        o.next(pc);
+      }).share();
+    } else {
+      return this.lazyLoaderService.loadText(DailyPostsHelper.getInstance().getContentUrl(postUrl), useCache).map(data => {
+        let pc = new PostContent(data);
+        pc.url = postUrl;
+        return pc;
+      }).share();
+    }
   }
-
 
 }

@@ -29,6 +29,12 @@ export class PostListService {
   ) { }
 
 
+  private cacheKey(dayCount: number, dateId: string): string {
+    return dayCount + '-' + dateId;
+  }
+  private pmCacheMap: {[key: string]: PostMetadata[]} = {};
+
+
   // TBD:
   public getDailyPosts(
     dayCount: number = PostListService.MAX_DATES,
@@ -36,30 +42,40 @@ export class PostListService {
     statuses: PostStatus[] = [PostStatus.Posted],
     useCache: boolean = false
   ): Observable<PostMetadata[]> {
-    let urls = DailyPostsHelper.getInstance().getDailyPostUrls(dayCount, dateId);
-    if (urls && urls.length > 0) {
-      let os: Observable<PostMetadata>[] = [];
-      for (let u of urls) {
-        let o = this.parsePostMetadata(u, useCache);
-        os.push(o);
-      }
-      return Observable.forkJoin(...os).map(data => {
-        let pms: PostMetadata[] = [];
-        if (data) {
-          for (let d of data) {
-            console.log(`### d = ${d}`)
-            if (d && statuses.indexOf(d.status) != -1) {
-              pms.push(d);
-            }
-          }
-        }
-        return pms;
-      }).share();
-    } else {
+    let key = this.cacheKey(dayCount, dateId);
+    if(key in this.pmCacheMap) {
       return Observable.create(o => {
-        let posts: PostMetadata[] = [];
+        let posts = this.pmCacheMap[key];
         o.next(posts);
       }).share();
+    } else {
+      let urls = DailyPostsHelper.getInstance().getDailyPostUrls(dayCount, dateId);
+      if (urls && urls.length > 0) {
+        let os: Observable<PostMetadata>[] = [];
+        for (let u of urls) {
+          let o = this.parsePostMetadata(u, useCache);
+          os.push(o);
+        }
+        return Observable.forkJoin(...os).map(data => {
+          let pms: PostMetadata[] = [];
+          if (data) {
+            for (let d of data) {
+              console.log(`### d = ${d}`)
+              if (d && statuses.indexOf(d.status) != -1) {
+                pms.push(d);
+              }
+            }
+          }
+          this.pmCacheMap[key] = pms;
+          return pms;
+        }).share();
+      } else {
+        return Observable.create(o => {
+          let posts: PostMetadata[] = [];
+          this.pmCacheMap[key] = posts;   // tbd: error vs empty result???
+          o.next(posts);
+        }).share();
+      }
     }
   }
 
