@@ -52,14 +52,13 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
   contactInfo: ContactInfo;
 
   docEntries: MarkdownDocEntry[] = [
-    docEntryNgBlogHeader,
-    // docEntryNgBlogFooter,
+    // docEntryNgBlogHeader,
+    // // docEntryNgBlogFooter,
   ];
 
   // temporary
-  // The consequence of this delayed loading is that
-  // the "print" page may not show all sections
-  // if the print button is pressed before the max of delayInterval.
+  // tbd: instead of loading randomly,
+  // we should really load newer posts first and older posts later.
   delayInterval: number[] = [250, 2500];
 
   constructor(
@@ -117,6 +116,9 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
         // }
         console.log(`entry = ${entry}`);
         this.docEntries.push(entry);
+      }
+      if(this.docEntries.length == 0) {
+        this.docEntries.push(docEntryNgBlogHeader);  // Rename this to "placeholder"...
       }
     });
 
