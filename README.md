@@ -74,8 +74,8 @@ including S3 or GitLab Pages, etc.
 If you find this app useful, and start adding your own modifications,
 please consider contributing back.
 
-In general, I would personally prefer any (big) added features that add to the complexity
-should be optional so that we don't need to do 12 steps just to deploy the app.
+In general, I would personally prefer that any (big) new features that could increase the complexity
+should be made optional so that we don't need to go through 12 steps just to deploy a basic version of the app.
 
 Pull requests are greatly appreciated.
 
