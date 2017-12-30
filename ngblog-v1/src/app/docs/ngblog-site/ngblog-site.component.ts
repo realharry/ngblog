@@ -326,10 +326,10 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
 
       // let routeUrl = `post/${dateId}`;
       // this.router.navigateByUrl(routeUrl);
-      // this.router.navigate(['/post', dateId, {entry: entry}]).then(suc => {
+      // this.router.navigate(['/post', dateId]).then(suc => {
       //   console.log(`navigate() suc = ${suc}`);
       // });
-      this.router.navigate(['/post', dateId]).then(suc => {
+      this.router.navigate(['/post', dateId, {entry: JSON.stringify(entry)}]).then(suc => {
         console.log(`navigate() suc = ${suc}`);
       });
     }

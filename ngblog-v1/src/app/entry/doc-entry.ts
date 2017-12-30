@@ -11,7 +11,7 @@ export abstract class DocEntry {
 
   // public detailLink: (string | null) = null;  
   public showContent: boolean = false;
-  
+
   constructor(
     public id = '',   // "dateId" used for id. There can be no more than one entries per day.
     public title = '',
@@ -21,6 +21,28 @@ export abstract class DocEntry {
     public contentUrl: (string | null) = null
   )  {
   }
+
+  // public id = '';   // "dateId" used for id. There can be no more than one entries per day.
+  // public title = '';
+  // public description: string = '';
+  // public summaryContent: string = '';
+  // public summaryUrl: string = '';
+  // public contentUrl: (string | null) = null;
+  // constructor(
+  //   id = '',   // "dateId" used for id. There can be no more than one entries per day.
+  //   title = '',
+  //   description: string = '',
+  //   summaryContent: string = '',
+  //   summaryUrl: string = '',
+  //   contentUrl: (string | null) = null
+  // ) {
+  //   this.id = id;
+  //   this.title = title;
+
+
+
+  // }
+
 
   public toString(): string {
     let str = '';
