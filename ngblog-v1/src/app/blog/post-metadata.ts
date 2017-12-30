@@ -13,6 +13,11 @@ export class PostMetadata {
   // Web service/client will populate this field.
   public url: (string | null) = null;   // Post (folder) URL.
 
+  // For now, string dateId is used.
+  // (Note that dateId may not actually be the same as the date/time due to timezone differences.)
+  // public date: Date;
+  public dateId: string;
+
   // Summary is required, and
   // Content is optional.
   public hasContent: boolean = false;
@@ -25,6 +30,8 @@ export class PostMetadata {
     // public label = '',   // tag?
     // public contentType = ContentType.Markdown,
     // public status = PostStatus.Draft,
+    // Timestamps are not being used.
+    // For now, just use dateId.
     public created = 0,
     public posted = 0,
     public deleted = 0,
@@ -39,6 +46,9 @@ export class PostMetadata {
     str += `label:${this.label};`
     str += `contentType:${this.contentType};`
     str += `status:${this.status};`
+    str += `url:${this.url};`
+    str += `dateId:${this.dateId};`
+    str += `hasContent:${this.hasContent};`
     str += `created:${this.created};`
     str += `posted:${this.posted};`
     str += `deleted:${this.deleted};`

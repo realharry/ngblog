@@ -7,8 +7,11 @@ export class HtmlDocEntry extends DocEntry {
     public id = '',
     public title: string = '',
     public description: string = '',
-    public htmlContent: string = '') {
-    super(id, title, description);
+    public summaryContent: string = '',
+    public summaryUrl: string = '',
+    public contentUrl: (string | null) = null
+  ) {
+    super(id, title, description, summaryContent, summaryUrl, contentUrl);
   }
 
 }

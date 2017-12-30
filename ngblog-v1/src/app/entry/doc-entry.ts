@@ -1,4 +1,8 @@
+// DocEntry is a ViewModel (as in MVVM).
 export abstract class DocEntry {
+  // tbd.
+  // public dateId: string;
+  public date: Date;   // Date based on the id (which is a "dateId").
 
   // tbd:
   // public content: string;
@@ -9,9 +13,13 @@ export abstract class DocEntry {
   public showContent: boolean = false;
   
   constructor(
-    public id = '',
+    public id = '',   // "dateId" used for id. There can be no more than one entries per day.
     public title = '',
-    public description: string = '')  {
+    public description: string = '',
+    public summaryContent: string = '',
+    public summaryUrl: string = '',
+    public contentUrl: (string | null) = null
+  )  {
   }
 
   public toString(): string {
@@ -19,9 +27,12 @@ export abstract class DocEntry {
     str += `id:${this.id};`
     str += `title:${this.title};`
     str += `description:${this.description};`
+    // str += `summaryContent:${this.summaryContent};`
+    str += `summaryUrl:${this.summaryUrl};`
+    str += `contentUrl:${this.contentUrl};`
     str += `skipPrinting:${this.skipPrinting};`
     str += `skipDisplay:${this.skipDisplay};`
-    str += `hasDetail:${this.showContent};`
+    str += `showContent:${this.showContent};`
     return str;
   }
 

@@ -63,6 +63,8 @@ export class PostListService {
     }
   }
 
+  // TBD:
+  // Allow multiple posts for a single post url/date (post.json).
   private parsePostMetadata(url: string, useCache = false): Observable<(PostMetadata | null)> {
     // return this.lazyLoaderService.loadJson(url, useCache).flatMap(obj => {
     //   return Observable.create(o => {
@@ -81,6 +83,7 @@ export class PostListService {
           if (!pm.url) {   // Is this check necessary or desired????
             pm.url = url;
           }
+          pm.dateId = this.dailyPostsHelper.getDateId(pm.url);
         }
         return pm;
       })

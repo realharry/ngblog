@@ -20,14 +20,16 @@
           </mat-panel-title>
           <mat-panel-description>
             {{mde.description}}
-            <mat-icon [color]="(step === i) ? 'accent' : ''">bookmark_border</mat-icon>
+            <!-- <mat-icon [color]="(step === i) ? 'accent' : ''">bookmark_border</mat-icon> -->
+            <span [style.font-weight]="(step === i) ? 'bold' : 'normal'">{{(mde.date) ? mde.date.toLocaleDateString() : ''}}</span>
           </mat-panel-description>
         </mat-expansion-panel-header>
 
         <!-- <common-mark-entry *ngIf="mde.skipDisplay == false" [markdown]="mde.markdownContent" [debug-enabled]="mde.debugEnabled" [renderer-options]="mde.rendererOptions"></common-mark-entry> -->
         <!-- <common-mark-entry *ngIf="mde.skipDisplay == false" [url]="mde.markdownUrl" [markdown]="mde.markdownContent" [debug-enabled]="mde.debugEnabled" [renderer-options]="mde.rendererOptions"></common-mark-entry> -->
         <!-- <common-mark-entry *ngIf="mde.skipDisplay == false" [delay]="delayInterval" [url]="mde.markdownUrl" [markdown]="mde.markdownContent" [debug-enabled]="mde.debugEnabled" [renderer-options]="mde.rendererOptions"></common-mark-entry> -->
-        <common-mark-entry *ngIf="mde.skipDisplay == false" [delay]="(i === step)? 0 : delayInterval" [url]="mde.markdownUrl" [markdown]="mde.markdownContent" [debug-enabled]="mde.debugEnabled" [renderer-options]="mde.rendererOptions"></common-mark-entry>
+        <!-- <common-mark-entry *ngIf="mde.skipDisplay == false" [delay]="(i === step)? 0 : delayInterval" [url]="mde.markdownUrl" [markdown]="mde.markdownContent" [debug-enabled]="mde.debugEnabled" [renderer-options]="mde.rendererOptions"></common-mark-entry> -->
+        <common-mark-entry *ngIf="mde.skipDisplay == false" [delay]="(i === step)? 0 : delayInterval" [url]="mde.summaryUrl" [markdown]="mde.summaryContent" [debug-enabled]="mde.debugEnabled" [renderer-options]="mde.rendererOptions"></common-mark-entry>
 
         <mat-action-row>
           <button color="accent" *ngIf="mde.showContent" mat-icon-button matTooltip="Read more" (click)="openContentDialog(i);">

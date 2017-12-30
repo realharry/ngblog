@@ -3,6 +3,7 @@ import { AfterViewInit } from '@angular/core';
 import { ElementRef } from '@angular/core';
 import { MatDialog } from '@angular/material';
 
+import { DateTimeUtil, DateIdUtil } from '@ngcore/core';
 import { BrowserWindowService } from '@ngcore/core';
 import { LazyLoaderService } from '@ngcore/lazy';
 import { CommonMarkUtil } from '@ngcore/mark';
@@ -18,7 +19,7 @@ import { ContactInfo } from '../../common/contact-info';
 
 import { MarkdownDocEntry } from '../../entry/markdown-doc-entry';
 import { docEntryNgBlogHeader } from './entries/ngblog-header';
-import { docEntryNgBlogFooter } from './entries/ngblog-footer';
+// import { docEntryNgBlogFooter } from './entries/ngblog-footer';
 
 import { mySiteInfo } from './info/my-site-info';
 import { myContactInfo } from './info/my-contact-info';
@@ -57,7 +58,7 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
   // The consequence of this delayed loading is that
   // the "print" page may not show all sections
   // if the print button is pressed before the max of delayInterval.
-  delayInterval: number[] = [200, 1200];
+  delayInterval: number[] = [250, 2500];
 
   constructor(
     private dialog: MatDialog,
@@ -96,13 +97,16 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
     this.postListService.getDailyPosts(maxDates).subscribe(posts => {
       for (let pm of posts) {
         console.log(`post metadata = ${pm}`);
-        let entry = new MarkdownDocEntry(pm.url,
+        let entry = new MarkdownDocEntry(
+          // (pm.dateId) ? pm.dateId : this.dailyPostsHelper.getDateId(pm.url),
+          pm.dateId,
           pm.title,
           pm.description,
           "",
           this.dailyPostsHelper.getSummaryUrl(pm.url),
           (pm.hasContent) ? this.dailyPostsHelper.getContentUrl(pm.url) : null
         );
+        entry.date = DateIdUtil.convertToDate(entry.id);  // For now, entry.id is dateId.
         if (this.hasValidVisitorToken    // temporary
           && pm.hasContent) {
           entry.showContent = true;

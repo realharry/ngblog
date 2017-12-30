@@ -14,7 +14,8 @@ export class VisitorTokenRegistry {
   constructor() {
     // tbd:
     // special binary tokens...
-    this.tokenMap['011101'] = 'Demo token 1';
+    this.tokenMap['000000'] = 'Demo token 1';
+    this.tokenMap['011101'] = 'Demo token 2';
     // "Real" tokens....
     this.tokenMap['213141'] = 'Dev token';
     // ...
