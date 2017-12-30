@@ -4,16 +4,16 @@ import { DateTimeUtil, DateIdUtil } from '@ngcore/core';
 import { DateRangeUtil } from '@ngcore/time';
 
 
-@Injectable()
+// @Injectable()
 export class DailyPostsHelper {
-  // // Singleton.
-  // private static _Instance: (DailyPostsHelper | null) = null;
-  constructor(
+  // Singleton.
+  private static _Instance: (DailyPostsHelper | null) = null;
+  private constructor(
     // private localStorageService: LocalStorageService
   ) { }
-  // public static getInstance(): DailyPostsHelper {
-  //   return this._Instance || (this._Instance = new DailyPostsHelper());
-  // }
+  public static getInstance(): DailyPostsHelper {
+    return this._Instance || (this._Instance = new DailyPostsHelper());
+  }
 
 
   // tbd:
@@ -24,6 +24,11 @@ export class DailyPostsHelper {
   private static URL_POST_METADATA = "post.json";
   private static URL_POST_SUMMARY = "summary.md";
   private static URL_POST_CONTENT = "content.md";
+
+  public getPostUrl(dateId: string): string {
+    let url = DailyPostsHelper.POSTS_FOLDER + dateId + '/';
+    return url;
+  }
 
   public getMetadataUrl(postUrl: string): string {
     return postUrl + DailyPostsHelper.URL_POST_METADATA;
@@ -64,7 +69,8 @@ export class DailyPostsHelper {
     if (dates) {
       for (let d of dates) {
         // let url = DailyPostsHelper.POSTS_FOLDER + d + '/' + DailyPostsHelper.URL_POST_METADATA;
-        let url = DailyPostsHelper.POSTS_FOLDER + d + '/';
+        // let url = DailyPostsHelper.POSTS_FOLDER + d + '/';
+        let url = this.getPostUrl(d);
         // console.log(`>>>> date = ${d}; url = ${url}`);
         urls.push(url);
       }

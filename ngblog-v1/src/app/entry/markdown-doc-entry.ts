@@ -32,4 +32,13 @@ export class MarkdownDocEntry extends DocEntry {
     return str;
   }
 
+  clone(): MarkdownDocEntry {
+    let cloned = Object.assign(new MarkdownDocEntry(), this) as MarkdownDocEntry;
+    return cloned;
+  }
+  static clone(obj: any): MarkdownDocEntry {
+    let cloned = Object.assign(new MarkdownDocEntry(), obj) as MarkdownDocEntry;
+    return cloned;
+  }
+
 }

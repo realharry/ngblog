@@ -12,7 +12,7 @@ import { NgCoreTimeModule } from '@ngcore/time';
 import { MaterialComponentsModule } from './material-components.module';
 
 import { AccordionUiHelper } from './helpers/accordion-ui-helper';
-import { DailyPostsHelper } from './helpers/daily-posts-helper';
+// import { DailyPostsHelper } from './helpers/daily-posts-helper';
 import { VisitorTokenRegistry } from './visitors/visitor-token-registry';
 import { GuestbookDataService } from './services/guestbook-data.service';
 import { VisitorTokenService } from './services/visitor-token.service';
@@ -66,7 +66,7 @@ import { AppRoutingModule } from './app-routing.module';
     VisitorTokenRegistry,
     GuestbookDataService,
     VisitorTokenService,
-    DailyPostsHelper,
+    // DailyPostsHelper,
     BlogPostService,
     PostListService
   ],

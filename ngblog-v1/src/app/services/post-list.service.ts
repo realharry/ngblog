@@ -25,7 +25,7 @@ export class PostListService {
   constructor(
     private localStorageService: LocalStorageService,
     private lazyLoaderService: LazyLoaderService,
-    private dailyPostsHelper: DailyPostsHelper,
+    // private dailyPostsHelper: DailyPostsHelper,
   ) { }
 
 
@@ -36,7 +36,7 @@ export class PostListService {
     statuses: PostStatus[] = [PostStatus.Posted],
     useCache: boolean = false
   ): Observable<PostMetadata[]> {
-    let urls = this.dailyPostsHelper.getDailyPostUrls(dayCount, dateId);
+    let urls = DailyPostsHelper.getInstance().getDailyPostUrls(dayCount, dateId);
     if (urls && urls.length > 0) {
       let os: Observable<PostMetadata>[] = [];
       for (let u of urls) {
@@ -75,7 +75,7 @@ export class PostListService {
     //     o.next(pm);
     //   });
     // })
-    return this.lazyLoaderService.loadJson(this.dailyPostsHelper.getMetadataUrl(url), useCache)
+    return this.lazyLoaderService.loadJson(DailyPostsHelper.getInstance().getMetadataUrl(url), useCache)
       .map(obj => {
         let pm: (PostMetadata | null) = null;
         if (obj) {
@@ -83,7 +83,7 @@ export class PostListService {
           if (!pm.url) {   // Is this check necessary or desired????
             pm.url = url;
           }
-          pm.dateId = this.dailyPostsHelper.getDateId(pm.url);
+          pm.dateId = DailyPostsHelper.getInstance().getDateId(pm.url);
         }
         return pm;
       })

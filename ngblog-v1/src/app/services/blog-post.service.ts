@@ -19,30 +19,31 @@ export class BlogPostService {
   constructor(
     private localStorageService: LocalStorageService,
     private lazyLoaderService: LazyLoaderService,
-    private dailyPostsHelper: DailyPostsHelper,
+    // private dailyPostsHelper: DailyPostsHelper,
   ) { }
 
-  public loadPostMetadata(url: string, useCache = false): Observable<PostMetadata> {
-    return this.lazyLoaderService.loadJson(this.dailyPostsHelper.getMetadataUrl(url), useCache).map(obj => {
+  public loadPostMetadata(postUrl: string, useCache = false): Observable<PostMetadata> {
+    return this.lazyLoaderService.loadJson(DailyPostsHelper.getInstance().getMetadataUrl(postUrl), useCache).map(obj => {
       let pm = PostMetadata.clone(obj);
-      pm.url = url;
+      pm.url = postUrl;
+      pm.dateId = DailyPostsHelper.getInstance().getDateId(pm.url);
       return pm;
     });
   }
 
-  public loadPostSummary(url: string, useCache = false): Observable<PostSummary> {
-    return this.lazyLoaderService.loadText(this.dailyPostsHelper.getSummaryUrl(url), useCache).map(data => {
+  public loadPostSummary(postUrl: string, useCache = false): Observable<PostSummary> {
+    return this.lazyLoaderService.loadText(DailyPostsHelper.getInstance().getSummaryUrl(postUrl), useCache).map(data => {
       let ps = new PostSummary(data);
-      ps.url = url;
+      ps.url = postUrl;
       return ps;
     }).share();
   }
 
-  public loadPostContent(url: string, useCache = false): Observable<PostContent> {
-    return this.lazyLoaderService.loadText(this.dailyPostsHelper.getContentUrl(url), useCache).map(data => {
-      let ps = new PostContent(data);
-      ps.url = url;
-      return ps;
+  public loadPostContent(postUrl: string, useCache = false): Observable<PostContent> {
+    return this.lazyLoaderService.loadText(DailyPostsHelper.getInstance().getContentUrl(postUrl), useCache).map(data => {
+      let pc = new PostContent(data);
+      pc.url = postUrl;
+      return pc;
     }).share();
   }
 

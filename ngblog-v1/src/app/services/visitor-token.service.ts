@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 import { VisitorTokenRegistry } from '../visitors/visitor-token-registry';
 
 
-// Tbd:
+// "Poor man's auth"
+// TBD: Need to use real auth...
 
 @Injectable()
 export class VisitorTokenService {

@@ -14,4 +14,14 @@ export class HtmlDocEntry extends DocEntry {
     super(id, title, description, summaryContent, summaryUrl, contentUrl);
   }
 
+
+  clone(): HtmlDocEntry {
+    let cloned = Object.assign(new HtmlDocEntry(), this) as HtmlDocEntry;
+    return cloned;
+  }
+  static clone(obj: any): HtmlDocEntry {
+    let cloned = Object.assign(new HtmlDocEntry(), obj) as HtmlDocEntry;
+    return cloned;
+  }
+
 }
