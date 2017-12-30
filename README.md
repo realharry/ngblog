@@ -28,19 +28,19 @@ _Note: Since it's really frontend only, it's not really SEO-friendly. If you wan
 
 ## How to Use `NgBlog`
 
-### Clone the repo
+### (1) Clone the repo
 
 Clone or fork this repo: [NgBlog/ngblog](https://gitlab.com/ngblog/ngblog).
 
 
-### Create a post
+### (2) Create a post
 
 Add a folder under the `/posts` directory.
 The folder should be named after today's date, in the format "yyyymmdd",
 where the months run from 1 to 12. 
 That is, January is "01" and December is "12".
 (The current limitation is that you can create only one post per day.
-This is easy to change though if you have some basic knowlege of Typscript.)
+This should be easy to change though if you have some basic knowledge of Typescript.)
 
 Add the following three files under today's folder:
 
@@ -56,13 +56,13 @@ but it is very easy to add support for simple text format or HTML content format
 
 
 
-### Build
+### (3) Build
 
     npm i
-    ng build
+    ng build --env=prod
 
 
-### Deploy
+### (4) Deploy
 
 Deploy the `dist` folder to your hosting service. Any service that supports static websites will do,
 including S3 or GitLab Pages, etc.
