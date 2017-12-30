@@ -1,8 +1,6 @@
 ## To Do list
 
 
-Post list caching
-
 
 config
 
@@ -11,9 +9,17 @@ Lazy loading
 
 pagination
 
-More than one posts per day
+Support more than one posts per day
+
 
 SSR
+sitemap
+permalink
 
+
+Post generator (e.g., UI for generating a set of files in a post-date folder)
+
+
+Image file server
 
 
