@@ -18,7 +18,10 @@ Despite these (severe) limitations and lack of eatures, `NgBlog` provides other 
 
 It's really a trade-off. If you want a hosted service with a nice user interface, use Tumblr. Or, use a CMS platofrm like WordPress. Or, use any of the hundreds of blogging apps out there.
 If you are a developer and want full control over your daily blogging, however, then `NgBlog` cab be a great app.
-`NgBlog` is developed in Angular and Angular Material and it can provide certain advantages over other static website generators, especially if you are an Angular developer.
+`NgBlog` is developed in 
+[Angular](https://gitlab.com/angulartutor) with 
+[Angular Material](https://gitlab.com/angularmaterial/setup),
+and it can provide certain advantages over other static website generators, especially if you are an Angular developer.
 
 _Note: Since it's really frontend only, it's not really SEO-friendly. If you want SEO, you may consider adding SSR. But, again, it's a tradeoff. Doing so will add a complexity to the app (e.g., in terms of deployment, etc.)._
 
