@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 
 import { DateTimeUtil, DateIdUtil } from '@ngcore/core';
+import { AppConfig } from '@ngcore/core';
 import { BrowserWindowService } from '@ngcore/core';
 import { LazyLoaderService } from '@ngcore/lazy';
 import { CommonMarkUtil } from '@ngcore/mark';
@@ -23,8 +24,8 @@ import { MarkdownEntryUtil } from '../../entry/util/markdown-entry-util';
 import { docEntryNgBlogHeader } from './entries/ngblog-header';
 // import { docEntryNgBlogFooter } from './entries/ngblog-footer';
 
-import { mySiteInfo } from './info/my-site-info';
-import { myContactInfo } from './info/my-contact-info';
+import { defaultSiteInfo } from '../info/default-site-info';
+import { defaultContactInfo } from '../info/default-contact-info';
 
 import { VisitorTokenService } from '../../services/visitor-token.service';
 import { DailyPostsHelper } from '../../helpers/daily-posts-helper';
@@ -65,6 +66,7 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
     private dialog: MatDialog,
     private elementRef: ElementRef,
     private router: Router,
+    private appConfig: AppConfig,
     private browserWindowService: BrowserWindowService,
     private lazyLoaderService: LazyLoaderService,
     private accordionUiHelper: AccordionUiHelper,
@@ -73,12 +75,30 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
     private postListService: PostListService,
     private blogPostService: BlogPostService,
   ) {
-    // tbd:
-    this.siteInfo = mySiteInfo;
-    this.contactInfo = myContactInfo;
+    this.siteInfo = new SiteInfo();
+    this.contactInfo = new ContactInfo();
   }
 
   ngOnInit() {
+    // let config = this.appConfig.all;
+    // for (let k in config) {
+    //   console.log(`:::config::: key = ${k}; value = ${config[k]}`);
+    // }
+
+    let sInfo = this.appConfig.get('siteInfo');
+    if (sInfo) {
+      this.siteInfo.copy(sInfo);
+    } else {
+      this.siteInfo.copy(defaultSiteInfo);
+    }
+
+    let cInfo = this.appConfig.get('contactInfo');
+    if (cInfo) {
+      this.contactInfo.copy(cInfo);
+    } else {
+      this.contactInfo.copy(defaultContactInfo);
+    }
+
     // this.entryNgAuthModules.setMarkdownInput(this.docEntryNgAuthModules);
 
     this.hasValidVisitorToken = this.visitorTokenService.hasValidVisitorToken;
@@ -117,7 +137,7 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
         console.log(`entry = ${entry}`);
         this.docEntries.push(entry);
       }
-      if(this.docEntries.length == 0) {
+      if (this.docEntries.length == 0) {
         this.docEntries.push(docEntryNgBlogHeader);  // Rename this to "placeholder"...
       }
     });
@@ -322,7 +342,7 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
     //   console.log('The dialog was closed. result = ' + result);
     // });
 
-    if(entry.showContent) {
+    if (entry.showContent) {
       let dateId = entry.id;
       let contentUrl = entry.contentUrl;
 
@@ -331,7 +351,7 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
       // this.router.navigate(['/post', dateId]).then(suc => {
       //   console.log(`navigate() suc = ${suc}`);
       // });
-      this.router.navigate(['/post', dateId, {entry: JSON.stringify(entry)}]).then(suc => {
+      this.router.navigate(['/post', dateId, { entry: JSON.stringify(entry) }]).then(suc => {
         console.log(`navigate() suc = ${suc}`);
       });
     }

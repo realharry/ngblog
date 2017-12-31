@@ -3,12 +3,13 @@ import { Location } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { DateTimeUtil, DateIdUtil } from '@ngcore/core';
+import { AppConfig } from '@ngcore/core';
 import { LazyLoaderService } from '@ngcore/lazy';
 import { CommonMarkUtil } from '@ngcore/mark';
 import { CommonMarkEntryComponent } from '@ngcore/mark';
 
 import { SiteInfo } from '../../common/site-info';
-import { mySiteInfo } from '../ngblog-site/info/my-site-info';
+import { defaultSiteInfo } from '../info/default-site-info';
 import { MarkdownDocEntry } from '../../entry/markdown-doc-entry';
 import { MarkdownEntryUtil } from '../../entry/util/markdown-entry-util';
 import { VisitorTokenService } from '../../services/visitor-token.service';
@@ -30,17 +31,30 @@ export class NgBlogPostComponent implements OnInit {
     private location: Location,
     private router: Router,
     private activatedRoute: ActivatedRoute,
+    private appConfig: AppConfig,
     private lazyLoaderService: LazyLoaderService,
     private visitorTokenService: VisitorTokenService,
     // private dailyPostsHelper: DailyPostsHelper,
     private blogPostService: BlogPostService,
   ) {
-    // tbd:
-    this.siteInfo = mySiteInfo;
+    this.siteInfo = new SiteInfo();
+
     this.docEntry = new MarkdownDocEntry();   // ???
   }
 
   ngOnInit() {
+    // let config = this.appConfig.all;
+    // for (let k in config) {
+    //   console.log(`:::config::: key = ${k}; value = ${config[k]}`);
+    // }
+
+    let sInfo = this.appConfig.get('siteInfo');
+    if (sInfo) {
+      this.siteInfo.copy(sInfo);
+    } else {
+      this.siteInfo.copy(defaultSiteInfo);
+    }
+
     let dateId = this.activatedRoute.snapshot.params['id'];
     console.log(`>>> path id = ${dateId}.`);
 

@@ -10,6 +10,7 @@
       "assets": [
         "assets",
         "posts",
+        "configs",
         "favicon.ico"
       ],
       "index": "index.html",

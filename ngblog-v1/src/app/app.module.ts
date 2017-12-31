@@ -1,13 +1,19 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { APP_INITIALIZER } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpModule } from '@angular/http';
 import { OverlayContainer } from '@angular/cdk/overlay';
 
 import { NgCoreCoreModule } from '@ngcore/core';
 import { NgCoreBaseModule } from '@ngcore/base';
+import { NgCoreHuesModule } from '@ngcore/hues';
 import { NgCoreLazyModule } from '@ngcore/lazy';
 import { NgCoreMarkModule } from '@ngcore/mark';
 import { NgCoreTimeModule } from '@ngcore/time';
+
+import { AppConfig } from '@ngcore/core';
 
 import { MaterialComponentsModule } from './material-components.module';
 
@@ -38,6 +44,8 @@ import { AppRoutingModule } from './app-routing.module';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
+    HttpModule,
     RouterModule.forRoot([
       // {
       //   path: '',
@@ -52,6 +60,7 @@ import { AppRoutingModule } from './app-routing.module';
     AppRoutingModule,
     NgCoreCoreModule.forRoot(),
     NgCoreBaseModule.forRoot(),
+    NgCoreHuesModule.forRoot(),
     NgCoreLazyModule.forRoot(),
     NgCoreMarkModule.forRoot(),
     NgCoreTimeModule.forRoot(),
@@ -62,6 +71,9 @@ import { AppRoutingModule } from './app-routing.module';
     DetailDialogComponent
   ],
   providers: [
+    AppConfig,
+    // { provide: APP_INITIALIZER, useFactory: (config: AppConfig) => () => config.load(), deps: [AppConfig], multi: true },
+    { provide: APP_INITIALIZER, useFactory: (config: AppConfig) => () => config.load().then(o => { console.log("App config loaded."); }), deps: [AppConfig], multi: true },
     AccordionUiHelper,
     VisitorTokenRegistry,
     GuestbookDataService,
@@ -73,7 +85,9 @@ import { AppRoutingModule } from './app-routing.module';
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor(private overlayContainer: OverlayContainer) {
+  constructor(
+    private overlayContainer: OverlayContainer,
+  ) {
     overlayContainer.getContainerElement().classList.add('my-dark-theme');
   }
 }

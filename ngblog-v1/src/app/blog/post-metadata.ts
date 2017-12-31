@@ -1,12 +1,12 @@
 import { PostStatus } from './core/post-status';
-import { ContentType } from './core/content-type';
+import { ContentFormat } from './core/content-format';
 
 
 // TBD:
 // Support multiple posts for a day???
 export class PostMetadata {
   public label = '';   // tag?
-  public contentType = ContentType.Markdown;
+  public contentType = ContentFormat.Markdown;
   public status = PostStatus.Draft;
 
   // This is not generally included in "post.json" file.

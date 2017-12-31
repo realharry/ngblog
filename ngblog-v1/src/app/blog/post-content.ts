@@ -1,5 +1,5 @@
 import { PostStatus } from './core/post-status';
-import { ContentType } from './core/content-type';
+import { ContentFormat } from './core/content-format';
 
 
 // Just use string???

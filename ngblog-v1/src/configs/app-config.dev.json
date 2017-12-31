@@ -1,0 +1,15 @@
+{
+  "ga-code": "UA-1111",
+  "item-count-per-page": 20,
+  "ssr-enabled": false,
+  "content-format": "markdown",
+  "siteInfo": {
+    "name": "Harry's Blog",
+    "title": "NgBlog demo blog by Harry"
+  },
+  "contactInfo": {
+    "email": "info@ngblog.com",
+    "phone": "555-555-5555",
+    "website": "http://www.ngblog.com/"
+  }
+}
