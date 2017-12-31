@@ -1,57 +1,70 @@
 import { Injectable } from '@angular/core';
 import { DateTimeUtil, DateIdUtil } from '@ngcore/core';
+import { AppConfig } from '@ngcore/core';
 // import { LocalStorageService } from '@ngcore/core';
 import { DateRangeUtil } from '@ngcore/time';
 
 
-// @Injectable()
+@Injectable()
 export class DailyPostsHelper {
-  // Singleton.
-  private static _Instance: (DailyPostsHelper | null) = null;
-  private constructor(
+  // // Singleton.
+  // private static _Instance: (DailyPostsHelper | null) = null;
+  constructor(
+    private appConfig: AppConfig,
     // private localStorageService: LocalStorageService
   ) { }
-  public static getInstance(): DailyPostsHelper {
-    return this._Instance || (this._Instance = new DailyPostsHelper());
+  // public static getInstance(): DailyPostsHelper {
+  //   return this._Instance || (this._Instance = new DailyPostsHelper());
+  // }
+
+
+  // tbd:
+  private static DEFAULT_POST_FOLDER = "posts/";
+
+  private _postFolder: (string | null) = null;
+  private get postFolder(): string {
+    if(!this._postFolder) {
+      let folder = this.appConfig.getString("blog-post-folder", DailyPostsHelper.DEFAULT_POST_FOLDER);
+      this._postFolder = (folder.endsWith('/')) ? folder : folder + "/";
+      console.log(`this._postFolder = ${this._postFolder}`);
+    }
+    return this._postFolder;
   }
 
 
   // tbd:
   // Read this from config.
-  private static POSTS_FOLDER = "posts/";
-
-  // tbd:
   private static URL_POST_METADATA = "post.json";
   private static URL_POST_SUMMARY = "summary.md";
   private static URL_POST_CONTENT = "content.md";
 
   public getPostUrl(dateId: string): string {
-    let url = DailyPostsHelper.POSTS_FOLDER + dateId + '/';
+    let url = this.postFolder + dateId + '/';
     return url;
   }
 
-  public getMetadataUrl(postUrl: string): string {
+  public static getMetadataUrl(postUrl: string): string {
     return postUrl + DailyPostsHelper.URL_POST_METADATA;
   }
-  public getPostUrlFromMetadataUrl(metadataUrl: string): string {
+  public static getPostUrlFromMetadataUrl(metadataUrl: string): string {
     let postUrl = metadataUrl.substr(0, metadataUrl.length - DailyPostsHelper.URL_POST_METADATA.length);
     console.log(`getPostUrlFromMetadataUrl() metadataUrl = ${metadataUrl}; postUrl = ${postUrl}`);
     return postUrl;
   }
 
-  public getSummaryUrl(postUrl: string): string {
+  public static getSummaryUrl(postUrl: string): string {
     return postUrl + DailyPostsHelper.URL_POST_SUMMARY;
   }
-  public getPostUrlFromSummaryUrl(summaryUrl: string): string {
+  public static getPostUrlFromSummaryUrl(summaryUrl: string): string {
     let postUrl = summaryUrl.substr(0, summaryUrl.length - DailyPostsHelper.URL_POST_SUMMARY.length);
     console.log(`getPostUrlFromSummaryUrl() summaryUrl = ${summaryUrl}; postUrl = ${postUrl}`);
     return postUrl;
   }
 
-  public getContentUrl(postUrl: string): string {
+  public static getContentUrl(postUrl: string): string {
     return postUrl + DailyPostsHelper.URL_POST_CONTENT;
   }
-  public getPostUrlFromContentUrl(contentUrl: string): string {
+  public static getPostUrlFromContentUrl(contentUrl: string): string {
     let postUrl = contentUrl.substr(0, contentUrl.length - DailyPostsHelper.URL_POST_CONTENT.length);
     console.log(`getPostUrlFromContentUrl() contentUrl = ${contentUrl}; postUrl = ${postUrl}`);
     return postUrl;
@@ -60,13 +73,13 @@ export class DailyPostsHelper {
   // It is assumed that
   //    postUrl has the following format: "..../yyyymmdd/"
   // tbd: We need more robust/more flexible implementation.
-  public getDateId(postUrl: string): string {
+  public static getDateId(postUrl: string): string {
     // tbd: validate?
     let dateId = postUrl.substr(postUrl.length - 9, 8);
     console.log(`getDate() dateId = ${dateId}; postUrl = ${postUrl}`);
     return dateId;
   }
-  public getDate(postUrl: string): Date {
+  public static getDate(postUrl: string): Date {
     let dateId = this.getDateId(postUrl);
     let date = DateIdUtil.convertToDate(dateId);
     console.log(`getDate() dateId = ${dateId}; date = ${date}`);

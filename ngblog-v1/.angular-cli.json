@@ -9,8 +9,9 @@
       "outDir": "dist",
       "assets": [
         "assets",
-        "posts",
         "configs",
+        "posts",
+        "posts-dev",
         "favicon.ico"
       ],
       "index": "index.html",

@@ -1,6 +1,7 @@
 {
   "ga-code": "UA-1111",
   "accordion-ui-stale-age": 3600000,
+  "blog-post-folder": "posts-dev/",
   "max-post-age": 30,
   "item-count-per-page": 20,
   "ssr-enabled": false,

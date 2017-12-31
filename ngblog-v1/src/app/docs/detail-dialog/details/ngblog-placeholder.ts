@@ -4,7 +4,7 @@ import { MarkdownDetailEntry } from '../../../detail/markdown-detail-entry';
 
 export var detailInfoNgBlogHeader = new MarkdownDetailInfo(
   "ngblog-header",
-  "Prolog",
+  "Welcome",
   [
     new MarkdownDetailEntry(
       "Cover Letter",

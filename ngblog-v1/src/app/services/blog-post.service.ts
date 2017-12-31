@@ -19,7 +19,7 @@ export class BlogPostService {
   constructor(
     private localStorageService: LocalStorageService,
     private lazyLoaderService: LazyLoaderService,
-    // private dailyPostsHelper: DailyPostsHelper,
+    private dailyPostsHelper: DailyPostsHelper,
   ) { }
 
   // Note that "useCache" is used on the server-side.
@@ -29,7 +29,7 @@ export class BlogPostService {
   private pcCache: { [postUrl: string]: PostContent } = {};
 
   public loadPostMetadataFromMetadataUrl(metadataUrl: string, useCache = false): Observable<PostMetadata> {
-    return this.loadPostMetadata(DailyPostsHelper.getInstance().getPostUrlFromMetadataUrl(metadataUrl));
+    return this.loadPostMetadata(DailyPostsHelper.getPostUrlFromMetadataUrl(metadataUrl));
   }
   public loadPostMetadata(postUrl: string, useCache = false): Observable<PostMetadata> {
     if (postUrl in this.pmCache) {
@@ -38,17 +38,17 @@ export class BlogPostService {
         o.next(pm);
       }).share();
     } else {
-      return this.lazyLoaderService.loadJson(DailyPostsHelper.getInstance().getMetadataUrl(postUrl), useCache).map(obj => {
+      return this.lazyLoaderService.loadJson(DailyPostsHelper.getMetadataUrl(postUrl), useCache).map(obj => {
         let pm = PostMetadata.clone(obj);
         pm.url = postUrl;
-        pm.dateId = DailyPostsHelper.getInstance().getDateId(pm.url);
+        pm.dateId = DailyPostsHelper.getDateId(pm.url);
         return pm;
       });
     }
   }
 
   public loadPostSummaryFromSummaryUrl(summaryUrl: string, useCache = false): Observable<PostSummary> {
-    return this.loadPostSummary(DailyPostsHelper.getInstance().getPostUrlFromSummaryUrl(summaryUrl));
+    return this.loadPostSummary(DailyPostsHelper.getPostUrlFromSummaryUrl(summaryUrl));
   }
   public loadPostSummary(postUrl: string, useCache = false): Observable<PostSummary> {
     if (postUrl in this.psCache) {
@@ -57,7 +57,7 @@ export class BlogPostService {
         o.next(ps);
       }).share();
     } else {
-      return this.lazyLoaderService.loadText(DailyPostsHelper.getInstance().getSummaryUrl(postUrl), useCache).map(data => {
+      return this.lazyLoaderService.loadText(DailyPostsHelper.getSummaryUrl(postUrl), useCache).map(data => {
         let ps = new PostSummary(data);
         ps.url = postUrl;
         return ps;
@@ -66,7 +66,7 @@ export class BlogPostService {
   }
 
   public loadPostContentFromContentUrl(contentUrl: string, useCache = false): Observable<PostContent> {
-    return this.loadPostContent(DailyPostsHelper.getInstance().getPostUrlFromContentUrl(contentUrl));
+    return this.loadPostContent(DailyPostsHelper.getPostUrlFromContentUrl(contentUrl));
   }
   public loadPostContent(postUrl: string, useCache = false): Observable<PostContent> {
     if (postUrl in this.pcCache) {
@@ -75,7 +75,7 @@ export class BlogPostService {
         o.next(pc);
       }).share();
     } else {
-      return this.lazyLoaderService.loadText(DailyPostsHelper.getInstance().getContentUrl(postUrl), useCache).map(data => {
+      return this.lazyLoaderService.loadText(DailyPostsHelper.getContentUrl(postUrl), useCache).map(data => {
         let pc = new PostContent(data);
         pc.url = postUrl;
         return pc;

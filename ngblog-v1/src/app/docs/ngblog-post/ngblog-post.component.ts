@@ -39,7 +39,7 @@ export class NgBlogPostComponent implements OnInit {
     private appConfig: AppConfig,
     private lazyLoaderService: LazyLoaderService,
     private visitorTokenService: VisitorTokenService,
-    // private dailyPostsHelper: DailyPostsHelper,
+    private dailyPostsHelper: DailyPostsHelper,
     private blogPostService: BlogPostService,
     private blogPostRegistry: BlogPostRegistry,
   ) {
@@ -84,7 +84,7 @@ export class NgBlogPostComponent implements OnInit {
     //   // MarkdownDocEntry.copy(this.docEntry, entry);
     //   this.docEntry.copy(entry);
     // } else {
-    //   let postUrl = DailyPostsHelper.getInstance().getPostUrl(dateId);
+    //   let postUrl = DailyPostsHelper.getPostUrl(dateId);
     //   let useCache = true;
     //   this.blogPostService.loadPostMetadata(postUrl, useCache).subscribe(pm => {
     //     console.log(`post metadata = ${pm}`);
@@ -110,7 +110,7 @@ export class NgBlogPostComponent implements OnInit {
       // MarkdownDocEntry.copy(this.docEntry, entry);
       this.docEntry.copy(entry);
     } else {
-      let postUrl = DailyPostsHelper.getInstance().getPostUrl(dateId);
+      let postUrl = DailyPostsHelper.getPostUrl(dateId);
       let useCache = true;
       this.blogPostService.loadPostMetadata(postUrl, useCache).catch(err => {
         console.log(`loadPostMetadata() error. postUrl = ${postUrl}; err = ${err}`);

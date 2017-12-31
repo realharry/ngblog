@@ -74,7 +74,7 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
     private lazyLoaderService: LazyLoaderService,
     private accordionUiHelper: AccordionUiHelper,
     private visitorTokenService: VisitorTokenService,
-    // private dailyPostsHelper: DailyPostsHelper,
+    private dailyPostsHelper: DailyPostsHelper,
     private postListService: PostListService,
     private blogPostService: BlogPostService,
     private blogPostRegistry: BlogPostRegistry,
@@ -173,13 +173,13 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
     //     console.log(`post metadata = ${pm}`);
     //     let entry = MarkdownEntryUtil.buildFromPostMetadata(pm, this.hasValidVisitorToken);
     //     // let entry = new MarkdownDocEntry(
-    //     //   // (pm.dateId) ? pm.dateId : DailyPostsHelper.getInstance().getDateId(pm.url),
+    //     //   // (pm.dateId) ? pm.dateId : DailyPostsHelper.getDateId(pm.url),
     //     //   pm.dateId,
     //     //   pm.title,
     //     //   pm.description,
     //     //   "",
-    //     //   DailyPostsHelper.getInstance().getSummaryUrl(pm.url),
-    //     //   (pm.hasContent) ? DailyPostsHelper.getInstance().getContentUrl(pm.url) : null
+    //     //   DailyPostsHelper.getSummaryUrl(pm.url),
+    //     //   (pm.hasContent) ? DailyPostsHelper.getContentUrl(pm.url) : null
     //     // );
     //     // entry.date = DateIdUtil.convertToDate(entry.id);  // For now, entry.id is dateId.
     //     // if (this.hasValidVisitorToken    // temporary
