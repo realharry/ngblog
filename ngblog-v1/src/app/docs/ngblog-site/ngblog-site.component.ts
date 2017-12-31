@@ -13,7 +13,7 @@ import { CommonMarkEntryComponent } from '@ngcore/mark';
 
 import { environment } from '../../../environments/environment';
 
-import { ExpansionStep } from '../../helpers/core/expansion-step';
+// import { ExpansionStep } from '../../helpers/core/expansion-step';
 import { AccordionUiHelper } from '../../helpers/accordion-ui-helper';
 
 import { SiteInfo } from '../../common/site-info';
@@ -116,6 +116,7 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
 
     // tempoary
     let maxDates = 30;
+    maxDates = this.appConfig.getNumber("max-post-age", maxDates);
     this.postListService.getDailyPosts(maxDates).subscribe(posts => {
       for (let pm of posts) {
         console.log(`post metadata = ${pm}`);
@@ -303,6 +304,54 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
   prevStep() {
     // this.step--;
     this.accordionUiHelper.decrementStep();
+  }
+
+
+  // TBD:
+  // Pagination support
+
+  private _itemCountPerPage = 0;
+  get itemCountPerPage(): number {
+    if(this._itemCountPerPage == 0) {
+      this._itemCountPerPage = this.appConfig.getNumber("item-count-per-page", -1);
+    }
+    return this._itemCountPerPage;
+  }
+
+  private _isPaginationEnabled: boolean;
+  get isPaginationEnabled(): boolean {
+    if(this._isPaginationEnabled !== true && this._isPaginationEnabled !== false) {
+      this._isPaginationEnabled = (this.itemCountPerPage > 0);
+    }
+    return this._isPaginationEnabled;
+  }
+
+  private _currentPage: number = 1;
+  get currentPage(): number {
+    return this._currentPage;
+  }
+  get totalPages(): number {
+    return 1;   // temporary
+  }
+  get pageIndicia(): string {
+    return `${this.currentPage}/${this.totalPages}`;
+  }
+
+  // temporary
+  get isInFirstPage(): boolean {
+    return false;
+  }
+  get isInLastPage(): boolean {
+    return false;
+  }
+
+  goToPreviousPage() {
+    console.log("goToPreviousPage()");
+
+  }
+  goToNextPage() {
+    console.log("goToNextPage()");
+
   }
 
 

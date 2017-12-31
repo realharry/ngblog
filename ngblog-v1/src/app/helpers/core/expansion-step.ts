@@ -3,13 +3,25 @@ import { DateTimeUtil } from '@ngcore/core';
 
 export class ExpansionStep {
 
-  public staleAge = 24 * 3600 * 1000;  // 1 day by default.
+  // This does not have to be very long.
+  // It just provides continuity in a single "session"
+  //   (e.g., during navigation via back, etc.).
+  // TBD: Read this from app config????
+  private static DEFAULT_STALE_AGE = 6 * 3600 * 1000;  // 6 hours by default.
+  private static _defaultStaleAge = ExpansionStep.DEFAULT_STALE_AGE;
+  public static getDefaultStaleAge(): number {
+    return  ExpansionStep._defaultStaleAge;
+  }
+  public static setDefaultStaleAge(_defaultStaleAge: number) {
+    ExpansionStep._defaultStaleAge = _defaultStaleAge;
+  }
 
   // Note;
   // timestamp==0 never becomes stale.
   constructor(
     public step: number = 0,
-    public timestamp: number = 0
+    public timestamp: number = 0,
+    public staleAge: number = ExpansionStep.getDefaultStaleAge()
   ) {
   }
 

@@ -48,9 +48,20 @@
     <mat-toolbar-row>
       <span style="font-style: italic;">Copyright &copy; <common-date-year></common-date-year> {{siteInfo.name}}</span>
       <span style="flex: 1 1 auto"></span>
-      <span *ngIf="hasNonBinaryVisitorToken" style="font-style: italic;">
+      <!-- <span *ngIf="hasNonBinaryVisitorToken" style="font-style: italic;">
         <a mat-button href="mailto:{{contactInfo.email}}">{{contactInfo.email}}</a>
-      </span>
+      </span> -->
+      <span [hidden]="!isPaginationEnabled">
+      <mat-chip-list>
+        <button mat-icon-button color="primary" [disabled]="isInFirstPage" matTooltip="Previous Page" (click)="goToPreviousPage()">
+          <mat-icon>keyboard_arrow_left</mat-icon>
+        </button>
+          <mat-chip color="primary" selected="true">{{pageIndicia}}</mat-chip>
+          <button mat-icon-button color="primary" [disabled]="isInFLastPage" matTooltip="Next Page" (click)="goToNextPage()">
+            <mat-icon>keyboard_arrow_right</mat-icon>
+          </button>
+          </mat-chip-list>
+    </span>
     </mat-toolbar-row>
   </mat-toolbar>
 

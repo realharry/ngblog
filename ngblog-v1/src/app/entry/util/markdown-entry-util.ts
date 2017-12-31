@@ -22,8 +22,9 @@ export namespace MarkdownEntryUtil {
       (pm.hasContent) ? DailyPostsHelper.getInstance().getContentUrl(pm.url) : null
     );
     entry.date = DateIdUtil.convertToDate(entry.id);  // For now, entry.id is dateId.
-    if (hasValidVisitorToken    // temporary
-      && pm.hasContent) {
+    if (
+      // hasValidVisitorToken &&   // temporary
+      pm.hasContent) {
       entry.showContent = true;
     }
     console.log(`entry = ${entry}`);
