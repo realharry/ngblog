@@ -28,6 +28,9 @@ export class BlogPostService {
   private psCache: { [postUrl: string]: PostSummary } = {};
   private pcCache: { [postUrl: string]: PostContent } = {};
 
+  public loadPostMetadataFromMetadataUrl(metadataUrl: string, useCache = false): Observable<PostMetadata> {
+    return this.loadPostMetadata(DailyPostsHelper.getInstance().getPostUrlFromMetadataUrl(metadataUrl));
+  }
   public loadPostMetadata(postUrl: string, useCache = false): Observable<PostMetadata> {
     if (postUrl in this.pmCache) {
       return Observable.create(o => {
@@ -44,6 +47,9 @@ export class BlogPostService {
     }
   }
 
+  public loadPostSummaryFromSummaryUrl(summaryUrl: string, useCache = false): Observable<PostSummary> {
+    return this.loadPostSummary(DailyPostsHelper.getInstance().getPostUrlFromSummaryUrl(summaryUrl));
+  }
   public loadPostSummary(postUrl: string, useCache = false): Observable<PostSummary> {
     if (postUrl in this.psCache) {
       return Observable.create(o => {
@@ -59,6 +65,9 @@ export class BlogPostService {
     }
   }
 
+  public loadPostContentFromContentUrl(contentUrl: string, useCache = false): Observable<PostContent> {
+    return this.loadPostContent(DailyPostsHelper.getInstance().getPostUrlFromContentUrl(contentUrl));
+  }
   public loadPostContent(postUrl: string, useCache = false): Observable<PostContent> {
     if (postUrl in this.pcCache) {
       return Observable.create(o => {

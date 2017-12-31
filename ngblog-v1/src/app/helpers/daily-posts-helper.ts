@@ -33,11 +33,28 @@ export class DailyPostsHelper {
   public getMetadataUrl(postUrl: string): string {
     return postUrl + DailyPostsHelper.URL_POST_METADATA;
   }
+  public getPostUrlFromMetadataUrl(metadataUrl: string): string {
+    let postUrl = metadataUrl.substr(0, metadataUrl.length - DailyPostsHelper.URL_POST_METADATA.length);
+    console.log(`getPostUrlFromMetadataUrl() metadataUrl = ${metadataUrl}; postUrl = ${postUrl}`);
+    return postUrl;
+  }
+
   public getSummaryUrl(postUrl: string): string {
     return postUrl + DailyPostsHelper.URL_POST_SUMMARY;
   }
+  public getPostUrlFromSummaryUrl(summaryUrl: string): string {
+    let postUrl = summaryUrl.substr(0, summaryUrl.length - DailyPostsHelper.URL_POST_SUMMARY.length);
+    console.log(`getPostUrlFromSummaryUrl() summaryUrl = ${summaryUrl}; postUrl = ${postUrl}`);
+    return postUrl;
+  }
+
   public getContentUrl(postUrl: string): string {
     return postUrl + DailyPostsHelper.URL_POST_CONTENT;
+  }
+  public getPostUrlFromContentUrl(contentUrl: string): string {
+    let postUrl = contentUrl.substr(0, contentUrl.length - DailyPostsHelper.URL_POST_CONTENT.length);
+    console.log(`getPostUrlFromContentUrl() contentUrl = ${contentUrl}; postUrl = ${postUrl}`);
+    return postUrl;
   }
 
   // It is assumed that

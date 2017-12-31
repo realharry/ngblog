@@ -24,6 +24,7 @@ import { GuestbookDataService } from './services/guestbook-data.service';
 import { VisitorTokenService } from './services/visitor-token.service';
 import { BlogPostService } from './services/blog-post.service';
 import { PostListService } from './services/post-list.service';
+import { BlogPostRegistry } from './docs/registry/blog-post-registry';
 
 import { AppComponent } from './app.component';
 import { NgBlogSiteComponent } from './docs/ngblog-site/ngblog-site.component';
@@ -80,7 +81,8 @@ import { AppRoutingModule } from './app-routing.module';
     VisitorTokenService,
     // DailyPostsHelper,
     BlogPostService,
-    PostListService
+    PostListService,
+    BlogPostRegistry
   ],
   bootstrap: [AppComponent]
 })

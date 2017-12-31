@@ -7,7 +7,7 @@ import { DailyPostsHelper } from '../../helpers/daily-posts-helper';
 
 export namespace MarkdownEntryUtil {
 
-  export function buildFromPostMetadata(pm: PostMetadata, hasValidVisitorToken: boolean = false): (MarkdownDocEntry | null) {
+  export function buildFromPostMetadata(pm: PostMetadata): (MarkdownDocEntry | null) {
     // if(!pm) {
     //   return null;   // ???
     // }
@@ -22,9 +22,7 @@ export namespace MarkdownEntryUtil {
       (pm.hasContent) ? DailyPostsHelper.getInstance().getContentUrl(pm.url) : null
     );
     entry.date = DateIdUtil.convertToDate(entry.id);  // For now, entry.id is dateId.
-    if (
-      // hasValidVisitorToken &&   // temporary
-      pm.hasContent) {
+    if (pm.hasContent) {
       entry.showContent = true;
     }
     console.log(`entry = ${entry}`);

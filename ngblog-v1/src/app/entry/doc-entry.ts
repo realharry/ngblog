@@ -6,7 +6,7 @@ export abstract class DocEntry {
 
   // tbd:
   // public content: string;
-  public skipPrinting: boolean = false;
+  // public skipPrinting: boolean = false;
   public skipDisplay: boolean = false;
 
   // public detailLink: (string | null) = null;  
@@ -22,26 +22,14 @@ export abstract class DocEntry {
   )  {
   }
 
-  // public id = '';   // "dateId" used for id. There can be no more than one entries per day.
-  // public title = '';
-  // public description: string = '';
-  // public summaryContent: string = '';
-  // public summaryUrl: string = '';
-  // public contentUrl: (string | null) = null;
-  // constructor(
-  //   id = '',   // "dateId" used for id. There can be no more than one entries per day.
-  //   title = '',
-  //   description: string = '',
-  //   summaryContent: string = '',
-  //   summaryUrl: string = '',
-  //   contentUrl: (string | null) = null
-  // ) {
-  //   this.id = id;
-  //   this.title = title;
-
-
-
-  // }
+  public get isEmpty(): boolean {
+    return (
+      !this.title 
+      && !this.description 
+      && (!this.summaryContent && !this.summaryUrl)
+      && !this.contentUrl
+    );
+  }
 
 
   public toString(): string {
@@ -52,7 +40,7 @@ export abstract class DocEntry {
     // str += `summaryContent:${this.summaryContent};`
     str += `summaryUrl:${this.summaryUrl};`
     str += `contentUrl:${this.contentUrl};`
-    str += `skipPrinting:${this.skipPrinting};`
+    // str += `skipPrinting:${this.skipPrinting};`
     str += `skipDisplay:${this.skipDisplay};`
     str += `showContent:${this.showContent};`
     return str;

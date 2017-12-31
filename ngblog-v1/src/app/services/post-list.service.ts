@@ -29,6 +29,9 @@ export class PostListService {
   ) { }
 
 
+  // This caching is not entirely safe
+  // since the cache can be invalidated simply when the calendar day changes...
+  // --> but this should be really good enough for the "frontend" app....
   private cacheKey(dayCount: number, dateId: string): string {
     return dayCount + '-' + dateId;
   }

@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild, Input, Output } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { ElementRef } from '@angular/core';
-import { Router } from '@angular/router';
+import { Location } from '@angular/common';
+import { Router, ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material';
 
 import { DateTimeUtil, DateIdUtil } from '@ngcore/core';
@@ -21,8 +22,7 @@ import { ContactInfo } from '../../common/contact-info';
 
 import { MarkdownDocEntry } from '../../entry/markdown-doc-entry';
 import { MarkdownEntryUtil } from '../../entry/util/markdown-entry-util';
-import { docEntryNgBlogHeader } from './entries/ngblog-header';
-// import { docEntryNgBlogFooter } from './entries/ngblog-footer';
+import { docEntryPlaceholder } from './entries/ngblog-placeholder';
 
 import { defaultSiteInfo } from '../info/default-site-info';
 import { defaultContactInfo } from '../info/default-contact-info';
@@ -31,6 +31,7 @@ import { VisitorTokenService } from '../../services/visitor-token.service';
 import { DailyPostsHelper } from '../../helpers/daily-posts-helper';
 import { PostListService } from '../../services/post-list.service';
 import { BlogPostService } from '../../services/blog-post.service';
+import { BlogPostRegistry } from '../registry/blog-post-registry';
 // import { DetailDialogComponent } from '../detail-dialog/detail-dialog.component';
 
 
@@ -65,7 +66,9 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
   constructor(
     private dialog: MatDialog,
     private elementRef: ElementRef,
+    private location: Location,
     private router: Router,
+    private activatedRoute: ActivatedRoute,
     private appConfig: AppConfig,
     private browserWindowService: BrowserWindowService,
     private lazyLoaderService: LazyLoaderService,
@@ -74,6 +77,7 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
     // private dailyPostsHelper: DailyPostsHelper,
     private postListService: PostListService,
     private blogPostService: BlogPostService,
+    private blogPostRegistry: BlogPostRegistry,
   ) {
     this.siteInfo = new SiteInfo();
     this.contactInfo = new ContactInfo();
@@ -99,6 +103,20 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
       this.contactInfo.copy(defaultContactInfo);
     }
 
+    // TBD: For pagination
+    let pageNumber = this.activatedRoute.snapshot.queryParams['page'];
+    console.log(`>>> pageNumber = ${pageNumber}.`);
+    if (this.isPageNumberValid(pageNumber)) {
+      this._currentPage = pageNumber;
+      // ...
+    } else {
+      // ???
+      this._currentPage = 1;
+    }
+    // const defaultItemCount = 10;  // temporary
+    // let itemsPerPage = this.appConfig.getNumber("item-count-per-page", defaultItemCount);
+
+
     // this.entryNgAuthModules.setMarkdownInput(this.docEntryNgAuthModules);
 
     this.hasValidVisitorToken = this.visitorTokenService.hasValidVisitorToken;
@@ -114,34 +132,67 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
       this.contactWebsite = '';
     }
 
-    // tempoary
-    let maxDates = 30;
-    maxDates = this.appConfig.getNumber("max-post-age", maxDates);
-    this.postListService.getDailyPosts(maxDates).subscribe(posts => {
-      for (let pm of posts) {
-        console.log(`post metadata = ${pm}`);
-        let entry = MarkdownEntryUtil.buildFromPostMetadata(pm, this.hasValidVisitorToken);
-        // let entry = new MarkdownDocEntry(
-        //   // (pm.dateId) ? pm.dateId : DailyPostsHelper.getInstance().getDateId(pm.url),
-        //   pm.dateId,
-        //   pm.title,
-        //   pm.description,
-        //   "",
-        //   DailyPostsHelper.getInstance().getSummaryUrl(pm.url),
-        //   (pm.hasContent) ? DailyPostsHelper.getInstance().getContentUrl(pm.url) : null
-        // );
-        // entry.date = DateIdUtil.convertToDate(entry.id);  // For now, entry.id is dateId.
-        // if (this.hasValidVisitorToken    // temporary
-        //   && pm.hasContent) {
-        //   entry.showContent = true;
-        // }
-        console.log(`entry = ${entry}`);
-        this.docEntries.push(entry);
+
+    // this.blogPostRegistry.buildEntryMap().subscribe(map => {
+    //   this.docEntries = [];
+    //   for(let dateId in map) {
+    //     this.docEntries.push(map[dateId]);
+    //   }
+    //   if (this.docEntries.length == 0) {
+    //     this.docEntries.push(docEntryNgBlogHeader);  // Rename this to "placeholder"...
+    //   }
+    // });
+    this.blogPostRegistry.buildEntryMap().subscribe(entries => {
+      this.docEntries = [];
+      // tbd: pagination here....
+      if (this.isPaginationEnabled) {
+        let listLength = entries.length;
+        this._totalPages = Math.ceil(listLength / this.itemCountPerPage);
+        let startIdx = this.itemCountPerPage * (this._currentPage - 1);
+        let maxIdx = startIdx + this.itemCountPerPage;
+        let endIdx = (maxIdx < listLength) ? maxIdx : listLength;
+        for (let i = startIdx; i < endIdx; i++) {
+          let entry = entries[i];
+          this.docEntries.push(entry);
+        }
+      } else {
+        for (let entry of entries) {
+          this.docEntries.push(entry);
+        }
       }
       if (this.docEntries.length == 0) {
-        this.docEntries.push(docEntryNgBlogHeader);  // Rename this to "placeholder"...
+        this.docEntries.push(docEntryPlaceholder);
       }
     });
+
+    // // tempoary
+    // let maxDates = 30;
+    // maxDates = this.appConfig.getNumber("max-post-age", maxDates);
+    // this.postListService.getDailyPosts(maxDates).subscribe(posts => {
+    //   for (let pm of posts) {
+    //     console.log(`post metadata = ${pm}`);
+    //     let entry = MarkdownEntryUtil.buildFromPostMetadata(pm, this.hasValidVisitorToken);
+    //     // let entry = new MarkdownDocEntry(
+    //     //   // (pm.dateId) ? pm.dateId : DailyPostsHelper.getInstance().getDateId(pm.url),
+    //     //   pm.dateId,
+    //     //   pm.title,
+    //     //   pm.description,
+    //     //   "",
+    //     //   DailyPostsHelper.getInstance().getSummaryUrl(pm.url),
+    //     //   (pm.hasContent) ? DailyPostsHelper.getInstance().getContentUrl(pm.url) : null
+    //     // );
+    //     // entry.date = DateIdUtil.convertToDate(entry.id);  // For now, entry.id is dateId.
+    //     // if (this.hasValidVisitorToken    // temporary
+    //     //   && pm.hasContent) {
+    //     //   entry.showContent = true;
+    //     // }
+    //     console.log(`entry = ${entry}`);
+    //     this.docEntries.push(entry);
+    //   }
+    //   if (this.docEntries.length == 0) {
+    //     this.docEntries.push(docEntryNgBlogHeader);  // Rename this to "placeholder"...
+    //   }
+    // });
 
 
 
@@ -165,9 +216,9 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
     //   // }
     // }
 
-    // tbd:
-    docEntryNgBlogHeader.skipPrinting = true;
-    // docEntryNgBlogFooter.skipPrinting = true;
+    // // tbd:
+    // docEntryNgBlogHeader.skipPrinting = true;
+    // // docEntryNgBlogFooter.skipPrinting = true;
 
     // // tbd:
     // if (!this.hasNonBinaryVisitorToken) {
@@ -312,46 +363,66 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
 
   private _itemCountPerPage = 0;
   get itemCountPerPage(): number {
-    if(this._itemCountPerPage == 0) {
-      this._itemCountPerPage = this.appConfig.getNumber("item-count-per-page", -1);
+    if (this._itemCountPerPage == 0) {
+      const defaultItemCount = 10;  // temporary
+      // this._itemCountPerPage = this.appConfig.getNumber("item-count-per-page", -1);
+      this._itemCountPerPage = this.appConfig.getNumber("item-count-per-page", defaultItemCount);
     }
     return this._itemCountPerPage;
   }
 
   private _isPaginationEnabled: boolean;
   get isPaginationEnabled(): boolean {
-    if(this._isPaginationEnabled !== true && this._isPaginationEnabled !== false) {
+    if (this._isPaginationEnabled !== true && this._isPaginationEnabled !== false) {
       this._isPaginationEnabled = (this.itemCountPerPage > 0);
     }
     return this._isPaginationEnabled;
+  }
+
+  private isPageNumberValid(pageNumber: number): boolean {
+    return (pageNumber >= 1) && (pageNumber <= this.totalPages);
   }
 
   private _currentPage: number = 1;
   get currentPage(): number {
     return this._currentPage;
   }
+  private _totalPages: number = 1;
   get totalPages(): number {
-    return 1;   // temporary
+    return this._totalPages;
   }
   get pageIndicia(): string {
     return `${this.currentPage}/${this.totalPages}`;
   }
 
+  get nextPage(): number {
+    return (this.currentPage >= this.totalPages) ? this.totalPages : this.currentPage + 1;
+  }
+  get previousPage(): number {
+    return (this.currentPage <= 1) ? 1 : this.currentPage - 1;
+  }
+
   // temporary
   get isInFirstPage(): boolean {
-    return false;
+    return (this.currentPage == 1);
   }
   get isInLastPage(): boolean {
-    return false;
+    return (this.currentPage == this.totalPages);
   }
 
   goToPreviousPage() {
     console.log("goToPreviousPage()");
 
+    this.router.navigate(['/'], { queryParams: { page: this.previousPage } }).then(suc => {
+      console.log(`goToPreviousPage() suc = ${suc}`);
+    });
   }
   goToNextPage() {
     console.log("goToNextPage()");
 
+    this.router.navigate(['/'], { queryParams: { page: this.nextPage } }).then(suc => {
+      console.log(`goToNextPage() suc = ${suc}`);
+    });
   }
 
 
@@ -397,12 +468,12 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
 
       // let routeUrl = `post/${dateId}`;
       // this.router.navigateByUrl(routeUrl);
-      // this.router.navigate(['/post', dateId]).then(suc => {
-      //   console.log(`navigate() suc = ${suc}`);
-      // });
-      this.router.navigate(['/post', dateId, { entry: JSON.stringify(entry) }]).then(suc => {
+      this.router.navigate(['/post', dateId]).then(suc => {
         console.log(`navigate() suc = ${suc}`);
       });
+      // this.router.navigate(['/post', dateId, { entry: JSON.stringify(entry) }]).then(suc => {
+      //   console.log(`navigate() suc = ${suc}`);
+      // });
     }
 
   }

@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
 
 import { DateTimeUtil, DateIdUtil } from '@ngcore/core';
 import { AppConfig } from '@ngcore/core';
@@ -15,6 +16,7 @@ import { MarkdownEntryUtil } from '../../entry/util/markdown-entry-util';
 import { VisitorTokenService } from '../../services/visitor-token.service';
 import { DailyPostsHelper } from '../../helpers/daily-posts-helper';
 import { BlogPostService } from '../../services/blog-post.service';
+import { BlogPostRegistry } from '../registry/blog-post-registry';
 
 
 @Component({
@@ -23,6 +25,9 @@ import { BlogPostService } from '../../services/blog-post.service';
   styleUrls: ['./ngblog-post.component.css']
 })
 export class NgBlogPostComponent implements OnInit {
+
+  @ViewChild("commonMarkEntry")
+  commonMarkEntry: CommonMarkEntryComponent;
 
   private siteInfo: SiteInfo;
   private docEntry: MarkdownDocEntry;
@@ -36,9 +41,9 @@ export class NgBlogPostComponent implements OnInit {
     private visitorTokenService: VisitorTokenService,
     // private dailyPostsHelper: DailyPostsHelper,
     private blogPostService: BlogPostService,
+    private blogPostRegistry: BlogPostRegistry,
   ) {
     this.siteInfo = new SiteInfo();
-
     this.docEntry = new MarkdownDocEntry();   // ???
   }
 
@@ -58,21 +63,47 @@ export class NgBlogPostComponent implements OnInit {
     let dateId = this.activatedRoute.snapshot.params['id'];
     console.log(`>>> path id = ${dateId}.`);
 
-    let entryStr = this.activatedRoute.snapshot.params['entry'];
-    let entry: MarkdownDocEntry;
-    if(entryStr) {
-      entry = JSON.parse(entryStr);
-    }
-    console.log(`>>> entry = ${entry}`);
-    // console.log(`>>> entry.id = ${entry.id}`);
-    // console.log(`>>> entry.title = ${entry.title}`);
-
-    // let docEntry: MarkdownDocEntry;
-    // if (entry) {
-    //   docEntry = MarkdownDocEntry.clone(entry);
-    //   console.log(`>>> docEntry = ${docEntry}`);
+    // let entryStr = this.activatedRoute.snapshot.params['entry'];
+    // let entry: MarkdownDocEntry;
+    // if(entryStr) {
+    //   entry = JSON.parse(entryStr);
     // }
+    // console.log(`>>> entry = ${entry}`);
+    // // console.log(`>>> entry.id = ${entry.id}`);
+    // // console.log(`>>> entry.title = ${entry.title}`);
 
+    // // let docEntry: MarkdownDocEntry;
+    // // if (entry) {
+    // //   docEntry = MarkdownDocEntry.clone(entry);
+    // //   console.log(`>>> docEntry = ${docEntry}`);
+    // // }
+
+    // if (entry) {
+    //   // this.docEntry = docEntry.clone();
+    //   // this.docEntry = MarkdownDocEntry.copy(this.docEntry, entry);
+    //   // MarkdownDocEntry.copy(this.docEntry, entry);
+    //   this.docEntry.copy(entry);
+    // } else {
+    //   let postUrl = DailyPostsHelper.getInstance().getPostUrl(dateId);
+    //   let useCache = true;
+    //   this.blogPostService.loadPostMetadata(postUrl, useCache).subscribe(pm => {
+    //     console.log(`post metadata = ${pm}`);
+    //     if (pm) {
+    //       let entry = MarkdownEntryUtil.buildFromPostMetadata(pm);
+    //       console.log(`entry = ${entry}`);
+    //       // this.docEntry = entry;
+    //       // this.docEntry = MarkdownDocEntry.copy(this.docEntry, entry);
+    //       // MarkdownDocEntry.copy(this.docEntry, entry);
+    //       this.docEntry.copy(entry);
+    //     } else {
+    //       // ????
+    //     }
+    //   });
+    // }
+    // console.log(`>>> this.docEntry = ${this.docEntry}`);
+
+
+    let entry = this.blogPostRegistry.getEntry(dateId);
     if (entry) {
       // this.docEntry = docEntry.clone();
       // this.docEntry = MarkdownDocEntry.copy(this.docEntry, entry);
@@ -81,25 +112,63 @@ export class NgBlogPostComponent implements OnInit {
     } else {
       let postUrl = DailyPostsHelper.getInstance().getPostUrl(dateId);
       let useCache = true;
-      this.blogPostService.loadPostMetadata(postUrl, useCache).subscribe(pm => {
+      this.blogPostService.loadPostMetadata(postUrl, useCache).catch(err => {
+        console.log(`loadPostMetadata() error. postUrl = ${postUrl}; err = ${err}`);
+        return Observable.of(null);
+      }).subscribe(pm => {
         console.log(`post metadata = ${pm}`);
         if (pm) {
-          let entry = MarkdownEntryUtil.buildFromPostMetadata(pm, this.visitorTokenService.hasValidVisitorToken);
+          let entry = MarkdownEntryUtil.buildFromPostMetadata(pm);
           console.log(`entry = ${entry}`);
           // this.docEntry = entry;
           // this.docEntry = MarkdownDocEntry.copy(this.docEntry, entry);
           // MarkdownDocEntry.copy(this.docEntry, entry);
           this.docEntry.copy(entry);
+
+          let contentUrl = this.docEntry.contentUrl;
+          this.blogPostService.loadPostContentFromContentUrl(contentUrl, true).subscribe(pc => {
+            if(pc && pc.content) {
+              this.commonMarkEntry.setMarkdownInput(pc.content);
+            } else {
+              // ???
+            }
+          });
         } else {
           // ????
+          // this.docEntry.clear();
+          this.docEntry.id = dateId;
+          // ...
         }
       });
     }
     console.log(`>>> this.docEntry = ${this.docEntry}`);
   }
 
+  public get header(): string {
+    if(this.docEntry.isEmpty) {
+      return "Not found";   // tbd.
+    } else if(!this.docEntry.title) {
+      if(this.docEntry.id) {
+        return this.docEntry.id;
+      } else {
+        return "(Title)";   // tbd.
+      }
+    } else {
+      return this.docEntry.title;
+    }
+  }
+
+
   navigateBack() {
     this.location.back();
+  }
+
+  navigateHome() {
+    // How to clear history stack???
+    // this.location.clear();
+    this.router.navigate(['/']).then(suc => {
+      console.log(`navigate() suc = ${suc}`);
+    });
   }
 
 }
