@@ -1,13 +1,15 @@
 ## To Do list
 
+Config: Done
 
 
-config
+Pagination: WIP
 
 
 Lazy loading
 
-pagination
+
+Support remote files/posts
 
 Support more than one posts per day
 
