@@ -51,6 +51,7 @@ import { AppRoutingModule } from './app-routing.module';
     BrowserModule,
     HttpClientModule,
     HttpModule,
+    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
     RouterModule.forRoot([
       // {
       //   path: '',
@@ -62,7 +63,6 @@ import { AppRoutingModule } from './app-routing.module';
         component: NgBlogSiteComponent
       }
     ]),
-    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
     AppRoutingModule,
     NgCoreCoreModule.forRoot(),
     NgCoreBaseModule.forRoot(),
