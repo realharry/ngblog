@@ -11,7 +11,8 @@ pages:
   - sed 's:href=\"/\":href=\"/ngblog/\":' src/index.html > src/index-modified.html
   - mv src/index-modified.html src/index.html
   - npm install
-  - ng build --env=prod
+  # - ng build --env=prod
+  - ng build
   - mv dist ../public
   artifacts:
     paths:
