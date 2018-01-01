@@ -110,7 +110,7 @@ export class NgBlogPostComponent implements OnInit {
       // MarkdownDocEntry.copy(this.docEntry, entry);
       this.docEntry.copy(entry);
     } else {
-      let postUrl = DailyPostsHelper.getPostUrl(dateId);
+      let postUrl = this.dailyPostsHelper.getPostUrl(dateId);
       let useCache = true;
       this.blogPostService.loadPostMetadata(postUrl, useCache).catch(err => {
         console.log(`loadPostMetadata() error. postUrl = ${postUrl}; err = ${err}`);
