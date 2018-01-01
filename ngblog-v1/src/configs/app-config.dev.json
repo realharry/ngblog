@@ -7,8 +7,8 @@
   "ssr-enabled": false,
   "content-format": "markdown",
   "siteInfo": {
-    "name": "Harry's Blog",
-    "title": "NgBlog demo blog by Harry"
+    "name": "My Blog",
+    "title": "NgBlog demo blog"
   },
   "contactInfo": {
     "email": "info@ngblog.com",

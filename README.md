@@ -33,7 +33,15 @@ _Note: Since it's really frontend only, it's not really SEO-friendly. If you wan
 Clone or fork this repo: [NgBlog/ngblog](https://gitlab.com/ngblog/ngblog).
 
 
-### (2) Create a post
+### (2) Add app config file
+
+Copy `configs/app-config.dev.json` and name it `app-config.json`.
+Modify the config values as you see fit.
+For example, set `"blog-post-folder"` to "/posts"
+(and, create such-named folder under "/src").
+
+
+### (3) Create a post
 
 Add a folder under the `/posts` directory.
 The folder should be named after today's date, in the format "yyyymmdd",
@@ -48,24 +56,24 @@ Add the following three files under today's folder:
 * `summary.md`: Summary of the post. Will be displayed in the "listing" page.
 * `content.md`: The post. This is optional. You can put all your content in `summary.md` instead.
 
-Refer to the sample folder `20171225` for an example.
-You may want to delete this folder once you start posting your own blog.
+Refer to the sample folder `posts-dev/20171225` for an example.
 
 Note that we currently support markdown only (simply because I use markdown),
 but it is very easy to add support for simple text format or HTML content format.
 
 
-
-### (3) Build
+### (4) Build
 
     npm i
     ng build --env=prod
 
 
-### (4) Deploy
+### (5) Deploy
 
 Deploy the `dist` folder to your hosting service. Any service that supports static websites will do,
 including S3 or GitLab Pages, etc.
+
+Note that in order to use PWA features, your ngblog site should be served under `https`.
 
 
 
@@ -75,7 +83,7 @@ If you find this app useful, and start adding your own modifications,
 please consider contributing back.
 
 In general, I would personally prefer that any (big) new features that could increase the complexity
-should be made optional so that we don't need to go through 12 steps just to deploy a basic version of the app.
+should be made optional so that we don't have to go through 12 steps just to deploy a basic version of the app.
 
 Pull requests are greatly appreciated.
 

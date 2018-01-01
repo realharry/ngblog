@@ -1,6 +1,7 @@
-# App config files should not be checked in ???
+# Note that we do not check in "prod" version of app-config and blog post folder.
+# But, we do not put them in .gitignore.
 # app-config.json
-# app-config.dev.json
+# posts/
 
 
 # See http://help.github.com/ignore-files/ for more about ignoring files.
