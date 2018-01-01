@@ -6,7 +6,8 @@
     "resources": {
       "files": [
         "/favicon.ico",
-        "/index.html"
+        "/index.html",
+        "configs"
       ],
       "versionedFiles": [
         "/*.bundle.css",
@@ -20,7 +21,9 @@
     "updateMode": "prefetch",
     "resources": {
       "files": [
-        "/assets/**"
+        "/assets/**",
+        "/posts/**",
+        "/posts-dev/**"
       ]
     }
   }]
