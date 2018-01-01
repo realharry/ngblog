@@ -4,6 +4,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
+import { ServiceWorkerModule } from '@angular/service-worker';
+
 import { OverlayContainer } from '@angular/cdk/overlay';
 
 import { NgCoreCoreModule } from '@ngcore/core';
@@ -14,6 +16,8 @@ import { NgCoreMarkModule } from '@ngcore/mark';
 import { NgCoreTimeModule } from '@ngcore/time';
 
 import { AppConfig } from '@ngcore/core';
+
+import { environment } from '../environments/environment';
 
 import { MaterialComponentsModule } from './material-components.module';
 
@@ -58,6 +62,7 @@ import { AppRoutingModule } from './app-routing.module';
         component: NgBlogSiteComponent
       }
     ]),
+    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
     AppRoutingModule,
     NgCoreCoreModule.forRoot(),
     NgCoreBaseModule.forRoot(),
