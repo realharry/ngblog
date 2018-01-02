@@ -11,9 +11,10 @@
   },
   "show-contact-email": true,
   "blog-post-folder": "posts-dev/",
-  "max-post-age": 30,
-  "item-count-per-page": 2,
+  "max-post-age": 180,
+  "old-post-list": ["20171230", "20171225"],
+  "item-count-per-page": 20,
+  "content-formats": ["markdown"],
   "accordion-ui-stale-age": 3600000,
-  "content-format": ["markdown"],
   "ssr-enabled": false
 }

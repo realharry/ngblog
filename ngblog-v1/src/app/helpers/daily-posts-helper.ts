@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { DateTimeUtil, DateIdUtil } from '@ngcore/core';
+import { DateRange, DateTimeUtil, DateIdUtil } from '@ngcore/core';
 import { AppConfig } from '@ngcore/core';
 // import { LocalStorageService } from '@ngcore/core';
 import { DateRangeUtil } from '@ngcore/time';
@@ -18,6 +18,9 @@ export class DailyPostsHelper {
   // }
 
 
+  // // temporary
+  // public static DEFAULT_MAX_DATES = 100;
+  // // private static MAX_POSTS = 100;
   // tbd:
   private static DEFAULT_POST_FOLDER = "posts/";
 
@@ -88,14 +91,28 @@ export class DailyPostsHelper {
 
   // Note that the "endDate" is excluded.
   public getDailyPostUrls(
-    dayCount: number,
-    dateId: string = DateIdUtil.getTomorrowId()
+    dayCount: number,  // = DailyPostsHelper.DEFAULT_MAX_DATES,
+    endDate: string,   // = DateIdUtil.getTomorrowId(),
+    oldPosts: (string[] | null) = null
   ): string[] {
-    console.log(`>>>> getDailyPostUrls() dayCount = ${dayCount}; dateId = ${dateId}`);
+    console.log(`>>>> getDailyPostUrls() dayCount = ${dayCount}; endDate = ${endDate}`);
+
+    if(oldPosts && oldPosts.length > 0) {
+      oldPosts = oldPosts.sort().reverse();
+      let dateId = DateIdUtil.getNextDayId(oldPosts[0]);
+      let count = new DateRange(dateId, endDate).dayCount;
+      if(count < dayCount) {
+        dayCount = count;
+      }
+    }
 
     let urls: string[] = [];
-    let dates = DateRangeUtil.getDates(dayCount, dateId).reverse();
+    let dates = DateRangeUtil.getDates(dayCount, endDate).reverse();
+    if(oldPosts && oldPosts.length > 0) {
+      dates = dates.concat(oldPosts);
+    }
     console.dir(dates);
+
     if (dates) {
       for (let d of dates) {
         // let url = DailyPostsHelper.POSTS_FOLDER + d + '/' + DailyPostsHelper.URL_POST_METADATA;
@@ -107,6 +124,5 @@ export class DailyPostsHelper {
     }
     return urls;
   }
-
 
 }

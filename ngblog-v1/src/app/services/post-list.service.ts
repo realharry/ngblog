@@ -15,7 +15,7 @@ import { DailyPostsHelper } from '../helpers/daily-posts-helper';
 @Injectable()
 export class PostListService {
   // temporary
-  private static MAX_DATES = 100;
+  private static DEFAULT_MAX_DATES = 100;
   // private static MAX_POSTS = 100;
 
   // tbd:
@@ -40,25 +40,30 @@ export class PostListService {
 
   // TBD:
   public getDailyPosts(
-    dayCount: number = PostListService.MAX_DATES,
-    dateId: string = DateIdUtil.getTomorrowId(),
+    dayCount: number = PostListService.DEFAULT_MAX_DATES,
+    endDate: (string | null) = null,
+    oldPosts: (string[] | null) = null,
     statuses: PostStatus[] = [PostStatus.Posted],
     useCache: boolean = false
   ): Observable<PostMetadata[]> {
-    let key = this.cacheKey(dayCount, dateId);
+    if(!endDate) {
+      endDate = DateIdUtil.getTomorrowId();
+    }
+    let key = this.cacheKey(dayCount, endDate);
     if(key in this.pmCacheMap) {
       return Observable.create(o => {
         let posts = this.pmCacheMap[key];
         o.next(posts);
       }).share();
     } else {
-      let urls = this.dailyPostsHelper.getDailyPostUrls(dayCount, dateId);
+      let urls = this.dailyPostsHelper.getDailyPostUrls(dayCount, endDate, oldPosts);
       if (urls && urls.length > 0) {
         let os: Observable<PostMetadata>[] = [];
         for (let u of urls) {
           let o = this.parsePostMetadata(u, useCache);
           os.push(o);
         }
+        // TBD: add some small delay between http calls???
         return Observable.forkJoin(...os).map(data => {
           let pms: PostMetadata[] = [];
           if (data) {

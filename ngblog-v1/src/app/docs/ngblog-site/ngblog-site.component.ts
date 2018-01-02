@@ -90,10 +90,10 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
     // (Alternatively, we could reload the content after goToPreviousPage() and goToNextPage() calls.)
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
 
-    let config = this.appConfig.all;
-    for (let k in config) {
-      console.log(`:::config::: key = ${k}; value = ${config[k]}`);
-    }
+    // let config = this.appConfig.all;
+    // for (let k in config) {
+    //   console.log(`:::config::: key = ${k}; value = ${config[k]}`);
+    // }
 
     let sInfo = this.appConfig.get('site-info');
     if (sInfo) {
@@ -160,6 +160,9 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
       if (this.isPaginationEnabled) {
         let listLength = entries.length;
         this._totalPages = Math.ceil(listLength / this.itemCountPerPage);
+        if(this._totalPages == 0) {
+          this._totalPages = 1;
+        }
         if (!this.isPageNumberValid(this._currentPage)) {
           // ???
           this._currentPage = 1;
@@ -179,6 +182,11 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
       if (this.docEntries.length == 0) {
         this.docEntries.push(docEntryPlaceholder);
       }
+      let entryLength = this.docEntries.length;  // Should be > 0.
+
+      // temporary
+      this.delayInterval[0] = 250;
+      this.delayInterval[1] = 250 + 50 * entryLength;
     });
 
     // // tempoary

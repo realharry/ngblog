@@ -40,6 +40,9 @@ Modify the config values as you see fit.
 For example, set `"blog-post-folder"` to "/posts"
 (and, create such-named folder under "/src").
 
+Note that blog posts can be hosted on a remote server (that can be accessed via HTTP). For example, you can use Amazon S3. 
+Just specify the absolute URL to the folder (or, S3 bucket, etc.) for blog posts.
+
 
 ### (3) Create a post
 
@@ -59,13 +62,15 @@ Add the following three files under today's folder:
 Refer to the sample folder `posts-dev/20171225` for an example.
 
 Note that we currently support markdown only (simply because I use markdown),
-but it is very easy to add support for simple text format or HTML content format.
+but it'll be rather easy to add support for simple text format or HTML content format.
 
 
 ### (4) Build
 
     npm i
     ng build --env=prod
+
+_(Note: if you use a remote hosting for posts (like S3), rebuiling/redeployment is not necessary.)_
 
 
 ### (5) Deploy

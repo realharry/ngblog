@@ -64,7 +64,15 @@ export class BlogPostRegistry {
   public buildEntryMap(): Observable<MarkdownDocEntry[]> {
     let maxDates = 30;
     maxDates = this.appConfig.getNumber("max-post-age", maxDates);
-    return this.postListService.getDailyPosts(maxDates).map(posts => {
+    let oldPosts: (string[] | null) = null;
+    let oldPostList = this.appConfig.get("old-post-list");
+    if(oldPostList) {
+      // let opl: string[] = (oldPostList as string[]).slice(0);
+      // oldPosts = opl.sort().reverse();
+      oldPosts = (oldPostList as string[]).slice(0);
+    }
+    // console.dir(oldPosts);
+    return this.postListService.getDailyPosts(maxDates, null, oldPosts).map(posts => {
       let map: { [dateId: string]: MarkdownDocEntry } = {};
       let list: MarkdownDocEntry[] = [];
       for (let pm of posts) {

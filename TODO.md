@@ -4,16 +4,15 @@ Config: Done
 
 Pagination: Done
 
+Support remote files/posts (e.g., S3): Works as is
+
 PWA: Partially done
 
 
 
-Support remote files/posts (e.g., S3)
-
 Support more than one posts per day
 --> Well, actually, we will probably limit one post per day, 
     but support more than one content files per post.
-
 
 
 SSR
