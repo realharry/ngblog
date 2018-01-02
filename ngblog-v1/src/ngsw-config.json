@@ -7,7 +7,7 @@
       "files": [
         "/favicon.ico",
         "/index.html",
-        "configs"
+        "/configs/**"
       ],
       "versionedFiles": [
         "/*.bundle.css",
