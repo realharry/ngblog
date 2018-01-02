@@ -7,12 +7,12 @@
 1. `NgBlog` is a single user - single author blogging app.
 1. `NgBlog` does not include the "author's user interface".
 1. `NgBlog` needs to be deployed by the author/developer.
-1. Creating a new post requires a new deployment of the app.
+1. Creating a new post may require a new deployment of the app.
 
 Despite these (severe) limitations and lack of eatures, `NgBlog` provides other advantanges.
 
 * Ease of deployment: `NgBlog` is a frontend-only blogging app. There is no need to set up, and maintain, a backend server. There are no complicated steps for setting up database tables and what not. You just deploy/upload it to any platform where static web pages can be hosted.
-* Flexibility: `NgBlog` is open-source. You can do just about anything, if you are developer.
+* Flexibility: `NgBlog` is open-source. You can do just about anything, if you are developer. The code is already "PWA-enabled" and "SSR-enabled" (not fully tested at this point), among other things.
 * Data portablility. In `NgBlog`, a post is a simple markdown file (with JSON metadata). You can easily "export" or migrate your posts to different apps.
 
 
@@ -23,7 +23,7 @@ If you are a developer and want full control over your daily blogging, however, 
 [Angular Material](https://gitlab.com/angularmaterial/setup),
 and it can provide certain advantages over other static website generators, especially if you are an Angular developer.
 
-_Note: Since it's really frontend only, it's not really SEO-friendly. If you want SEO, you may consider adding SSR. But, again, it's a tradeoff. Doing so will add a complexity to the app (e.g., in terms of deployment, etc.)._
+_Note: Since it's really frontend only, it's not really SEO-friendly. If you want SEO, you may consider using SSR-enabled server-version of the app (aka "Angular Universal"). But, again, it's a tradeoff. Doing so will add a complexity (e.g., in terms of deployment, etc.). It should be noted, as of this writing, SSR has not been tested._
 
 
 ## How to Use `NgBlog`
@@ -41,7 +41,7 @@ For example, set `"blog-post-folder"` to "/posts"
 (and, create such-named folder under "/src").
 
 Note that blog posts can be hosted on a remote server (that can be accessed via HTTP). For example, you can use Amazon S3. 
-Just specify the absolute URL to the folder (or, S3 bucket, etc.) for blog posts.
+Just specify in the config the absolute URL to the folder (or, S3 bucket, etc.) for blog posts.
 
 
 ### (3) Create a post
@@ -68,9 +68,9 @@ but it'll be rather easy to add support for simple text format or HTML content f
 ### (4) Build
 
     npm i
-    ng build --env=prod
+    ng build --prod
 
-_(Note: if you use a remote hosting for posts (like S3), rebuiling/redeployment is not necessary.)_
+_(Note: if you use a remote hosting for posts/contents (like S3), rebuiling/redeployment is not necessary.)_
 
 
 ### (5) Deploy
@@ -78,13 +78,13 @@ _(Note: if you use a remote hosting for posts (like S3), rebuiling/redeployment 
 Deploy the `dist` folder to your hosting service. Any service that supports static websites will do,
 including S3 or GitLab Pages, etc.
 
-Note that in order to use PWA features, your ngblog site should be served under `https`.
+Note that in order to use PWA features, your ngblog site should be served under `https`. (It may require some additional tweaking as well.)
 
 
 
 ## Contribute
 
-If you find this app useful, and start adding your own modifications,
+If you find this app useful, and start making your own modifications,
 please consider contributing back.
 
 In general, I would personally prefer that any (big) new features that could increase the complexity
