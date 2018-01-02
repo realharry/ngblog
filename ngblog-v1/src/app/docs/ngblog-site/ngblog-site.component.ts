@@ -112,12 +112,14 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
     // TBD: For pagination
     let pageNumber = this.activatedRoute.snapshot.queryParams['page'];
     console.log(`>>> pageNumber = ${pageNumber}.`);
-    // this._currentPage = +pageNumber;
-    try {
-      let p = parseInt(pageNumber);
-      this._currentPage = p;
-    } catch (ex) {
-      // Just keep the current page number.
+    if(pageNumber) {   // Note: 0 is an invalid pageNumber.
+      // this._currentPage = +pageNumber;
+      try {
+        let p = parseInt(pageNumber);
+        this._currentPage = p;
+      } catch (ex) {
+        // Just keep the current page number.
+      }
     }
 
     // this.entryNgAuthModules.setMarkdownInput(this.docEntryNgAuthModules);
