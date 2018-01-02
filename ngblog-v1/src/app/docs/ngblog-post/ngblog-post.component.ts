@@ -29,8 +29,8 @@ export class NgBlogPostComponent implements OnInit {
   @ViewChild("commonMarkEntry")
   commonMarkEntry: CommonMarkEntryComponent;
 
-  private siteInfo: SiteInfo;
-  private docEntry: MarkdownDocEntry;
+  siteInfo: SiteInfo;
+  docEntry: MarkdownDocEntry;
 
   constructor(
     private location: Location,
