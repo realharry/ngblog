@@ -90,19 +90,19 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
     // (Alternatively, we could reload the content after goToPreviousPage() and goToNextPage() calls.)
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
 
-    // let config = this.appConfig.all;
-    // for (let k in config) {
-    //   console.log(`:::config::: key = ${k}; value = ${config[k]}`);
-    // }
+    let config = this.appConfig.all;
+    for (let k in config) {
+      console.log(`:::config::: key = ${k}; value = ${config[k]}`);
+    }
 
-    let sInfo = this.appConfig.get('siteInfo');
+    let sInfo = this.appConfig.get('site-info');
     if (sInfo) {
       this.siteInfo.copy(sInfo);
     } else {
       this.siteInfo.copy(defaultSiteInfo);
     }
 
-    let cInfo = this.appConfig.get('contactInfo');
+    let cInfo = this.appConfig.get('contact-info');
     if (cInfo) {
       this.contactInfo.copy(cInfo);
     } else {
@@ -116,7 +116,7 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
     try {
       let p = parseInt(pageNumber);
       this._currentPage = p;
-    } catch(ex) {
+    } catch (ex) {
       // Just keep the current page number.
     }
 
@@ -125,15 +125,19 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
     this.hasValidVisitorToken = this.visitorTokenService.hasValidVisitorToken;
     this.hasNonBinaryVisitorToken = this.visitorTokenService.hasNonBinaryVisitorToken;
 
-    if (this.hasNonBinaryVisitorToken) {
-      this.contactEmail = this.contactInfo.email;
-      this.contactPhone = this.contactInfo.phone;
-      this.contactWebsite = this.contactInfo.website;
-    } else {
-      this.contactEmail = '';
-      this.contactPhone = '';
-      this.contactWebsite = '';
-    }
+    // if (this.hasNonBinaryVisitorToken) {
+    //   this.contactEmail = (this.contactInfo.email) ? this.contactInfo.email : '';
+    //   this.contactPhone = (this.contactInfo.phone) ? this.contactInfo.phone : '';
+    //   this.contactWebsite = (this.contactInfo.website) ? this.contactInfo.website : '';
+    // } else {
+    //   this.contactEmail = '';
+    //   this.contactPhone = '';
+    //   this.contactWebsite = '';
+    // }
+    this.contactEmail = (this.contactInfo.email) ? this.contactInfo.email : '';
+    this.contactPhone = (this.contactInfo.phone) ? this.contactInfo.phone : '';
+    this.contactWebsite = (this.contactInfo.website) ? this.contactInfo.website : '';
+    console.log(`>>>>> this.contactEmail = ${this.contactEmail}`);
 
     // Async.
     this.loadBlogPostEntries();
@@ -218,6 +222,20 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
   }
 
 
+  private _displayContactEmail: boolean;
+  get displayContactEmail(): boolean {
+    if (this._displayContactEmail !== true && this._displayContactEmail !== false) {
+      let showContactEmail = this.appConfig.getBoolean("show-contact-email", false);
+      console.log(`>>>>> showContactEmail = ${showContactEmail}`);
+      this._displayContactEmail =
+        !!(this.contactEmail) // tbd: validate email?
+        &&
+        this.appConfig.getBoolean("show-contact-email", false);
+      console.log(`>>>>> this._displayContactEmail = ${this._displayContactEmail}`);
+    }
+    return this._displayContactEmail;
+  }
+
 
   // Accordion UI.
 
@@ -296,7 +314,7 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
 
     this.router.navigate(['/'], { queryParams: { page: this.previousPage } }).then(suc => {
       console.log(`goToPreviousPage() suc = ${suc}`);
-      if(suc) {
+      if (suc) {
         // reload the content.
       }
     });
@@ -306,7 +324,7 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
 
     this.router.navigate(['/'], { queryParams: { page: this.nextPage } }).then(suc => {
       console.log(`goToNextPage() suc = ${suc}`);
-      if(suc) {
+      if (suc) {
         // reload the content.
       }
     });

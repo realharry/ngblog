@@ -40,6 +40,7 @@ export abstract class DocEntry {
     // str += `summaryContent:${this.summaryContent};`
     str += `summaryUrl:${this.summaryUrl};`
     str += `contentUrl:${this.contentUrl};`
+    str += `date:${this.date};`
     // str += `skipPrinting:${this.skipPrinting};`
     str += `skipDisplay:${this.skipDisplay};`
     str += `showContent:${this.showContent};`

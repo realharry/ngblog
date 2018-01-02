@@ -1,13 +1,15 @@
 {
-  "siteInfo": {
+  "schema-version": 1,
+  "site-info": {
     "name": "My Blog",
     "title": "NgBlog demo blog"
   },
-  "contactInfo": {
+  "contact-info": {
     "email": "info@ngblog.com",
     "phone": "555-555-5555",
     "website": "http://www.ngblog.com/"
   },
+  "show-contact-email": true,
   "blog-post-folder": "posts-dev/",
   "max-post-age": 30,
   "item-count-per-page": 2,

@@ -2,21 +2,30 @@
 
 Config: Done
 
+Pagination: Done
 
-Pagination: WIP
+PWA: Partially done
+
 
 
 Support remote files/posts (e.g., S3)
 
 Support more than one posts per day
+--> Well, actually, we will probably limit one post per day, 
+    but support more than one content files per post.
 
-
-PWA
 
 
 SSR
 sitemap
 permalink
+
+
+"Pinned" posts & main dashboard/gallery page?
+
+Use auth (and remove visitor token service).
+
+Add commenting system?
 
 
 "Post module" lazy loading

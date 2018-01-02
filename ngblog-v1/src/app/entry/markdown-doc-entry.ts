@@ -24,17 +24,6 @@ export class MarkdownDocEntry extends DocEntry {
   public toString(): string {
     let str = super.toString();
 
-    // let str = '';
-    // str += `id:${this.id};`
-    // str += `title:${this.title};`
-    // str += `description:${this.description};`
-    // // str += `summaryContent:${this.summaryContent};`
-    // str += `summaryUrl:${this.summaryUrl};`
-    // str += `contentUrl:${this.contentUrl};`
-    // str += `skipPrinting:${this.skipPrinting};`
-    // str += `skipDisplay:${this.skipDisplay};`
-    // str += `showContent:${this.showContent};`
-
     str += `lazyLoaded:${this.lazyLoaded};`
     str += `debugEnabled:${this.debugEnabled};`
     str += `rendererOptions:${JSON.stringify(this.rendererOptions)};`
@@ -61,6 +50,9 @@ export class MarkdownDocEntry extends DocEntry {
     this.summaryContent = obj.summaryContent;
     this.summaryUrl = obj.summaryUrl;
     this.contentUrl = obj.contentUrl;
+    this.date = obj.date;
+    this.skipDisplay = obj.skipDisplay;
+    this.showContent = obj.showContent;
     this.lazyLoaded = obj.lazyLoaded;
     this.debugEnabled = obj.debugEnabled;
     this.rendererOptions = Object.assign({}, obj.rendererOptions);

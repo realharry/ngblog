@@ -3,10 +3,21 @@
   <mat-toolbar class="ngblog-site-header" layout="row" color="primary">
     <mat-toolbar-row>
       <span style="font-weight: bold;">{{siteInfo.name}} - {{siteInfo.title}}</span>
-      <!-- <span style="flex: 1 1 auto"></span>
-      <button mat-icon-button color="" matTooltip="Printable version" (click)="handlePrint()">
+      <span style="flex: 1 1 auto"></span>
+      <!-- <button mat-icon-button color="" matTooltip="Printable version" (click)="handlePrint()">
         <mat-icon>print</mat-icon>
       </button> -->
+      <span [hidden]="!isPaginationEnabled">
+        <mat-chip-list>
+          <button mat-icon-button color="accent" [disabled]="isInFirstPage" matTooltip="Previous Page" (click)="goToPreviousPage()">
+            <mat-icon>keyboard_arrow_left</mat-icon>
+          </button>
+          <mat-chip color="accent" selected="true">{{pageIndicia}}</mat-chip>
+          <button mat-icon-button color="accent" [disabled]="isInLastPage" matTooltip="Next Page" (click)="goToNextPage()">
+            <mat-icon>keyboard_arrow_right</mat-icon>
+          </button>
+        </mat-chip-list>
+      </span>
     </mat-toolbar-row>
   </mat-toolbar>
 
@@ -29,7 +40,8 @@
         <!-- <common-mark-entry *ngIf="mde.skipDisplay == false" [url]="mde.markdownUrl" [markdown]="mde.markdownContent" [debug-enabled]="mde.debugEnabled" [renderer-options]="mde.rendererOptions"></common-mark-entry> -->
         <!-- <common-mark-entry *ngIf="mde.skipDisplay == false" [delay]="delayInterval" [url]="mde.markdownUrl" [markdown]="mde.markdownContent" [debug-enabled]="mde.debugEnabled" [renderer-options]="mde.rendererOptions"></common-mark-entry> -->
         <!-- <common-mark-entry *ngIf="mde.skipDisplay == false" [delay]="(i === step)? 0 : delayInterval" [url]="mde.markdownUrl" [markdown]="mde.markdownContent" [debug-enabled]="mde.debugEnabled" [renderer-options]="mde.rendererOptions"></common-mark-entry> -->
-        <common-mark-entry *ngIf="mde.skipDisplay == false" [delay]="(i === step)? 0 : delayInterval" [url]="mde.summaryUrl" [markdown]="mde.summaryContent" [debug-enabled]="mde.debugEnabled" [renderer-options]="mde.rendererOptions"></common-mark-entry>
+        <common-mark-entry *ngIf="mde.skipDisplay == false" [delay]="(i === step)? 0 : delayInterval" [url]="mde.summaryUrl" [markdown]="mde.summaryContent"
+          [debug-enabled]="mde.debugEnabled" [renderer-options]="mde.rendererOptions"></common-mark-entry>
 
         <mat-action-row>
           <button color="primary" *ngIf="mde.showContent" mat-icon-button matTooltip="Read more" (click)="openContentDialog(i);">
@@ -46,22 +58,23 @@
 
   <mat-toolbar class="ngblog-site-footer" layout="row" color="accent">
     <mat-toolbar-row>
-      <span style="font-style: italic;">Copyright &copy; <common-date-year></common-date-year> {{siteInfo.name}}</span>
+      <span style="font-style: italic;">Copyright &copy;
+        <common-date-year></common-date-year> {{siteInfo.name}}</span>
       <span style="flex: 1 1 auto"></span>
-      <!-- <span *ngIf="hasNonBinaryVisitorToken" style="font-style: italic;">
-        <a mat-button href="mailto:{{contactInfo.email}}">{{contactInfo.email}}</a>
-      </span> -->
-      <span [hidden]="!isPaginationEnabled">
-      <mat-chip-list>
-        <button mat-icon-button color="primary" [disabled]="isInFirstPage" matTooltip="Previous Page" (click)="goToPreviousPage()">
-          <mat-icon>keyboard_arrow_left</mat-icon>
-        </button>
+      <span *ngIf="displayContactEmail" style="font-style: italic;">
+        <a mat-button href="mailto:{{contactEmail}}">{{contactEmail}}</a>
+      </span>
+      <!-- <span [hidden]="!isPaginationEnabled">
+        <mat-chip-list>
+          <button mat-icon-button color="primary" [disabled]="isInFirstPage" matTooltip="Previous Page" (click)="goToPreviousPage()">
+            <mat-icon>keyboard_arrow_left</mat-icon>
+          </button>
           <mat-chip color="primary" selected="true">{{pageIndicia}}</mat-chip>
           <button mat-icon-button color="primary" [disabled]="isInLastPage" matTooltip="Next Page" (click)="goToNextPage()">
             <mat-icon>keyboard_arrow_right</mat-icon>
           </button>
-          </mat-chip-list>
-    </span>
+        </mat-chip-list>
+      </span> -->
     </mat-toolbar-row>
   </mat-toolbar>
 

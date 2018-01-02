@@ -7,8 +7,8 @@
 .ngblog-site-footer {
   z-index: 2;
   font-size: 0.85em;
-  min-height: 42px;
-  max-height: 42px;
+  min-height: 36px;
+  max-height: 36px;
 }
 
 .ngblog-entry-headers-align .mat-expansion-panel-header-title, 
