@@ -10,7 +10,7 @@ import { OverlayContainer } from '@angular/cdk/overlay';
 
 import { NgCoreCoreModule } from '@ngcore/core';
 import { NgCoreBaseModule } from '@ngcore/base';
-import { NgCoreHuesModule } from '@ngcore/hues';
+// import { NgCoreHuesModule } from '@ngcore/hues';
 import { NgCoreLazyModule } from '@ngcore/lazy';
 import { NgCoreMarkModule } from '@ngcore/mark';
 import { NgCoreTimeModule } from '@ngcore/time';
@@ -64,7 +64,7 @@ import { AppRoutingModule } from './app-routing.module';
     AppRoutingModule,
     NgCoreCoreModule.forRoot(),
     NgCoreBaseModule.forRoot(),
-    NgCoreHuesModule.forRoot(),
+    // NgCoreHuesModule.forRoot(),
     NgCoreLazyModule.forRoot(),
     NgCoreMarkModule.forRoot(),
     NgCoreTimeModule.forRoot(),
