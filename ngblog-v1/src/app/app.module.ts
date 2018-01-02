@@ -46,7 +46,7 @@ import { AppRoutingModule } from './app-routing.module';
     NotFoundComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     HttpClientModule,
     HttpModule,
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),

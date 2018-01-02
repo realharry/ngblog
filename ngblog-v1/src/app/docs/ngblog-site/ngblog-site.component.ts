@@ -298,6 +298,9 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
   get totalPages(): number {
     return this._totalPages;
   }
+  // tbd:
+  // if pagination is not enabled,
+  // display "step/entry-length" instead???
   get pageIndicia(): string {
     return `${this.currentPage}/${this.totalPages}`;
   }

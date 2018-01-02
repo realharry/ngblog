@@ -125,6 +125,9 @@ export class NgBlogPostComponent implements OnInit {
           // MarkdownDocEntry.copy(this.docEntry, entry);
           this.docEntry.copy(entry);
 
+          // tbd:
+          // Prepend the summary.md before content.md???
+
           let contentUrl = this.docEntry.contentUrl;
           this.blogPostService.loadPostContentFromContentUrl(contentUrl, true).subscribe(pc => {
             if(pc && pc.content) {
