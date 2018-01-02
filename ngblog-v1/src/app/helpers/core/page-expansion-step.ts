@@ -1,27 +1,28 @@
 import { DateTimeUtil } from '@ngcore/core';
 
 
-export class ExpansionStep {
+export class PageExpansionStep {
 
   // This does not have to be very long.
   // It just provides continuity in a single "session"
   //   (e.g., during navigation via back, etc.).
   // TBD: Read this from app config????
   private static DEFAULT_STALE_AGE = 6 * 3600 * 1000;  // 6 hours by default.
-  private static _defaultStaleAge = ExpansionStep.DEFAULT_STALE_AGE;
+  private static _defaultStaleAge = PageExpansionStep.DEFAULT_STALE_AGE;
   public static getDefaultStaleAge(): number {
-    return  ExpansionStep._defaultStaleAge;
+    return  PageExpansionStep._defaultStaleAge;
   }
   public static setDefaultStaleAge(_defaultStaleAge: number) {
-    ExpansionStep._defaultStaleAge = _defaultStaleAge;
+    PageExpansionStep._defaultStaleAge = _defaultStaleAge;
   }
 
   // Note;
   // timestamp==0 never becomes stale.
   constructor(
+    public page: number = 1,  // page count starts from 1.
     public step: number = 0,
     public timestamp: number = 0,
-    public staleAge: number = ExpansionStep.getDefaultStaleAge()
+    public staleAge: number = PageExpansionStep.getDefaultStaleAge()
   ) {
   }
 
@@ -44,6 +45,7 @@ export class ExpansionStep {
 
   public toString(): string {
     let str = '';
+    str += `page:${this.page};`
     str += `step:${this.step};`
     str += `timestamp:${this.timestamp};`
     str += `staleAge:${this.staleAge};`

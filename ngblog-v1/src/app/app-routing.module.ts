@@ -37,25 +37,25 @@ const routes: Routes = [
 ];
 
 
-// Temporary
-var rmodule: ModuleWithProviders;
-if(environment.useHash) {
-  rmodule = RouterModule.forRoot(routes, {useHash: true});
-} else {
-  rmodule = RouterModule.forRoot(routes);
-}
+// // Temporary
+// var rmodule: ModuleWithProviders;
+// if(environment.useHash) {
+//   rmodule = RouterModule.forRoot(routes, {useHash: true});
+// } else {
+//   rmodule = RouterModule.forRoot(routes);
+// }
 
 @NgModule({
   imports: [
     // temporary.
+    // rmodule
     // GitLab Pages does not support multiple paths.
     // Until we find more permanent hosting site,
     // Use hash strategy, for now.
-    // (Note: We need to use path strategy to be able to enable SSR.)
-    // // RouterModule.forRoot(routes)  // Default is using path strategy.
     // RouterModule.forRoot(routes, {useHash: true})
-    // // ...
-    rmodule
+    // (Note: We need to use path strategy to be able to enable SSR.)
+    RouterModule.forRoot(routes)  // Default is using path strategy.
+    // ...
   ],
   exports: [
     RouterModule

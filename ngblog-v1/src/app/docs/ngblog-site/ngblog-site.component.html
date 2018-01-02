@@ -13,7 +13,7 @@
   <div style="padding-top: 16px; padding-bottom: 16px;">
     <mat-accordion class="ngblog-entry-headers-align">
 
-      <mat-expansion-panel *ngFor="let mde of docEntries; let i = index" [expanded]="step === i" (opened)="setStep(i)" hideToggle="true">
+      <mat-expansion-panel *ngFor="let mde of docEntries; let i = index" [expanded]="step === i" (opened)="step = i" hideToggle="true">
         <mat-expansion-panel-header>
           <mat-panel-title>
             <b>{{mde.title}}</b>

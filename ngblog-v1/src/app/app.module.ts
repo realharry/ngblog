@@ -21,7 +21,7 @@ import { environment } from '../environments/environment';
 
 import { MaterialComponentsModule } from './material-components.module';
 
-import { AccordionUiHelper } from './helpers/accordion-ui-helper';
+import { PageAccordionUiHelper } from './helpers/page-accordion-ui-helper';
 import { DailyPostsHelper } from './helpers/daily-posts-helper';
 import { VisitorTokenRegistry } from './visitors/visitor-token-registry';
 import { GuestbookDataService } from './services/guestbook-data.service';
@@ -80,7 +80,7 @@ import { AppRoutingModule } from './app-routing.module';
     AppConfig,
     // { provide: APP_INITIALIZER, useFactory: (config: AppConfig) => () => config.load(), deps: [AppConfig], multi: true },
     { provide: APP_INITIALIZER, useFactory: (config: AppConfig) => () => config.load().then(o => { console.log("App config loaded."); }), deps: [AppConfig], multi: true },
-    AccordionUiHelper,
+    PageAccordionUiHelper,
     VisitorTokenRegistry,
     GuestbookDataService,
     VisitorTokenService,

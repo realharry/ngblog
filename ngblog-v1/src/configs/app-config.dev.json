@@ -1,11 +1,4 @@
 {
-  "ga-code": "UA-1111",
-  "accordion-ui-stale-age": 3600000,
-  "blog-post-folder": "posts-dev/",
-  "max-post-age": 30,
-  "item-count-per-page": 20,
-  "ssr-enabled": false,
-  "content-format": "markdown",
   "siteInfo": {
     "name": "My Blog",
     "title": "NgBlog demo blog"
@@ -14,5 +7,11 @@
     "email": "info@ngblog.com",
     "phone": "555-555-5555",
     "website": "http://www.ngblog.com/"
-  }
+  },
+  "blog-post-folder": "posts-dev/",
+  "max-post-age": 30,
+  "item-count-per-page": 2,
+  "accordion-ui-stale-age": 3600000,
+  "content-format": ["markdown"],
+  "ssr-enabled": false
 }

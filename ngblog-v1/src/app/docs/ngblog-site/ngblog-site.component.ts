@@ -15,7 +15,7 @@ import { CommonMarkEntryComponent } from '@ngcore/mark';
 import { environment } from '../../../environments/environment';
 
 // import { ExpansionStep } from '../../helpers/core/expansion-step';
-import { AccordionUiHelper } from '../../helpers/accordion-ui-helper';
+import { PageAccordionUiHelper } from '../../helpers/page-accordion-ui-helper';
 
 import { SiteInfo } from '../../common/site-info';
 import { ContactInfo } from '../../common/contact-info';
@@ -72,7 +72,7 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
     private appConfig: AppConfig,
     private browserWindowService: BrowserWindowService,
     private lazyLoaderService: LazyLoaderService,
-    private accordionUiHelper: AccordionUiHelper,
+    private accordionUiHelper: PageAccordionUiHelper,
     private visitorTokenService: VisitorTokenService,
     private dailyPostsHelper: DailyPostsHelper,
     private postListService: PostListService,
@@ -84,6 +84,12 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    console.log(">>> ngOnInit()");
+
+    // This is needed for pagination.
+    // (Alternatively, we could reload the content after goToPreviousPage() and goToNextPage() calls.)
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+
     // let config = this.appConfig.all;
     // for (let k in config) {
     //   console.log(`:::config::: key = ${k}; value = ${config[k]}`);
@@ -106,16 +112,13 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
     // TBD: For pagination
     let pageNumber = this.activatedRoute.snapshot.queryParams['page'];
     console.log(`>>> pageNumber = ${pageNumber}.`);
-    if (this.isPageNumberValid(pageNumber)) {
-      this._currentPage = pageNumber;
-      // ...
-    } else {
-      // ???
-      this._currentPage = 1;
+    // this._currentPage = +pageNumber;
+    try {
+      let p = parseInt(pageNumber);
+      this._currentPage = p;
+    } catch(ex) {
+      // Just keep the current page number.
     }
-    // const defaultItemCount = 10;  // temporary
-    // let itemsPerPage = this.appConfig.getNumber("item-count-per-page", defaultItemCount);
-
 
     // this.entryNgAuthModules.setMarkdownInput(this.docEntryNgAuthModules);
 
@@ -132,6 +135,11 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
       this.contactWebsite = '';
     }
 
+    // Async.
+    this.loadBlogPostEntries();
+  }
+
+  private loadBlogPostEntries() {
 
     // this.blogPostRegistry.buildEntryMap().subscribe(map => {
     //   this.docEntries = [];
@@ -148,6 +156,10 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
       if (this.isPaginationEnabled) {
         let listLength = entries.length;
         this._totalPages = Math.ceil(listLength / this.itemCountPerPage);
+        if (!this.isPageNumberValid(this._currentPage)) {
+          // ???
+          this._currentPage = 1;
+        }
         let startIdx = this.itemCountPerPage * (this._currentPage - 1);
         let maxIdx = startIdx + this.itemCountPerPage;
         let endIdx = (maxIdx < listLength) ? maxIdx : listLength;
@@ -194,167 +206,36 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
     //   }
     // });
 
-
-
     // tbd:
     // docEntryNgBlogHeader.debugEnabled = true;
     // // docEntryNgBlogHeader.rendererOptions = {safe: false};
     // ...
-
-    // // For now,
-    // // Enable detail dialogs only in devel.
-    // if (environment.detailEnabled
-    //   && this.hasValidVisitorToken) {
-    //   // tbd:
-    //   docEntryNgBlogHeader.showContent = true;
-
-    //   // // Just to make sure.
-    //   // // If the detail content does not exist, set showContent to false.
-    //   // for (let ety of this.docEntries) {
-    //   //   let id = ety.id;
-    //   //   ety.showContent = (ety.showContent && this.detailInfoRegistry.hasDetailInfo(id));
-    //   // }
-    // }
-
-    // // tbd:
-    // docEntryNgBlogHeader.skipPrinting = true;
-    // // docEntryNgBlogFooter.skipPrinting = true;
-
-    // // tbd:
-    // if (!this.hasNonBinaryVisitorToken) {
-    //   // Note: This actually does not remove the entry.
-    //   // It only hides the content of the entry.
-    //   docEntryContactInfo.skipDisplay = true;
-    // }
-
-
-    // tbd:
-    // load/pre-cache all entry content here ????
-    // (It should not be necessary since CommonMarkEntryComponent uses useCache==true ???)
-    // for (let mde of this.docEntries) {
-    //   if (mde.markdownUrl) {
-    //     this.lazyLoaderService.loadText(mde.markdownContent, true).subscribe(content => {
-    //       // console.log(`url = ${mde.markdownUrl}; content = ${content}`);
-    //     });
-    //   }
-    // }
-    // ...
-
   }
+
 
   ngAfterViewInit() {
-    // ???
-    // let b = document.getElementById('button1');
-    // b.onclick = this.onClickNgBlogHeaderIntroduction;
-    // // b.setAttribute('click', 'onClickNgBlogHeaderIntroduction');
-    // ???
-
-    // let b = this.elementRef.nativeElement.getElementById('button1');
-    // b.onclick = this.onClickNgBlogHeaderIntroduction;
-
-    // // this.elementRef.nativeElement.querySelector('button').addEventListener('click', this.onClickNgBlogHeaderIntroduction());
-    // this.elementRef.nativeElement.querySelector('button').addEventListener('click', this.onClickNgBlogHeaderIntroduction.bind(this));
-
+    console.log(">>> ngAfterViewInit()");
   }
 
-
-  // private _generateMarkdownForPrinting(): string {
-  //   let mark = '';
-  //   for (let mde of this.docEntries) {
-  //     if (!mde.skipPrinting) {
-  //       // markdownContent takes precedence over markdownUrl.
-  //       if (mde.summaryContent) {
-  //         mark += mde.summaryContent;
-  //       } else {
-  //         if (mde.summaryUrl) {
-  //           // tbd: async will not work here...
-  //           // this.lazyLoaderService.loadText(mde.markdownUrl, true).subscribe(content => {
-  //           //   mark += content;
-  //           // });
-  //           let text = this.lazyLoaderService.getText(mde.summaryUrl);
-  //           if (text) {
-  //             mark += text;
-  //           }
-  //         } else {
-  //           // Nothing to print.
-  //         }
-  //       }
-  //       // tbd: add line breaks between sections???
-  //     }
-  //   }
-  //   return mark;
-  // }
-
-  // private _generateHTMLForPrinting(): string {
-  //   let mark = this._generateMarkdownForPrinting();
-  //   let html = CommonMarkUtil.convertToHTML(mark);
-  //   return html;
-  // }
-
-  // handlePrint() {
-  //   console.log("handlePrint() clicked.");
-
-  //   let html = `<div style="padding: 16px;">`;
-
-  //   html += `<div style="padding-top: 4px; padding-bottom: 4px;">`;
-  //   html += `<span style="font-weight: bold; font-size: 1.2em;">${this.siteInfo.name}, ${this.siteInfo.title}</span><br>`;
-  //   html += `<span style="font-style: italic;">Email: ${this.contactEmail}</span>`;
-  //   if (this.contactPhone) {
-  //     html += `<span style="font-style: italic;">;&nbsp; Phone: ${this.contactPhone}</span>`;
-  //   }
-  //   html += `<hr>`;
-  //   html += `</div>`;
-
-  //   html += `<div style="padding-bottom: 4px;">`;
-  //   html += this._generateHTMLForPrinting();
-  //   html += `</div>`;
-
-  //   html += `<div style="padding-top: 4px; padding-bottom: 4px;">`;
-  //   html += `<hr>`;
-  //   if (this.contactWebsite) {
-  //     html += `<span style="font-style: italic; font-size: 0.95em;">Website: ${this.contactWebsite}</span><br>`;
-  //   }
-  //   html += `</div>`;
-
-  //   html += `</div>`;
-
-
-
-  //   // console.log(">>> html = \n" + html);
-
-  //   if (this.browserWindowService.window) {
-  //     let win = this.browserWindowService.window;
-  //     var popup = win.open("", "_blank", "toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=720,top=100,left=200");
-  //     popup.document.body.innerHTML = html;
-  //   }
-
-  // }
 
 
   // Accordion UI.
-  // private _step = 0;
+
   get step(): number {
-    // return this._step;
-    return this.accordionUiHelper.step;
+    return this.accordionUiHelper.getStep(this._currentPage);
   }
-  // set step(_step: number) {
-  //   this._step = _step;
-  // }
+  set step(index: number) {
+    this.accordionUiHelper.setStep(this._currentPage, index);
+  }
 
   // TBD:
   // Remove the stored step if "collapse" happens???
 
-  setStep(index: number) {
-    // this.step = index;
-    this.accordionUiHelper.step = index;
-  }
   nextStep() {
-    // this.step++;
-    this.accordionUiHelper.incrementStep(this.docEntries.length);
+    this.accordionUiHelper.incrementStep(this._currentPage, this.docEntries.length);
   }
   prevStep() {
-    // this.step--;
-    this.accordionUiHelper.decrementStep();
+    this.accordionUiHelper.decrementStep(this._currentPage);
   }
 
 
@@ -415,6 +296,9 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
 
     this.router.navigate(['/'], { queryParams: { page: this.previousPage } }).then(suc => {
       console.log(`goToPreviousPage() suc = ${suc}`);
+      if(suc) {
+        // reload the content.
+      }
     });
   }
   goToNextPage() {
@@ -422,6 +306,9 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
 
     this.router.navigate(['/'], { queryParams: { page: this.nextPage } }).then(suc => {
       console.log(`goToNextPage() suc = ${suc}`);
+      if(suc) {
+        // reload the content.
+      }
     });
   }
 
