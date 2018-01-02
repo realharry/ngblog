@@ -32,7 +32,6 @@ import { BlogPostRegistry } from './docs/registry/blog-post-registry';
 
 import { AppComponent } from './app.component';
 import { NgBlogSiteComponent } from './docs/ngblog-site/ngblog-site.component';
-import { DetailDialogComponent } from './docs/detail-dialog/detail-dialog.component';
 import { NgBlogPostComponent } from './docs/ngblog-post/ngblog-post.component';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 
@@ -43,7 +42,6 @@ import { AppRoutingModule } from './app-routing.module';
   declarations: [
     AppComponent,
     NgBlogSiteComponent,
-    DetailDialogComponent,
     NgBlogPostComponent,
     NotFoundComponent
   ],
@@ -74,7 +72,6 @@ import { AppRoutingModule } from './app-routing.module';
   ],
   entryComponents: [
     // AppComponent,
-    DetailDialogComponent
   ],
   providers: [
     AppConfig,

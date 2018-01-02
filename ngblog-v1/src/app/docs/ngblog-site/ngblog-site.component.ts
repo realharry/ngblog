@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild, Input, Output } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
-import { ElementRef } from '@angular/core';
+// import { ElementRef } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
-import { MatDialog } from '@angular/material';
+// import { MatDialog } from '@angular/material';
 
 import { DateTimeUtil, DateIdUtil } from '@ngcore/core';
 import { AppConfig } from '@ngcore/core';
@@ -64,8 +64,8 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
   delayInterval: number[] = [250, 2500];
 
   constructor(
-    private dialog: MatDialog,
-    private elementRef: ElementRef,
+    // private dialog: MatDialog,
+    // private elementRef: ElementRef,
     private location: Location,
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -355,7 +355,7 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
   //   }
   // }
 
-  openContentDialog(idx: number) {
+  openContentPage(idx: number) {
     console.log("showContentDialog() idx = " + idx);
 
     let entry = this.docEntries[idx];  // TBD: validate idx ???

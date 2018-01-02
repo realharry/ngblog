@@ -1,3 +1,30 @@
-<p>
-  not-found works!
-</p>
+<div>
+
+  <mat-toolbar class="ngblog-notfound-header" layout="row" color="primary">
+    <mat-toolbar-row>
+      <span style="font-weight: bold;">{{siteInfo.name}} - {{siteInfo.title}}</span>
+      <span style="flex: 1 1 auto"></span>
+      <button mat-icon-button color="" matTooltip="Home" (click)="navigateHome()">
+        <mat-icon>home</mat-icon>
+      </button>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <div style="padding-top: 16px; padding-bottom: 16px; text-align: center;">
+
+    <span style="font-weight: bold; font-size: 2.0em;">Not Found</span>
+
+  </div>
+
+  <mat-toolbar class="ngblog-notfound-footer" layout="row" color="accent">
+    <mat-toolbar-row>
+      <span style="font-style: italic;">Copyright &copy;
+        <common-date-year></common-date-year> {{siteInfo.name}}</span>
+      <span style="flex: 1 1 auto"></span>
+      <span *ngIf="displayContactEmail" style="font-style: italic;">
+        <a mat-button href="mailto:{{contactEmail}}">{{contactEmail}}</a>
+      </span>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+</div>
