@@ -12,7 +12,8 @@
         "configs",
         "posts",
         "posts-dev",
-        "favicon.ico"
+        "favicon.ico",
+        "404.html"
       ],
       "index": "index.html",
       "main": "main.ts",
