@@ -60,6 +60,8 @@ Add the following three files under today's folder:
 * `content.md`: The post. This is optional. You can put all your content in `summary.md` instead.
 
 Refer to the sample folder `posts-dev/20171225` for an example.
+You can also add any image files in the dated post folder
+and refer to them with relative URLs.
 
 Note that we currently support markdown only (simply because I use markdown),
 but it'll be rather easy to add support for simple text format or HTML content format.

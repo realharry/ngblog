@@ -52,6 +52,7 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
 
   siteInfo: SiteInfo;
   contactInfo: ContactInfo;
+  // imgPrefix: string;
 
   docEntries: MarkdownDocEntry[] = [
     // docEntryNgBlogHeader,
@@ -81,6 +82,7 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
   ) {
     this.siteInfo = new SiteInfo();
     this.contactInfo = new ContactInfo();
+    // this.imgPrefix = '';
   }
 
   ngOnInit() {
@@ -108,6 +110,9 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
     } else {
       this.contactInfo.copy(defaultContactInfo);
     }
+
+    // // testing...
+    // this.imgPrefix = this.dailyPostsHelper.imgFolder;
 
     // TBD: For pagination
     let pageNumber = this.activatedRoute.snapshot.queryParams['page'];

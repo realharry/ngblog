@@ -25,8 +25,8 @@ export class DailyPostsHelper {
   private static DEFAULT_POST_FOLDER = "posts/";
 
   private _postFolder: (string | null) = null;
-  private get postFolder(): string {
-    if(!this._postFolder) {
+  public get postFolder(): string {
+    if (!this._postFolder) {
       let folder = this.appConfig.getString("blog-post-folder", DailyPostsHelper.DEFAULT_POST_FOLDER);
       this._postFolder = (folder.endsWith('/')) ? folder : folder + "/";
       console.log(`this._postFolder = ${this._postFolder}`);
@@ -44,6 +44,17 @@ export class DailyPostsHelper {
   public getPostUrl(dateId: string): string {
     let url = this.postFolder + dateId + '/';
     return url;
+  }
+
+  // temporary
+  public getImgFolder(dateId: string): string {
+    // return this.postFolder;
+    return DailyPostsHelper.getImgPrefix(this.getPostUrl(dateId));
+  }
+
+  // tbd: Make img folder relative to posts Url???
+  public static getImgPrefix(postUrl: string): string {
+    return postUrl;
   }
 
   public static getMetadataUrl(postUrl: string): string {
@@ -97,18 +108,18 @@ export class DailyPostsHelper {
   ): string[] {
     console.log(`>>>> getDailyPostUrls() dayCount = ${dayCount}; endDate = ${endDate}`);
 
-    if(oldPosts && oldPosts.length > 0) {
+    if (oldPosts && oldPosts.length > 0) {
       oldPosts = oldPosts.sort().reverse();
       let dateId = DateIdUtil.getNextDayId(oldPosts[0]);
       let count = new DateRange(dateId, endDate).dayCount;
-      if(count < dayCount) {
+      if (count < dayCount) {
         dayCount = count;
       }
     }
 
     let urls: string[] = [];
     let dates = DateRangeUtil.getDates(dayCount, endDate).reverse();
-    if(oldPosts && oldPosts.length > 0) {
+    if (oldPosts && oldPosts.length > 0) {
       dates = dates.concat(oldPosts);
     }
     console.dir(dates);

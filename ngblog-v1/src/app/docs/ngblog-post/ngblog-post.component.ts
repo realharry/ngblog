@@ -31,6 +31,7 @@ export class NgBlogPostComponent implements OnInit {
 
   siteInfo: SiteInfo;
   docEntry: MarkdownDocEntry;
+  // imgPrefix: string;
 
   constructor(
     private location: Location,
@@ -45,6 +46,7 @@ export class NgBlogPostComponent implements OnInit {
   ) {
     this.siteInfo = new SiteInfo();
     this.docEntry = new MarkdownDocEntry();   // ???
+    // this.imgPrefix = '';
   }
 
   ngOnInit() {
@@ -63,45 +65,10 @@ export class NgBlogPostComponent implements OnInit {
     let dateId = this.activatedRoute.snapshot.params['id'];
     console.log(`>>> path id = ${dateId}.`);
 
-    // let entryStr = this.activatedRoute.snapshot.params['entry'];
-    // let entry: MarkdownDocEntry;
-    // if(entryStr) {
-    //   entry = JSON.parse(entryStr);
-    // }
-    // console.log(`>>> entry = ${entry}`);
-    // // console.log(`>>> entry.id = ${entry.id}`);
-    // // console.log(`>>> entry.title = ${entry.title}`);
-
-    // // let docEntry: MarkdownDocEntry;
-    // // if (entry) {
-    // //   docEntry = MarkdownDocEntry.clone(entry);
-    // //   console.log(`>>> docEntry = ${docEntry}`);
-    // // }
-
-    // if (entry) {
-    //   // this.docEntry = docEntry.clone();
-    //   // this.docEntry = MarkdownDocEntry.copy(this.docEntry, entry);
-    //   // MarkdownDocEntry.copy(this.docEntry, entry);
-    //   this.docEntry.copy(entry);
-    // } else {
-    //   let postUrl = DailyPostsHelper.getPostUrl(dateId);
-    //   let useCache = true;
-    //   this.blogPostService.loadPostMetadata(postUrl, useCache).subscribe(pm => {
-    //     console.log(`post metadata = ${pm}`);
-    //     if (pm) {
-    //       let entry = MarkdownEntryUtil.buildFromPostMetadata(pm);
-    //       console.log(`entry = ${entry}`);
-    //       // this.docEntry = entry;
-    //       // this.docEntry = MarkdownDocEntry.copy(this.docEntry, entry);
-    //       // MarkdownDocEntry.copy(this.docEntry, entry);
-    //       this.docEntry.copy(entry);
-    //     } else {
-    //       // ????
-    //     }
-    //   });
-    // }
-    // console.log(`>>> this.docEntry = ${this.docEntry}`);
-
+    // // // testing...
+    // // this.imgPrefix = this.dailyPostsHelper.postFolder;
+    // let postUrl = this.dailyPostsHelper.getPostUrl(dateId);
+    // this.imgPrefix = postUrl;
 
     let entry = this.blogPostRegistry.getEntry(dateId);
     if (entry) {
@@ -131,7 +98,7 @@ export class NgBlogPostComponent implements OnInit {
           let contentUrl = this.docEntry.contentUrl;
           this.blogPostService.loadPostContentFromContentUrl(contentUrl, true).subscribe(pc => {
             if(pc && pc.content) {
-              this.commonMarkEntry.setMarkdownInput(pc.content);
+              this.commonMarkEntry.setMarkdownInput(pc.content, entry.imgPrefix);
             } else {
               // ???
             }

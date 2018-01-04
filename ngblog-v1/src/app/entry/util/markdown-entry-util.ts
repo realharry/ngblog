@@ -21,6 +21,7 @@ export namespace MarkdownEntryUtil {
       DailyPostsHelper.getSummaryUrl(pm.url),
       (pm.hasContent) ? DailyPostsHelper.getContentUrl(pm.url) : null
     );
+    entry.imgPrefix = DailyPostsHelper.getImgPrefix(pm.url);
     entry.date = DateIdUtil.convertToDate(entry.id);  // For now, entry.id is dateId.
     if (pm.hasContent) {
       entry.showContent = true;

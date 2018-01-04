@@ -6,6 +6,8 @@ export class MarkdownDocEntry extends DocEntry {
   // tbd:
   // long content vs short content???
 
+  public imgPrefix: (string | null) = null
+
   public lazyLoaded: boolean = false;
   public debugEnabled: boolean = false;
   public rendererOptions: any = {};
@@ -24,6 +26,7 @@ export class MarkdownDocEntry extends DocEntry {
   public toString(): string {
     let str = super.toString();
 
+    str += `imgPrefix:${this.imgPrefix};`
     str += `lazyLoaded:${this.lazyLoaded};`
     str += `debugEnabled:${this.debugEnabled};`
     str += `rendererOptions:${JSON.stringify(this.rendererOptions)};`
@@ -53,6 +56,7 @@ export class MarkdownDocEntry extends DocEntry {
     this.date = obj.date;
     this.skipDisplay = obj.skipDisplay;
     this.showContent = obj.showContent;
+    this.imgPrefix = obj.imgPrefix;
     this.lazyLoaded = obj.lazyLoaded;
     this.debugEnabled = obj.debugEnabled;
     this.rendererOptions = Object.assign({}, obj.rendererOptions);

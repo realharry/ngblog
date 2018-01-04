@@ -41,7 +41,7 @@
         <!-- <common-mark-entry *ngIf="mde.skipDisplay == false" [delay]="delayInterval" [url]="mde.markdownUrl" [markdown]="mde.markdownContent" [debug-enabled]="mde.debugEnabled" [renderer-options]="mde.rendererOptions"></common-mark-entry> -->
         <!-- <common-mark-entry *ngIf="mde.skipDisplay == false" [delay]="(i === step)? 0 : delayInterval" [url]="mde.markdownUrl" [markdown]="mde.markdownContent" [debug-enabled]="mde.debugEnabled" [renderer-options]="mde.rendererOptions"></common-mark-entry> -->
         <common-mark-entry *ngIf="mde.skipDisplay == false" [delay]="(i === step)? 0 : delayInterval" [url]="mde.summaryUrl" [markdown]="mde.summaryContent"
-          [debug-enabled]="mde.debugEnabled" [renderer-options]="mde.rendererOptions"></common-mark-entry>
+          [img-prefix]="mde.imgPrefix" [debug-enabled]="mde.debugEnabled" [renderer-options]="mde.rendererOptions"></common-mark-entry>
 
         <mat-action-row>
           <button color="primary" *ngIf="mde.showContent" mat-icon-button matTooltip="Read more" (click)="openContentPage(i);">
