@@ -8,6 +8,8 @@ import { environment } from '../environments/environment';
 
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 
+import { SitemapGenComponent } from './admin/sitemap-gen/sitemap-gen.component';
+import { PostWriterComponent } from './admin/post-writer/post-writer.component';
 import { NgBlogSiteComponent } from './docs/ngblog-site/ngblog-site.component';
 import { NgBlogPostComponent } from './docs/ngblog-post/ngblog-post.component';
 import { AppComponent } from './app.component';
@@ -28,6 +30,14 @@ const routes: Routes = [
   {
     path: 'post/:id',
     component: NgBlogPostComponent
+  },
+  {
+    path: 'writer',
+    component: PostWriterComponent
+  },
+  {
+    path: 'sitemaps',
+    component: SitemapGenComponent
   },
   {
     path: '**',

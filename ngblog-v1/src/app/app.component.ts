@@ -29,6 +29,9 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     console.log(">>> ngOnInit()");
 
+    // This is needed for pagination.
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+
     this.paramsSub = this.activatedRoute.queryParams
     .filter(params => VisitorTokenService.PARAM_VISITOR_TAG in params)
     .subscribe((params: Params) => {

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://ngblog.gitlab.io/ngblog/</loc>
+    <lastmod>2018-01-06T10:32:19.452Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://ngblog.gitlab.io/ngblog/post/20180101</loc>
+    <lastmod>2018-01-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://ngblog.gitlab.io/ngblog/post/20171231</loc>
+    <lastmod>2017-12-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://ngblog.gitlab.io/ngblog/post/20171225</loc>
+    <lastmod>2017-12-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.3</priority>
+  </url>
+</urlset>

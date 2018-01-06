@@ -1,0 +1,29 @@
+<div>
+
+  <mat-toolbar class="ngblog-admin-header" layout="row" color="primary">
+    <mat-toolbar-row>
+      <span style="font-weight: bold;">Sitemap Generator</span>
+      <span style="flex: 1 1 auto"></span>
+      <button mat-icon-button color="" matTooltip="Home" (click)="navigateHome()">
+        <mat-icon>home</mat-icon>
+      </button>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <div style="padding-top: 16px; padding-bottom: 16px; text-align: center;">
+
+   <textarea [value]="sitemapXML" style="margin: 16px; width:92%; height: 360px;">
+   </textarea>
+
+  </div>
+
+  <mat-toolbar class="ngblog-admin-footer" layout="row" color="accent">
+    <mat-toolbar-row>
+      <span style="font-style: italic;">Copyright &copy;
+        <common-date-year></common-date-year></span>
+      <span style="flex: 1 1 auto"></span>
+      <span style="font-style: italic;">(temporary)</span>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+</div>

@@ -38,12 +38,22 @@ export class BlogPostService {
         o.next(pm);
       }).share();
     } else {
-      return this.lazyLoaderService.loadJson(DailyPostsHelper.getMetadataUrl(postUrl), useCache).map(obj => {
-        let pm = PostMetadata.clone(obj);
-        pm.url = postUrl;
-        pm.dateId = DailyPostsHelper.getDateId(pm.url);
-        return pm;
-      });
+      let metadataUrl = DailyPostsHelper.getMetadataUrl(postUrl);
+      if (metadataUrl) {
+        return this.lazyLoaderService.loadJson(metadataUrl, useCache).map(obj => {
+          let pm = PostMetadata.clone(obj);
+          pm.url = postUrl;
+          pm.dateId = DailyPostsHelper.getDateId(pm.url);
+          return pm;
+        });
+      } else {
+        return Observable.create(o => {
+          let pm = new PostMetadata();
+          pm.url = postUrl;
+          pm.dateId = DailyPostsHelper.getDateId(pm.url);
+          o.next(pm);
+        });
+      }
     }
   }
 
@@ -57,11 +67,20 @@ export class BlogPostService {
         o.next(ps);
       }).share();
     } else {
-      return this.lazyLoaderService.loadText(DailyPostsHelper.getSummaryUrl(postUrl), useCache).map(data => {
-        let ps = new PostSummary(data);
-        ps.url = postUrl;
-        return ps;
-      }).share();
+      let summaryUrl = DailyPostsHelper.getSummaryUrl(postUrl);
+      if (summaryUrl) {
+        return this.lazyLoaderService.loadText(summaryUrl, useCache).map(data => {
+          let ps = new PostSummary(data);
+          ps.url = postUrl;
+          return ps;
+        }).share();
+      } else {
+        return Observable.create(o => {
+          let ps = new PostSummary('');
+          ps.url = postUrl;
+          o.next(ps);
+        });
+      }
     }
   }
 
@@ -75,11 +94,20 @@ export class BlogPostService {
         o.next(pc);
       }).share();
     } else {
-      return this.lazyLoaderService.loadText(DailyPostsHelper.getContentUrl(postUrl), useCache).map(data => {
-        let pc = new PostContent(data);
-        pc.url = postUrl;
-        return pc;
-      }).share();
+      let contentUrl = DailyPostsHelper.getContentUrl(postUrl);
+      if (contentUrl) {
+        return this.lazyLoaderService.loadText(contentUrl, useCache).map(data => {
+          let pc = new PostContent(data);
+          pc.url = postUrl;
+          return pc;
+        }).share();
+      } else {
+        return Observable.create(o => {
+          let pc = new PostContent('');
+          pc.url = postUrl;
+          o.next(pc);
+        });
+      }
     }
   }
 

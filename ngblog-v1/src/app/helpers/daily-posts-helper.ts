@@ -70,27 +70,45 @@ export class DailyPostsHelper {
 
 
   public static getMetadataUrl(postUrl: string): string {
+    if(!postUrl) {
+      return '';  // ???
+    }
     return postUrl + DailyPostsHelper.URL_POST_METADATA;
   }
-  public static getPostUrlFromMetadataUrl(metadataUrl: string): string {
+  public static getPostUrlFromMetadataUrl(metadataUrl: string): (string | null) {
+    if(!metadataUrl) {
+      return null;   // ???
+    }
     let postUrl = metadataUrl.substr(0, metadataUrl.length - DailyPostsHelper.URL_POST_METADATA.length);
     console.log(`getPostUrlFromMetadataUrl() metadataUrl = ${metadataUrl}; postUrl = ${postUrl}`);
     return postUrl;
   }
 
   public static getSummaryUrl(postUrl: string): string {
+    if(!postUrl) {
+      return '';  // ???
+    }
     return postUrl + DailyPostsHelper.URL_POST_SUMMARY;
   }
-  public static getPostUrlFromSummaryUrl(summaryUrl: string): string {
+  public static getPostUrlFromSummaryUrl(summaryUrl: string): (string | null) {
+    if(!summaryUrl) {
+      return null;   // ???
+    }
     let postUrl = summaryUrl.substr(0, summaryUrl.length - DailyPostsHelper.URL_POST_SUMMARY.length);
     console.log(`getPostUrlFromSummaryUrl() summaryUrl = ${summaryUrl}; postUrl = ${postUrl}`);
     return postUrl;
   }
 
   public static getContentUrl(postUrl: string): string {
+    if(!postUrl) {
+      return '';  // ???
+    }
     return postUrl + DailyPostsHelper.URL_POST_CONTENT;
   }
-  public static getPostUrlFromContentUrl(contentUrl: string): string {
+  public static getPostUrlFromContentUrl(contentUrl: string): (string | null) {
+    if(!contentUrl) {
+      return null;   // ???
+    }
     let postUrl = contentUrl.substr(0, contentUrl.length - DailyPostsHelper.URL_POST_CONTENT.length);
     console.log(`getPostUrlFromContentUrl() contentUrl = ${contentUrl}; postUrl = ${postUrl}`);
     return postUrl;

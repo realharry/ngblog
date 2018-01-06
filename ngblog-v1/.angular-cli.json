@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "project": {
-    "name": "ngauth-setup"
+    "name": "ngblog"
   },
   "apps": [
     {
@@ -13,6 +13,7 @@
         "posts",
         "posts-dev",
         "favicon.ico",
+        "sitemap.xml",
         "404.html"
       ],
       "index": "index.html",

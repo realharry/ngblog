@@ -30,6 +30,7 @@ import { VisitorTokenService } from './services/visitor-token.service';
 import { BlogPostService } from './services/blog-post.service';
 import { PostListService } from './services/post-list.service';
 import { BlogPostRegistry } from './docs/registry/blog-post-registry';
+import { SitemapEntryRegistry } from './sitemap/sitemap-entry-registry';
 
 import { AppComponent } from './app.component';
 import { NgBlogSiteComponent } from './docs/ngblog-site/ngblog-site.component';
@@ -37,6 +38,8 @@ import { NgBlogPostComponent } from './docs/ngblog-post/ngblog-post.component';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 
 import { AppRoutingModule } from './app-routing.module';
+import { SitemapGenComponent } from './admin/sitemap-gen/sitemap-gen.component';
+import { PostWriterComponent } from './admin/post-writer/post-writer.component';
 
 
 @NgModule({
@@ -44,7 +47,9 @@ import { AppRoutingModule } from './app-routing.module';
     AppComponent,
     NgBlogSiteComponent,
     NgBlogPostComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    SitemapGenComponent,
+    PostWriterComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
@@ -86,7 +91,8 @@ import { AppRoutingModule } from './app-routing.module';
     DailyPostsHelper,
     BlogPostService,
     PostListService,
-    BlogPostRegistry
+    BlogPostRegistry,
+    SitemapEntryRegistry
   ],
   bootstrap: [AppComponent]
 })

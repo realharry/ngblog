@@ -119,9 +119,10 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
       console.log(`ngOnInit() this.windowWidth = ${this.windowWidth}, this.windowHeight = ${this.windowHeight}`);
     }
 
-    // This is needed for pagination.
-    // (Alternatively, we could reload the content after goToPreviousPage() and goToNextPage() calls.)
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    // // This is needed for pagination.
+    // // (Alternatively, we could reload the content after goToPreviousPage() and goToNextPage() calls.)
+    // this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    // --> moved to AppComponent.
 
     // let config = this.appConfig.all;
     // for (let k in config) {
@@ -229,7 +230,7 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
 
       // temporary
       this.delayInterval[0] = 250;
-      this.delayInterval[1] = 500 + Math.floor(200 * Math.sqrt(entryLength));
+      this.delayInterval[1] = 500 + Math.floor(250 * Math.sqrt(entryLength));
     });
 
     // // tempoary
