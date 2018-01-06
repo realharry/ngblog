@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { DateRange, DateTimeUtil, DateIdUtil } from '@ngcore/core';
 import { AppConfig } from '@ngcore/core';
 // import { LocalStorageService } from '@ngcore/core';
+import { CommonSiteUtil } from '@ngcore/site';
 import { DateRangeUtil } from '@ngcore/time';
 
 
@@ -56,6 +57,17 @@ export class DailyPostsHelper {
   public static getImgPrefix(postUrl: string): string {
     return postUrl;
   }
+  
+  public static getImageUrl(postUrl: string, image: string): string {
+    let imgPrefix = DailyPostsHelper.getImgPrefix(postUrl);
+    let imgUrl = CommonSiteUtil.buildImageUrl(imgPrefix, image);
+    return imgUrl;
+  }
+  // public static getImageUrl(imgPrefix: string, image: string): string {
+  //   // TBD: Need to support ".."? e.g. image = "../image/thumbnail.jpg", ...
+  //   return imgPrefix + image;
+  // }
+
 
   public static getMetadataUrl(postUrl: string): string {
     return postUrl + DailyPostsHelper.URL_POST_METADATA;

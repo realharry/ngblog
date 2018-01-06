@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "title": "Post title",
+  "description": "Blah blah. Just testing.",
+  "status": 2,
+  "hasContent": false,
+  "thumbnail": "thumbnail-image.png"
+}

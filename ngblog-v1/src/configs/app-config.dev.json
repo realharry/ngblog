@@ -7,14 +7,15 @@
   "contact-info": {
     "email": "info@ngblog.com",
     "phone": "555-555-5555",
-    "website": "http://www.ngblog.com/"
+    "website": "https://gitlab.com/ngblog"
   },
   "show-contact-email": true,
   "blog-post-folder": "posts-dev/",
   "max-post-age": 180,
-  "old-post-list": ["20171230", "20171225"],
+  "old-post-list": ["20180101", "20171231", "20171225"],
   "item-count-per-page": 20,
   "content-formats": ["markdown"],
   "accordion-ui-stale-age": 3600000,
+  "show-placeholder-thumbnail": false,
   "ssr-enabled": false
 }

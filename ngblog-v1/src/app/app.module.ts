@@ -13,6 +13,7 @@ import { NgCoreBaseModule } from '@ngcore/base';
 // import { NgCoreHuesModule } from '@ngcore/hues';
 import { NgCoreLazyModule } from '@ngcore/lazy';
 import { NgCoreMarkModule } from '@ngcore/mark';
+import { NgCoreSiteModule } from '@ngcore/site';
 import { NgCoreTimeModule } from '@ngcore/time';
 
 import { AppConfig } from '@ngcore/core';
@@ -67,6 +68,7 @@ import { AppRoutingModule } from './app-routing.module';
     // NgCoreHuesModule.forRoot(),
     NgCoreLazyModule.forRoot(),
     NgCoreMarkModule.forRoot(),
+    NgCoreSiteModule.forRoot(),
     NgCoreTimeModule.forRoot(),
     MaterialComponentsModule,
   ],

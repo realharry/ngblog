@@ -18,14 +18,42 @@ export class MarkdownDocEntry extends DocEntry {
     description: string = '',
     summaryContent: string = '',
     summaryUrl: string = '',
-    contentUrl: (string | null) = null
+    contentUrl: (string | null) = null,
+    public thumbnailUrl: (string | null) = null  // Thumbnail image is displayed with summary.
   ) {
     super(id, title, description, summaryContent, summaryUrl, contentUrl);
   }
 
+  public get hasThumbnail(): boolean {
+    return !!this.thumbnailUrl;
+  }
+
+  public showThumbnail(usePlaceholder: boolean = false) {
+    if(usePlaceholder) {
+      return true;
+    } else {
+      return this.hasThumbnail;
+    }
+  }
+
+  public getThumbnail(placeholderUrl: (string | null) = null) {
+    if(this.thumbnailUrl) {
+      return this.thumbnailUrl;
+    } else {
+      if(placeholderUrl) {
+        return placeholderUrl;
+      } else {
+        // ???
+        return '';
+      }
+    }
+  }
+  
+
   public toString(): string {
     let str = super.toString();
 
+    str += `thumbnailUrl:${this.thumbnailUrl};`
     str += `imgPrefix:${this.imgPrefix};`
     str += `lazyLoaded:${this.lazyLoaded};`
     str += `debugEnabled:${this.debugEnabled};`
@@ -53,6 +81,7 @@ export class MarkdownDocEntry extends DocEntry {
     this.summaryContent = obj.summaryContent;
     this.summaryUrl = obj.summaryUrl;
     this.contentUrl = obj.contentUrl;
+    this.thumbnailUrl = obj.thumbnailUrl;
     this.date = obj.date;
     this.skipDisplay = obj.skipDisplay;
     this.showContent = obj.showContent;

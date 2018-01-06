@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild, Input, Output } from '@angular/core';
-import { AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, Input, Output } from '@angular/core';
+import { HostListener } from '@angular/core';
 // import { ElementRef } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -64,6 +64,15 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
   // we should really load newer posts first and older posts later.
   delayInterval: number[] = [250, 2500];
 
+  // For thumbnail image resizing
+  private windowWidth: number = 0;
+  private windowHeight: number = 0;
+  // temporary
+  private static WIDTH_THRESHOLD_0 = 460;
+  private static WIDTH_THRESHOLD_1 = 520;
+  private static WIDTH_THRESHOLD_2 = 640;
+  // temporary
+
   constructor(
     // private dialog: MatDialog,
     // private elementRef: ElementRef,
@@ -85,8 +94,30 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
     // this.imgPrefix = '';
   }
 
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    if (event && event.target) {
+      let newWidth = event.target.innerWidth;
+      let newHeight = event.target.innerHeight;
+      if (this.windowWidth != newWidth
+        || this.windowHeight != newHeight
+      ) {
+        this.windowWidth = newWidth;
+        this.windowHeight = newHeight;
+        // console.log(`onResize() newWidth = ${newWidth}, newHeight = ${newHeight}`);
+      }
+    }
+  }
+
   ngOnInit() {
     console.log(">>> ngOnInit()");
+
+    if (this.browserWindowService.window) {
+      this.windowWidth = this.browserWindowService.window.innerWidth;
+      this.windowHeight = this.browserWindowService.window.innerHeight;
+      console.log(`ngOnInit() this.windowWidth = ${this.windowWidth}, this.windowHeight = ${this.windowHeight}`);
+    }
 
     // This is needed for pagination.
     // (Alternatively, we could reload the content after goToPreviousPage() and goToNextPage() calls.)
@@ -117,7 +148,7 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
     // TBD: For pagination
     let pageNumber = this.activatedRoute.snapshot.queryParams['page'];
     console.log(`>>> pageNumber = ${pageNumber}.`);
-    if(pageNumber) {   // Note: 0 is an invalid pageNumber.
+    if (pageNumber) {   // Note: 0 is an invalid pageNumber.
       // this._currentPage = +pageNumber;
       try {
         let p = parseInt(pageNumber);
@@ -167,7 +198,7 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
       if (this.isPaginationEnabled) {
         let listLength = entries.length;
         this._totalPages = Math.ceil(listLength / this.itemCountPerPage);
-        if(this._totalPages == 0) {
+        if (this._totalPages == 0) {
           this._totalPages = 1;
         }
         if (!this.isPageNumberValid(this._currentPage)) {
@@ -179,6 +210,11 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
         let endIdx = (maxIdx < listLength) ? maxIdx : listLength;
         for (let i = startIdx; i < endIdx; i++) {
           let entry = entries[i];
+
+          // // temporary
+          // entry.debugEnabled = true;
+          // // temporary
+
           this.docEntries.push(entry);
         }
       } else {
@@ -193,7 +229,7 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
 
       // temporary
       this.delayInterval[0] = 250;
-      this.delayInterval[1] = 250 + 50 * entryLength;
+      this.delayInterval[1] = 500 + Math.floor(200 * Math.sqrt(entryLength));
     });
 
     // // tempoary
@@ -237,6 +273,49 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
   }
 
 
+  private _showPlaceholderThumbnail: boolean;
+  get showPlaceholderThumbnail(): boolean {
+    if (this._showPlaceholderThumbnail !== true && this._showPlaceholderThumbnail !== false) {
+      this._showPlaceholderThumbnail = this.appConfig.getBoolean("show-placeholder-thumbnail", false);
+      console.log(`>>>>> this._showPlaceholderThumbnail = ${this._showPlaceholderThumbnail}`);
+    }
+    return this._showPlaceholderThumbnail;
+  }
+
+  // temporary
+  get thumbnailWidth(): number {
+    return this._thumbnailSize;
+  }
+  get thumbnailHeight(): number {
+    // Note that we are using width not height for comparison...
+    return this._thumbnailSize;
+  }
+  private get _thumbnailSize(): number {
+    if (this.windowWidth == 0 || this.windowWidth > NgBlogSiteComponent.WIDTH_THRESHOLD_2) {
+      return 160;
+    } else if (this.windowWidth > NgBlogSiteComponent.WIDTH_THRESHOLD_1) {
+      return 120;
+    } else if (this.windowWidth > NgBlogSiteComponent.WIDTH_THRESHOLD_0) {
+      return 80;
+    } else {
+      return 60;
+    }
+  }
+  get thumbnailMargin(): string {
+    let gap = Math.floor(this._thumbnailSize / 10);
+    return `16px ${gap}px 8px 0px`;
+  }
+  get thumbnailPadding(): string {
+    let pad = Math.floor(this._thumbnailSize / 20);
+    return `8px ${pad}px ${pad}px ${pad}px`;
+  }
+
+  getPlaceholderThumbnail(entryTitle: (string | null) = null): string {
+    // TBD:
+    return `http://via.placeholder.com/${this.thumbnailWidth}x${this.thumbnailHeight}`;
+  }
+
+
   private _displayContactEmail: boolean;
   get displayContactEmail(): boolean {
     if (this._displayContactEmail !== true && this._displayContactEmail !== false) {
@@ -245,7 +324,7 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
       this._displayContactEmail =
         !!(this.contactEmail) // tbd: validate email?
         &&
-        this.appConfig.getBoolean("show-contact-email", false);
+        showContactEmail;
       console.log(`>>>>> this._displayContactEmail = ${this._displayContactEmail}`);
     }
     return this._displayContactEmail;

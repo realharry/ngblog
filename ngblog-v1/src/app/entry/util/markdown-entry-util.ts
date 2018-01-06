@@ -12,6 +12,7 @@ export namespace MarkdownEntryUtil {
     //   return null;   // ???
     // }
     // console.log(`post metadata = ${pm}`);
+    let imgPrefix = DailyPostsHelper.getImgPrefix(pm.url);
     let entry = new MarkdownDocEntry(
       // (pm.dateId) ? pm.dateId : DailyPostsHelper.getDateId(pm.url),
       pm.dateId,
@@ -19,9 +20,11 @@ export namespace MarkdownEntryUtil {
       pm.description,
       "",
       DailyPostsHelper.getSummaryUrl(pm.url),
-      (pm.hasContent) ? DailyPostsHelper.getContentUrl(pm.url) : null
+      (pm.hasContent) ? DailyPostsHelper.getContentUrl(pm.url) : null,
+      // (pm.thumbnail) ? DailyPostsHelper.getImageUrl(imgPrefix, pm.thumbnail) : null
+      (pm.thumbnail) ? DailyPostsHelper.getImageUrl(pm.url, pm.thumbnail) : null
     );
-    entry.imgPrefix = DailyPostsHelper.getImgPrefix(pm.url);
+    entry.imgPrefix = imgPrefix;
     entry.date = DateIdUtil.convertToDate(entry.id);  // For now, entry.id is dateId.
     if (pm.hasContent) {
       entry.showContent = true;

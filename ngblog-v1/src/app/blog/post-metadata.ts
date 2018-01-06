@@ -22,6 +22,9 @@ export class PostMetadata {
   // Content is optional.
   public hasContent: boolean = false;
 
+  // If present, the image will be displayed in the summary section.
+  public thumbnail: (string | null) = null;
+
   // tbd:
   constructor(
     // public id = '',   // Post id.
@@ -49,6 +52,7 @@ export class PostMetadata {
     str += `url:${this.url};`
     str += `dateId:${this.dateId};`
     str += `hasContent:${this.hasContent};`
+    str += `thumbnail:${this.thumbnail};`
     str += `created:${this.created};`
     str += `posted:${this.posted};`
     str += `deleted:${this.deleted};`

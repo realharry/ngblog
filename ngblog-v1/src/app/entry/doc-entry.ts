@@ -22,6 +22,14 @@ export abstract class DocEntry {
   )  {
   }
 
+  // At this point,
+  // this.hasContent == this.showContent
+  // since during processing 
+  //    contentUrl will be populated (regardless of whether the content.md actually exists) if showContent == true.
+  public get hasContent(): boolean {
+    return this.showContent && !!this.contentUrl;
+  }
+
   public get isEmpty(): boolean {
     return (
       !this.title 

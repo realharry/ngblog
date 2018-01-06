@@ -40,11 +40,25 @@
         <!-- <common-mark-entry *ngIf="mde.skipDisplay == false" [url]="mde.markdownUrl" [markdown]="mde.markdownContent" [debug-enabled]="mde.debugEnabled" [renderer-options]="mde.rendererOptions"></common-mark-entry> -->
         <!-- <common-mark-entry *ngIf="mde.skipDisplay == false" [delay]="delayInterval" [url]="mde.markdownUrl" [markdown]="mde.markdownContent" [debug-enabled]="mde.debugEnabled" [renderer-options]="mde.rendererOptions"></common-mark-entry> -->
         <!-- <common-mark-entry *ngIf="mde.skipDisplay == false" [delay]="(i === step)? 0 : delayInterval" [url]="mde.markdownUrl" [markdown]="mde.markdownContent" [debug-enabled]="mde.debugEnabled" [renderer-options]="mde.rendererOptions"></common-mark-entry> -->
-        <common-mark-entry *ngIf="mde.skipDisplay == false" [delay]="(i === step)? 0 : delayInterval" [url]="mde.summaryUrl" [markdown]="mde.summaryContent"
-          [img-prefix]="mde.imgPrefix" [debug-enabled]="mde.debugEnabled" [renderer-options]="mde.rendererOptions"></common-mark-entry>
+
+        <!-- <common-mark-entry *ngIf="mde.skipDisplay == false" [delay]="(i === step)? 0 : delayInterval" [url]="mde.summaryUrl" [markdown]="mde.summaryContent"
+          [img-prefix]="mde.imgPrefix" [debug-enabled]="mde.debugEnabled" [renderer-options]="mde.rendererOptions"></common-mark-entry> -->
+
+        <div *ngIf="mde.skipDisplay == false" class="ngblog-summary-content">
+          <div *ngIf="mde.showThumbnail(showPlaceholderThumbnail)" [style.margin]="thumbnailMargin" [style.padding]="thumbnailPadding"
+            class="ngblog-thumbnail-block">
+            <common-lazy-image [image-url]="mde.getThumbnail(getPlaceholderThumbnail(mde.title))" [alt-text]="mde.title" [delay]="(i === step)? 0 : delayInterval"
+              [width]="thumbnailWidth"></common-lazy-image>
+          </div>
+          <div class="ngblog-summary-block">
+            <common-mark-entry [delay]="(i === step)? 0 : delayInterval" [url]="mde.summaryUrl" [markdown]="mde.summaryContent" [img-prefix]="mde.imgPrefix"
+              [debug-enabled]="mde.debugEnabled" [renderer-options]="mde.rendererOptions"></common-mark-entry>
+          </div>
+          <!-- <div style="clear:both; font-size:1px;"></div> -->
+        </div>
 
         <mat-action-row>
-          <button color="primary" *ngIf="mde.showContent" mat-icon-button matTooltip="Read more" (click)="openContentPage(i);">
+          <button color="primary" *ngIf="mde.hasContent" mat-icon-button matTooltip="Read more" (click)="openContentPage(i);">
             <mat-icon>message</mat-icon>
           </button>
           <span style="flex: 1 1 auto"></span>
