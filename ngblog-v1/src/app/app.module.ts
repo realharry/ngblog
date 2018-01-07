@@ -10,10 +10,12 @@ import { OverlayContainer } from '@angular/cdk/overlay';
 
 import { NgCoreCoreModule } from '@ngcore/core';
 import { NgCoreBaseModule } from '@ngcore/base';
+import { NgCoreDataModule } from '@ngcore/data';
 // import { NgCoreHuesModule } from '@ngcore/hues';
 import { NgCoreIdleModule } from '@ngcore/idle';
 import { NgCoreLinkModule } from '@ngcore/link';
 import { NgCoreMarkModule } from '@ngcore/mark';
+import { NgCoreNoteModule } from '@ngcore/note';
 import { NgCoreTimeModule } from '@ngcore/time';
 
 import { AppConfig } from '@ngcore/core';
@@ -35,6 +37,7 @@ import { SitemapEntryRegistry } from './sitemap/sitemap-entry-registry';
 import { AppComponent } from './app.component';
 import { NgBlogSiteComponent } from './docs/ngblog-site/ngblog-site.component';
 import { NgBlogPostComponent } from './docs/ngblog-post/ngblog-post.component';
+import { NgBlogPermalinkComponent } from './docs/ngblog-permalink/ngblog-permalink.component';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -47,33 +50,36 @@ import { PostWriterComponent } from './admin/post-writer/post-writer.component';
     AppComponent,
     NgBlogSiteComponent,
     NgBlogPostComponent,
+    NgBlogPermalinkComponent,
     NotFoundComponent,
     SitemapGenComponent,
-    PostWriterComponent
+    PostWriterComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     HttpClientModule,
     HttpModule,
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
-    RouterModule.forRoot([
-      // {
-      //   path: '',
-      //   component: AppComponent
-      // }
-      {
-        path: '',
-        pathMatch: 'full',
-        component: NgBlogSiteComponent
-      }
-    ]),
+    // RouterModule.forRoot([
+    //   // {
+    //   //   path: '',
+    //   //   component: AppComponent
+    //   // }
+    //   {
+    //     path: '',
+    //     pathMatch: 'full',
+    //     component: NgBlogSiteComponent
+    //   }
+    // ]),
     AppRoutingModule,
     NgCoreCoreModule.forRoot(),
     NgCoreBaseModule.forRoot(),
+    NgCoreDataModule.forRoot(),
     // NgCoreHuesModule.forRoot(),
     NgCoreIdleModule.forRoot(),
     NgCoreLinkModule.forRoot(),
     NgCoreMarkModule.forRoot(),
+    NgCoreNoteModule.forRoot(),
     NgCoreTimeModule.forRoot(),
     MaterialComponentsModule,
   ],

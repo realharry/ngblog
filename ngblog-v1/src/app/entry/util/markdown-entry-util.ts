@@ -1,4 +1,5 @@
 import { DateIdUtil } from '@ngcore/core';
+import { PermalinkPathUtil } from '@ngcore/link';
 
 import { PostMetadata } from '../../blog/post-metadata';
 import { MarkdownDocEntry } from '../markdown-doc-entry';
@@ -25,6 +26,7 @@ export namespace MarkdownEntryUtil {
       (pm.thumbnail) ? DailyPostsHelper.getImageUrl(pm.url, pm.thumbnail) : null
     );
     entry.imgPrefix = imgPrefix;
+    entry.permalinkPath = PermalinkPathUtil.getPermalinkPath(pm.dateId, pm.title, pm.description);
     entry.date = DateIdUtil.convertToDate(entry.id);  // For now, entry.id is dateId.
     if (pm.hasContent) {
       entry.showContent = true;

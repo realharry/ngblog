@@ -1,4 +1,7 @@
+import { PermalinkPathUtil } from '@ngcore/link';
+
 import { DocEntry } from './doc-entry';
+import { SitemapEntryUtil } from '../sitemap/util/sitemap-entry-util';
 
 
 export class MarkdownDocEntry extends DocEntry {
@@ -7,6 +10,7 @@ export class MarkdownDocEntry extends DocEntry {
   // long content vs short content???
 
   public imgPrefix: (string | null) = null
+  public permalinkPath: (string | null) = null
 
   public lazyLoaded: boolean = false;
   public debugEnabled: boolean = false;
@@ -48,13 +52,29 @@ export class MarkdownDocEntry extends DocEntry {
       }
     }
   }
-  
+
+  public getPermalink(hostUrl: string): string {
+    // return SitemapEntryUtil.buildAbsoluteUrl(hostUrl, this.permalinkPath);
+    let permalink = '';
+    if(hostUrl) {
+      if(!hostUrl.endsWith('/')) {
+        hostUrl += '/';
+      }
+      permalink = hostUrl;
+    }
+    if(this.permalinkPath) {  // permalinkPath does not start with '/'
+      permalink += this.permalinkPath;
+    }
+    return permalink;
+  }
+
 
   public toString(): string {
     let str = super.toString();
 
     str += `thumbnailUrl:${this.thumbnailUrl};`
     str += `imgPrefix:${this.imgPrefix};`
+    str += `permalinkPath:${this.permalinkPath};`
     str += `lazyLoaded:${this.lazyLoaded};`
     str += `debugEnabled:${this.debugEnabled};`
     str += `rendererOptions:${JSON.stringify(this.rendererOptions)};`
@@ -86,6 +106,7 @@ export class MarkdownDocEntry extends DocEntry {
     this.skipDisplay = obj.skipDisplay;
     this.showContent = obj.showContent;
     this.imgPrefix = obj.imgPrefix;
+    this.permalinkPath = obj.permalinkPath;
     this.lazyLoaded = obj.lazyLoaded;
     this.debugEnabled = obj.debugEnabled;
     this.rendererOptions = Object.assign({}, obj.rendererOptions);

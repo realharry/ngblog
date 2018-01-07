@@ -42,7 +42,7 @@ export class SitemapGenComponent implements OnInit {
     if(this.browserWindowService.window) {
       this.hostUrl = this.browserWindowService.window.location.protocol + '//' + this.browserWindowService.window.location.host + '/';
     } else {
-      this.hostUrl = '';   // ???
+      this.hostUrl = '/';   // ???
     }
     console.log(`hostUrl = ${this.hostUrl}`);
 

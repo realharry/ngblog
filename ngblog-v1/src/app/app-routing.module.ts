@@ -12,6 +12,7 @@ import { SitemapGenComponent } from './admin/sitemap-gen/sitemap-gen.component';
 import { PostWriterComponent } from './admin/post-writer/post-writer.component';
 import { NgBlogSiteComponent } from './docs/ngblog-site/ngblog-site.component';
 import { NgBlogPostComponent } from './docs/ngblog-post/ngblog-post.component';
+import { NgBlogPermalinkComponent } from './docs/ngblog-permalink/ngblog-permalink.component';
 import { AppComponent } from './app.component';
 
 
@@ -24,12 +25,8 @@ const routes: Routes = [
   // },
   {
     path: '',
-    component: NgBlogSiteComponent,
-    pathMatch: 'full'
-  },
-  {
-    path: 'post/:id',
-    component: NgBlogPostComponent
+    pathMatch: 'full',
+    component: NgBlogSiteComponent
   },
   {
     path: 'writer',
@@ -38,6 +35,14 @@ const routes: Routes = [
   {
     path: 'sitemaps',
     component: SitemapGenComponent
+  },
+  {
+    path: 'post/:id',
+    component: NgBlogPostComponent
+  },
+  {
+    path: ':path',
+    component: NgBlogPermalinkComponent
   },
   {
     path: '**',

@@ -73,6 +73,9 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
   private static WIDTH_THRESHOLD_2 = 640;
   // temporary
 
+  // temporary
+  hostUrl: string;
+
   constructor(
     // private dialog: MatDialog,
     // private elementRef: ElementRef,
@@ -89,6 +92,13 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
     private blogPostService: BlogPostService,
     private blogPostRegistry: BlogPostRegistry,
   ) {
+    if(this.browserWindowService.window) {
+      this.hostUrl = this.browserWindowService.window.location.protocol + '//' + this.browserWindowService.window.location.host + '/';
+    } else {
+      this.hostUrl = '/';   // ???
+    }
+    console.log(`hostUrl = ${this.hostUrl}`);
+
     this.siteInfo = new SiteInfo();
     this.contactInfo = new ContactInfo();
     // this.imgPrefix = '';
@@ -467,16 +477,21 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
 
     if (entry.showContent) {
       let dateId = entry.id;
-      let contentUrl = entry.contentUrl;
+      // let contentUrl = entry.contentUrl;
 
-      // let routeUrl = `post/${dateId}`;
-      // this.router.navigateByUrl(routeUrl);
-      this.router.navigate(['/post', dateId]).then(suc => {
-        console.log(`navigate() suc = ${suc}`);
-      });
-      // this.router.navigate(['/post', dateId, { entry: JSON.stringify(entry) }]).then(suc => {
+      // // let routeUrl = `post/${dateId}`;
+      // // this.router.navigateByUrl(routeUrl);
+      // this.router.navigate(['/post', dateId]).then(suc => {
       //   console.log(`navigate() suc = ${suc}`);
       // });
+      // // this.router.navigate(['/post', dateId, { entry: JSON.stringify(entry) }]).then(suc => {
+      // //   console.log(`navigate() suc = ${suc}`);
+      // // });
+
+      let permalinkPath = entry.permalinkPath;
+      this.router.navigate(['', permalinkPath]).then(suc => {
+        console.log(`navigate() suc = ${suc}; permalinkPath = ${permalinkPath}`);
+      });
     }
 
   }

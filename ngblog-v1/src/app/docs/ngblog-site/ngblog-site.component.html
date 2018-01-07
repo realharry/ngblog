@@ -31,8 +31,9 @@
           </mat-panel-title>
           <mat-panel-description>
             {{mde.description}}
-            <!-- <mat-icon [color]="(step === i) ? 'accent' : ''">bookmark_border</mat-icon> -->
-            <span [style.font-weight]="(step === i) ? 'bold' : 'normal'">{{(mde.date) ? mde.date.toLocaleDateString() : ''}}</span>
+            <!-- <span *ngIf="step !== i" [matTooltip]="mde.getPermalink(hostUrl)" [style.font-weight]="(step === i) ? 'bold' : 'normal'">{{(mde.date) ? mde.date.toLocaleDateString() : ''}}</span> -->
+            <span *ngIf="step === i" [style.font-weight]="'bold'">{{(mde.date) ? mde.date.toLocaleDateString() : ''}}</span>
+            <span *ngIf="step !== i" [matTooltip]="mde.getPermalink(hostUrl)">{{(mde.date) ? mde.date.toLocaleDateString() : ''}}</span>
           </mat-panel-description>
         </mat-expansion-panel-header>
 
@@ -51,7 +52,7 @@
               [width]="thumbnailWidth"></common-lazy-image>
           </div>
           <div class="ngblog-summary-block">
-            <common-mark-entry [delay]="(i === step)? 0 : delayInterval" [url]="mde.summaryUrl" [markdown]="mde.summaryContent" [img-prefix]="mde.imgPrefix"
+            <common-mark-entry [delay]="(i === step) ? 0 : delayInterval" [url]="mde.summaryUrl" [markdown]="mde.summaryContent" [img-prefix]="mde.imgPrefix"
               [debug-enabled]="mde.debugEnabled" [renderer-options]="mde.rendererOptions"></common-mark-entry>
           </div>
           <!-- <div style="clear:both; font-size:1px;"></div> -->

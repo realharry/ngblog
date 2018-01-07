@@ -1,0 +1,33 @@
+<div>
+
+  <mat-toolbar class="ngblog-permalink-header" layout="row" color="primary">
+    <mat-toolbar-row>
+      <span style="font-weight: bold;">{{header}}</span>
+      <span style="flex: 1 1 auto"></span>
+      <button mat-icon-button color="" matTooltip="Home" (click)="navigateHome()">
+        <mat-icon>home</mat-icon>
+      </button>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <div style="padding-top: 16px; padding-bottom: 16px;">
+
+    <!-- <common-mark-entry [delay]="[100,500]" [url]="docEntry.contentUrl" [markdown]=""
+      [debug-enabled]="docEntry.debugEnabled" [renderer-options]="docEntry.rendererOptions"></common-mark-entry> -->
+    <common-mark-entry #commonMarkEntry [url]="docEntry.contentUrl" [img-prefix]="docEntry.imgPrefix" [debug-enabled]="docEntry.debugEnabled"
+      [renderer-options]="docEntry.rendererOptions"></common-mark-entry>
+
+  </div>
+
+  <mat-toolbar class="ngblog-permalink-footer" layout="row" color="accent">
+    <mat-toolbar-row>
+      <span style="font-style: italic;">Copyright &copy;
+        <common-date-year></common-date-year> {{siteInfo.name}}</span>
+      <span style="flex: 1 1 auto"></span>
+      <span style="font-style: italic;">
+        {{(docEntry.date) ? docEntry.date.toLocaleDateString() : docEntry.id}}
+      </span>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+</div>

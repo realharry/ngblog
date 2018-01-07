@@ -1,6 +1,7 @@
 import { DateTimeUtil, DateIdUtil } from '@ngcore/core';
 
 import { ChangeFrequency, SiteEntry } from '@ngcore/link';
+import { PermalinkPathUtil } from '@ngcore/link';
 
 import { PostMetadata } from '../../blog/post-metadata';
 import { DailyPostsHelper } from '../../helpers/daily-posts-helper';
@@ -40,7 +41,9 @@ export namespace SitemapEntryUtil {
     }
     let entry = new SiteEntry(
       // TBD:
-      SitemapEntryUtil.buildAbsoluteUrl(hostUrl, `post/${pm.dateId}`),   // This should match the route definition.
+      // SitemapEntryUtil.buildAbsoluteUrl(hostUrl, `post/${pm.dateId}`),   // This should match the route definition.
+      SitemapEntryUtil.buildAbsoluteUrl(hostUrl,
+        PermalinkPathUtil.getPermalinkPath(pm.dateId, pm.title, pm.description)),
       // pm.created,
       DateIdUtil.convertToEpochMillis(pm.dateId),
       ChangeFrequency.weekly,
