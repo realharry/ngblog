@@ -11,9 +11,9 @@ import { OverlayContainer } from '@angular/cdk/overlay';
 import { NgCoreCoreModule } from '@ngcore/core';
 import { NgCoreBaseModule } from '@ngcore/base';
 // import { NgCoreHuesModule } from '@ngcore/hues';
-import { NgCoreLazyModule } from '@ngcore/lazy';
+import { NgCoreIdleModule } from '@ngcore/idle';
+import { NgCoreLinkModule } from '@ngcore/link';
 import { NgCoreMarkModule } from '@ngcore/mark';
-import { NgCoreSiteModule } from '@ngcore/site';
 import { NgCoreTimeModule } from '@ngcore/time';
 
 import { AppConfig } from '@ngcore/core';
@@ -71,9 +71,9 @@ import { PostWriterComponent } from './admin/post-writer/post-writer.component';
     NgCoreCoreModule.forRoot(),
     NgCoreBaseModule.forRoot(),
     // NgCoreHuesModule.forRoot(),
-    NgCoreLazyModule.forRoot(),
+    NgCoreIdleModule.forRoot(),
+    NgCoreLinkModule.forRoot(),
     NgCoreMarkModule.forRoot(),
-    NgCoreSiteModule.forRoot(),
     NgCoreTimeModule.forRoot(),
     MaterialComponentsModule,
   ],
