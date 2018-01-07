@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { DateRange, DateTimeUtil, DateIdUtil } from '@ngcore/core';
 import { AppConfig } from '@ngcore/core';
 // import { LocalStorageService } from '@ngcore/core';
-import { CommonSiteUtil } from '@ngcore/site';
+import { CommonLinkUtil } from '@ngcore/link';
 import { DateRangeUtil } from '@ngcore/time';
 
 
@@ -60,7 +60,7 @@ export class DailyPostsHelper {
   
   public static getImageUrl(postUrl: string, image: string): string {
     let imgPrefix = DailyPostsHelper.getImgPrefix(postUrl);
-    let imgUrl = CommonSiteUtil.buildImageUrl(imgPrefix, image);
+    let imgUrl = CommonLinkUtil.buildImageUrl(imgPrefix, image);
     return imgUrl;
   }
   // public static getImageUrl(imgPrefix: string, image: string): string {

@@ -4,7 +4,7 @@ import 'rxjs/add/operator/map';
 
 import { DateTimeUtil, DateIdUtil } from '@ngcore/core';
 import { LocalStorageService } from '@ngcore/core';
-import { LazyLoaderService } from '@ngcore/lazy';
+import { LazyLoaderService } from '@ngcore/idle';
 import { DateRangeUtil } from '@ngcore/time';
 
 import { PostStatus } from '../blog/core/post-status';

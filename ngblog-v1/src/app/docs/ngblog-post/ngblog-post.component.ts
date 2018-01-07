@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 
 import { DateTimeUtil, DateIdUtil } from '@ngcore/core';
 import { AppConfig } from '@ngcore/core';
-import { LazyLoaderService } from '@ngcore/lazy';
+import { LazyLoaderService } from '@ngcore/idle';
 import { CommonMarkUtil } from '@ngcore/mark';
 import { CommonMarkEntryComponent } from '@ngcore/mark';
 

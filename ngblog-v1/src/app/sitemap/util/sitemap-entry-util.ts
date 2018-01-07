@@ -1,6 +1,6 @@
 import { DateTimeUtil, DateIdUtil } from '@ngcore/core';
 
-import { ChangeFrequency, SiteEntry } from '@ngcore/site';
+import { ChangeFrequency, SiteEntry } from '@ngcore/link';
 
 import { PostMetadata } from '../../blog/post-metadata';
 import { DailyPostsHelper } from '../../helpers/daily-posts-helper';

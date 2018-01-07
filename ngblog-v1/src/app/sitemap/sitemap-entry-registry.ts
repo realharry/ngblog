@@ -5,7 +5,7 @@ import 'rxjs/add/operator/map';
 import { DateTimeUtil, DateIdUtil } from '@ngcore/core';
 import { AppConfig } from '@ngcore/core';
 
-import { SiteEntry } from '@ngcore/site';
+import { SiteEntry } from '@ngcore/link';
 import { SitemapEntryUtil } from './util/sitemap-entry-util';
 
 import { PostStatus } from '../blog/core/post-status';
