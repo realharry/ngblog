@@ -78,6 +78,9 @@
       <span style="flex: 1 1 auto"></span>
       <span *ngIf="displayContactEmail" style="font-style: italic;">
         <a mat-button href="mailto:{{contactEmail}}">{{contactEmail}}</a>
+        <button *ngIf="showAdminButton" mat-icon-button color="" matTooltip="Admin" (click)="openAdminHome()">
+          <mat-icon>security</mat-icon>
+        </button>
       </span>
       <!-- <span [hidden]="!isPaginationEnabled">
         <mat-chip-list>

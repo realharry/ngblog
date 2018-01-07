@@ -12,6 +12,8 @@ import { PostListService } from '../../services/post-list.service';
 import { SitemapEntryUtil } from '../../sitemap/util/sitemap-entry-util';
 import { SitemapEntryRegistry } from '../../sitemap/sitemap-entry-registry';
 
+import { VisitorTokenService } from '../../services/visitor-token.service';
+
 
 // TBD:
 // "Admin" components should really be put in a separate app.
@@ -38,6 +40,7 @@ export class SitemapGenComponent implements OnInit {
     private browserWindowService: BrowserWindowService,
     private lazyLoaderService: LazyLoaderService,
     private sitemapEntryRegistry: SitemapEntryRegistry,
+    private visitorTokenService: VisitorTokenService
   ) {
     if(this.browserWindowService.window) {
       this.hostUrl = this.browserWindowService.window.location.protocol + '//' + this.browserWindowService.window.location.host + '/';
@@ -50,7 +53,7 @@ export class SitemapGenComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(">>> ngOnInit() >>>")
+    console.log(">>> SitemapGenComponent::ngOnInit() >>>")
 
     // testing
     this.loadSiteEntries();
@@ -104,9 +107,13 @@ export class SitemapGenComponent implements OnInit {
   }
 
 
-  navigateHome() {
-    this.router.navigate(['/']).then(suc => {
-      console.log(`navigate() suc = ${suc}`);
+  navigateAdminHome() {
+    let qp = {};
+    if(this.visitorTokenService.hasVisitorToken) {
+      qp = {v: this.visitorTokenService.visitorToken};
+    }
+    this.router.navigate(['admin'], {queryParams: qp}).then(suc => {
+      console.log(`navigateAdminHome() suc = ${suc}`);
     });
   }
 

@@ -6,10 +6,13 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { environment } from '../environments/environment';
 
+import { AdminSentinelService } from './admin/sentinels/admin-sentinel.service';
+
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 
 import { SitemapGenComponent } from './admin/sitemap-gen/sitemap-gen.component';
 import { PostWriterComponent } from './admin/post-writer/post-writer.component';
+import { AmdinPanelComponent } from './admin/amdin-panel/amdin-panel.component';
 import { NgBlogSiteComponent } from './docs/ngblog-site/ngblog-site.component';
 import { NgBlogPostComponent } from './docs/ngblog-post/ngblog-post.component';
 import { NgBlogPermalinkComponent } from './docs/ngblog-permalink/ngblog-permalink.component';
@@ -29,12 +32,19 @@ const routes: Routes = [
     component: NgBlogSiteComponent
   },
   {
+    path: 'admin',
+    component: AmdinPanelComponent,
+    // canActivate: [AdminSentinelService]   // this does not work when accessed directly via URL.
+  },
+  {
     path: 'writer',
-    component: PostWriterComponent
+    component: PostWriterComponent,
+    canActivate: [AdminSentinelService]   // this should be accessed via admin.
   },
   {
     path: 'sitemaps',
-    component: SitemapGenComponent
+    component: SitemapGenComponent,
+    canActivate: [AdminSentinelService]   // this should be accessed via admin.
   },
   {
     path: 'post/:id',
@@ -74,6 +84,18 @@ const routes: Routes = [
   ],
   exports: [
     RouterModule
+  ],
+  providers: [
+    AdminSentinelService
   ]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+  static forRoot(): ModuleWithProviders {
+    return {
+      ngModule: AppRoutingModule,
+      providers: [
+        AdminSentinelService,
+      ]
+    };
+  }
+}

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input, Output } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, Input, Output } from '@angular/core';
 import { isDevMode } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
@@ -11,7 +11,7 @@ import { NgBlogSiteComponent } from './docs/ngblog-site/ngblog-site.component';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   title = 'Harry - NgBlog';
 
   // @ViewChild("appSetupDoc") appSetupDoc: NgBlogDocComponent;
@@ -27,7 +27,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(">>> ngOnInit()");
+    console.log(">>> AppComponent::ngOnInit()");
 
     // This is needed for pagination.
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
@@ -38,6 +38,8 @@ export class AppComponent implements OnInit {
       let v = params[VisitorTokenService.PARAM_VISITOR_TAG];
       console.log(`>>> Query param ${VisitorTokenService.PARAM_VISITOR_TAG} = ${v}`);
 
+      // This should be done in the entry component.
+      // (And, no need to do this again in the route path component.)
       this.visitorTokenService.visitorToken = v;
       this.hasValidVisitorToken = this.visitorTokenService.hasValidVisitorToken;
     });

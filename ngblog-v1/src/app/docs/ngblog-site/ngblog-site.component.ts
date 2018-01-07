@@ -284,6 +284,25 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
   }
 
 
+  openAdminHome() {
+    // tbd: if "v" param is already set in the URL, use that value???
+    // this.visitorTokenService.visitorToken = this.visitorTokenService.adminToken;
+    // let qParams = {v: this.visitorTokenService.visitorToken};
+    let qParams = {v: this.visitorTokenService.adminToken};
+    this.router.navigate(['admin'], {queryParams: qParams}).then(suc => {
+      console.log(`openAdminHome() suc = ${suc}`);
+    });
+  }
+
+  private _showAdminButton: boolean;
+  get showAdminButton(): boolean {
+    if(this._showAdminButton !== true && this._showAdminButton !== false) {
+      this._showAdminButton = this.appConfig.getBoolean("show-admin-button", false);
+    }
+    return this._showAdminButton;
+  }
+
+
   private _showPlaceholderThumbnail: boolean;
   get showPlaceholderThumbnail(): boolean {
     if (this._showPlaceholderThumbnail !== true && this._showPlaceholderThumbnail !== false) {

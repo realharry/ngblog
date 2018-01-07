@@ -1,17 +1,22 @@
 import { Injectable } from '@angular/core';
 
+// import { DateTimeUtil, DateIdUtil } from '@ngcore/core';
+import { AppConfig } from '@ngcore/core';
+
 
 // Tbd:
-// It should really have been a "visitor token" not a token...
+// We need to use full auth
+//    (although that's not strictly needed for client-side-only apps like this...)
 //....
-
 @Injectable()
 export class VisitorTokenRegistry {
 
   // token => note/info (e.g., like the name of the granted visitor, etc.)
   private tokenMap: {[token: string]: string} = {};
 
-  constructor() {
+  constructor(
+    private appConfig: AppConfig,
+  ) {
     // tbd:
     // special binary tokens...
     this.tokenMap['000000'] = 'Demo token 1';
@@ -21,7 +26,25 @@ export class VisitorTokenRegistry {
     // ...
   }
 
+  // This is not for security!
+  // It merely provides an alternative way to access (part of) the app.
+  // (Note that the config file is publicly accessible via non-protected HTTP.)
+  private _adminToken: (string | null) = null;
+  get adminToken(): string {
+    if(this._adminToken == null) {
+      this._adminToken = this.appConfig.getString("admin-visitor-token", '');
+    }
+    return this._adminToken;
+  }
+  get hasAdminToken(): boolean {
+    return !! this.adminToken;
+  }
+  isAdminVisitor(token: string): boolean {
+    return (!!token) && (this.adminToken == token);
+  }
+
   // temporary
+  // (This does not make sense. We should really return key not value...)
   get devToken(): string {
     return this.tokenMap['213141'];
   }

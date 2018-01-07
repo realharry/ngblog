@@ -33,6 +33,7 @@ import { BlogPostService } from './services/blog-post.service';
 import { PostListService } from './services/post-list.service';
 import { BlogPostRegistry } from './docs/registry/blog-post-registry';
 import { SitemapEntryRegistry } from './sitemap/sitemap-entry-registry';
+import { AdminSentinelService } from './admin/sentinels/admin-sentinel.service';
 
 import { AppComponent } from './app.component';
 import { NgBlogSiteComponent } from './docs/ngblog-site/ngblog-site.component';
@@ -43,6 +44,7 @@ import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { AppRoutingModule } from './app-routing.module';
 import { SitemapGenComponent } from './admin/sitemap-gen/sitemap-gen.component';
 import { PostWriterComponent } from './admin/post-writer/post-writer.component';
+import { AmdinPanelComponent } from './admin/amdin-panel/amdin-panel.component';
 
 
 @NgModule({
@@ -54,6 +56,7 @@ import { PostWriterComponent } from './admin/post-writer/post-writer.component';
     NotFoundComponent,
     SitemapGenComponent,
     PostWriterComponent,
+    AmdinPanelComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
@@ -71,7 +74,8 @@ import { PostWriterComponent } from './admin/post-writer/post-writer.component';
     //     component: NgBlogSiteComponent
     //   }
     // ]),
-    AppRoutingModule,
+    // AppRoutingModule,
+    AppRoutingModule.forRoot(),
     NgCoreCoreModule.forRoot(),
     NgCoreBaseModule.forRoot(),
     NgCoreDataModule.forRoot(),
@@ -98,7 +102,8 @@ import { PostWriterComponent } from './admin/post-writer/post-writer.component';
     BlogPostService,
     PostListService,
     BlogPostRegistry,
-    SitemapEntryRegistry
+    SitemapEntryRegistry,
+    // AdminSentinelService
   ],
   bootstrap: [AppComponent]
 })
