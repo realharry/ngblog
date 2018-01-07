@@ -38,7 +38,7 @@ Clone or fork this repo: [NgBlog/ngblog](https://gitlab.com/ngblog/ngblog).
 Copy `configs/app-config.dev.json` and name it `app-config.json`.
 Modify the config values as you see fit.
 For example, set `"blog-post-folder"` to "/posts"
-(and, create such-named folder under "/src").
+(and, create a such-named folder under "/src").
 
 Note that blog posts can be hosted on a remote server (that can be accessed via HTTP). For example, you can use Amazon S3. 
 Just specify in the config the absolute URL to the folder (or, S3 bucket, etc.) for blog posts.
@@ -81,6 +81,18 @@ Deploy the `dist` folder to your hosting service. Any service that supports stat
 including S3 or GitLab Pages, etc.
 
 Note that in order to use PWA features, your ngblog site should be served under `https`. (It may require some additional tweaking as well.)
+
+
+### (6) "Maintenance"
+
+#### How to add sitemaps
+
+There is no easy way to add a dynamic client-side sitemap
+in a SPA app like Angular (with client-side only deployment).
+You can create a sitemap from `<your host url>/sitemaps`
+and manually update `sitemap.xml` in the app src root directory.
+(Requires re-deployment.)
+
 
 
 
