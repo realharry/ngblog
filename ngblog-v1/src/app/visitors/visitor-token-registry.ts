@@ -40,6 +40,8 @@ export class VisitorTokenRegistry {
     return !! this.adminToken;
   }
   isAdminVisitor(token: string): boolean {
+    // Note that if this.adminToken is not set (''),
+    // isAdminVisitor() always returns false.
     return (!!token) && (this.adminToken == token);
   }
 

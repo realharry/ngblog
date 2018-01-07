@@ -297,7 +297,10 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
   private _showAdminButton: boolean;
   get showAdminButton(): boolean {
     if(this._showAdminButton !== true && this._showAdminButton !== false) {
-      this._showAdminButton = this.appConfig.getBoolean("show-admin-button", false);
+      this._showAdminButton = (
+        this.appConfig.getBoolean("show-admin-button", false)
+        && !! (this.visitorTokenService.adminToken)
+      );
     }
     return this._showAdminButton;
   }
