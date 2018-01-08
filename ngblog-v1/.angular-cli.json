@@ -9,11 +9,13 @@
       "outDir": "dist",
       "assets": [
         "assets",
+        "icons",
         "styles",
         "configs",
         "posts",
         "posts-dev",
         "favicon.ico",
+        "manifest.json",
         "sitemap.xml",
         "404.html"
       ],
@@ -41,10 +43,15 @@
       "outDir": "dist-server/",
       "assets": [
         "assets",
+        "icons",
+        "styles",
         "configs",
         "posts",
         "posts-dev",
-        "favicon.ico"
+        "favicon.ico",
+        "manifest.json",
+        "sitemap.xml",
+        "404.html"
       ],
       "index": "index.html",
       "main": "main.server.ts",

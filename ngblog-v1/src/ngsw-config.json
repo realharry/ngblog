@@ -22,6 +22,8 @@
     "resources": {
       "files": [
         "/assets/**",
+        "/icons/**",
+        "/styles/**",
         "/posts/**",
         "/posts-dev/**"
       ]
