@@ -13,8 +13,8 @@ export abstract class DocEntry {
   public showContent: boolean = false;
 
   constructor(
-    public id = '',   // "dateId" used for id. There can be no more than one entries per day.
-    public title = '',
+    public id: string = '',   // "dateId" used for id. There can be no more than one entries per day.
+    public title: string = '',
     public description: string = '',
     public summaryContent: string = '',
     public summaryUrl: string = '',

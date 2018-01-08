@@ -4,9 +4,14 @@
     <mat-toolbar-row>
       <span style="font-weight: bold;">{{header}}</span>
       <span style="flex: 1 1 auto"></span>
-      <button mat-icon-button color="" matTooltip="Home" (click)="navigateHome()">
-        <mat-icon>home</mat-icon>
-      </button>
+      <span style="vertical-align:bottom;">
+        <!-- <span style="font-style: italic; font-size:0.85em; margin-right: 16px;">
+          {{(docEntry.date) ? docEntry.date.toLocaleDateString() : docEntry.id}}
+        </span> -->
+        <button mat-icon-button color="" matTooltip="Home" (click)="navigateHome()">
+          <mat-icon>home</mat-icon>
+        </button>
+      </span>
     </mat-toolbar-row>
   </mat-toolbar>
 
@@ -21,11 +26,23 @@
 
   <mat-toolbar class="ngblog-permalink-footer" layout="row" color="accent">
     <mat-toolbar-row>
-      <span style="font-style: italic;">Copyright &copy;
-        <common-date-year></common-date-year> {{siteInfo.name}}</span>
+      <span style="font-style: italic; font-size:0.9em;">Copyright &copy;
+        <common-date-year></common-date-year> {{siteInfo.name}} - {{(docEntry.date) ? docEntry.date.toLocaleDateString() : docEntry.id}}
+      </span>
       <span style="flex: 1 1 auto"></span>
-      <span style="font-style: italic;">
-        {{(docEntry.date) ? docEntry.date.toLocaleDateString() : docEntry.id}}
+      <span>
+        <button *ngIf="showShareOnLinkedIn" mat-icon-button matTooltip="LinkedIn" shareButton="linkedin">
+          <i class="fa fa-linkedin fa-lg" aria-hidden="true"></i>
+        </button>
+        <button *ngIf="showShareOnFacebook" mat-icon-button matTooltip="Facebook" shareButton="facebook">
+          <i class="fa fa-facebook fa-lg" aria-hidden="true"></i>
+        </button>
+        <button *ngIf="showShareOnTwitter" mat-icon-button matTooltip="Twitter" shareButton="twitter">
+          <i class="fa fa-twitter fa-lg" aria-hidden="true"></i>
+        </button>
+        <a *ngIf="showShareViaEmail" mat-icon-button matTooltip="Email" [href]="'mailto:?subject='+emailSubject+'&body='+emailBody">
+          <i class="fa fa-envelope fa-lg" aria-hidden="true"></i>
+        </a>
       </span>
     </mat-toolbar-row>
   </mat-toolbar>

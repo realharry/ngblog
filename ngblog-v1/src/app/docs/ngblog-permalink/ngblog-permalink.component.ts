@@ -37,6 +37,9 @@ export class NgBlogPermalinkComponent implements OnInit {
 
   // temporary
   hostUrl: string;
+  pageUrl: string;   // Should be the same as the permalink.
+  emailSubject: string;
+  emailBody: string;
 
   constructor(
     private location: Location,
@@ -52,10 +55,15 @@ export class NgBlogPermalinkComponent implements OnInit {
   ) {
     if(this.browserWindowService.window) {
       this.hostUrl = this.browserWindowService.window.location.protocol + '//' + this.browserWindowService.window.location.host + '/';
+      this.pageUrl = this.browserWindowService.window.location.href;
     } else {
       this.hostUrl = '/';   // ???
+      this.pageUrl = '';    // ???
     }
-    console.log(`hostUrl = ${this.hostUrl}`);
+    console.log(`hostUrl = ${this.hostUrl}; pageUrl = ${this.pageUrl}`);
+
+    this.emailSubject = this.pageUrl;
+    this.emailBody = this.emailSubject;
 
     this.siteInfo = new SiteInfo();
     this.docEntry = new MarkdownDocEntry();   // ???
@@ -90,6 +98,8 @@ export class NgBlogPermalinkComponent implements OnInit {
       // this.docEntry = MarkdownDocEntry.copy(this.docEntry, entry);
       // MarkdownDocEntry.copy(this.docEntry, entry);
       this.docEntry.copy(entry);
+      this.emailSubject = encodeURIComponent(entry.title + ': ' + this.pageUrl);
+      this.emailBody = encodeURIComponent(entry.title + ' - ' + entry.description + '\n' + this.pageUrl + '\n\n');
     } else {
       let postUrl = this.dailyPostsHelper.getPostUrl(dateId);
       let useCache = true;
@@ -105,7 +115,9 @@ export class NgBlogPermalinkComponent implements OnInit {
           // this.docEntry = MarkdownDocEntry.copy(this.docEntry, entry);
           // MarkdownDocEntry.copy(this.docEntry, entry);
           this.docEntry.copy(entry);
-
+          this.emailSubject = encodeURIComponent(entry.title + ': ' + this.pageUrl);
+          this.emailBody = encodeURIComponent(entry.title + ' - ' + entry.description + '\n' + this.pageUrl + '\n\n');
+    
           // tbd:
           // Prepend the summary.md before content.md???
 
@@ -142,6 +154,39 @@ export class NgBlogPermalinkComponent implements OnInit {
     }
   }
 
+
+  private _showShareViaEmail: boolean;
+  get showShareViaEmail(): boolean {
+    if(this._showShareViaEmail !== true && this._showShareViaEmail !== false) {
+      this._showShareViaEmail = this.appConfig.getBoolean("show-share-via-email", false);
+    }
+    return this._showShareViaEmail;
+  }
+
+  private _showShareOnTwitter: boolean;
+  get showShareOnTwitter(): boolean {
+    if(this._showShareOnTwitter !== true && this._showShareOnTwitter !== false) {
+      this._showShareOnTwitter = this.appConfig.getBoolean("show-share-on-twitter", false);
+    }
+    return this._showShareOnTwitter;
+  }
+
+  private _showShareOnFacebook: boolean;
+  get showShareOnFacebook(): boolean {
+    if(this._showShareOnFacebook !== true && this._showShareOnFacebook !== false) {
+      this._showShareOnFacebook = this.appConfig.getBoolean("show-share-on-facebook", false);
+    }
+    return this._showShareOnFacebook;
+  }
+
+  private _showShareOnLinkedIn: boolean;
+  get showShareOnLinkedIn(): boolean {
+    if(this._showShareOnLinkedIn !== true && this._showShareOnLinkedIn !== false) {
+      this._showShareOnLinkedIn = this.appConfig.getBoolean("show-share-on-linkedin", false);
+    }
+    return this._showShareOnLinkedIn;
+  }
+  
 
   navigateBack() {
     this.location.back();

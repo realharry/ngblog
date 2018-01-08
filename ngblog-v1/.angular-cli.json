@@ -9,6 +9,7 @@
       "outDir": "dist",
       "assets": [
         "assets",
+        "styles",
         "configs",
         "posts",
         "posts-dev",

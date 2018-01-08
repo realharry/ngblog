@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
@@ -19,6 +19,8 @@ import { NgCoreNoteModule } from '@ngcore/note';
 import { NgCoreTimeModule } from '@ngcore/time';
 
 import { AppConfig } from '@ngcore/core';
+
+import { ShareModule } from '@ngx-share/core';
 
 import { environment } from '../environments/environment';
 
@@ -60,7 +62,7 @@ import { AmdinPanelComponent } from './admin/amdin-panel/amdin-panel.component';
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
-    HttpClientModule,
+    HttpClientModule, HttpClientJsonpModule,
     HttpModule,
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
     // RouterModule.forRoot([
@@ -86,6 +88,7 @@ import { AmdinPanelComponent } from './admin/amdin-panel/amdin-panel.component';
     NgCoreNoteModule.forRoot(),
     NgCoreTimeModule.forRoot(),
     MaterialComponentsModule,
+    ShareModule.forRoot(),
   ],
   entryComponents: [
     // AppComponent,

@@ -17,7 +17,7 @@ export class MarkdownDocEntry extends DocEntry {
   public rendererOptions: any = {};
 
   constructor(
-    id = '',
+    id: string = '',
     title: string = '',
     description: string = '',
     summaryContent: string = '',
