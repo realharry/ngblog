@@ -76,7 +76,7 @@ export class NgBlogPermalinkComponent implements OnInit {
     //   console.log(`:::config::: key = ${k}; value = ${config[k]}`);
     // }
 
-    let sInfo = this.appConfig.get('siteInfo');
+    let sInfo = this.appConfig.get('site-info');
     if (sInfo) {
       this.siteInfo.copy(sInfo);
     } else {

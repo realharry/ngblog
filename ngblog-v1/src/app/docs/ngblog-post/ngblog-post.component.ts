@@ -63,7 +63,7 @@ export class NgBlogPostComponent implements OnInit {
     let dateId = this.activatedRoute.snapshot.params['id'];
     console.log(`>>> path id = ${dateId}.`);
 
-    let sInfo = this.appConfig.get('siteInfo');
+    let sInfo = this.appConfig.get('site-info');
     if (sInfo) {
       this.siteInfo.copy(sInfo);
     } else {
