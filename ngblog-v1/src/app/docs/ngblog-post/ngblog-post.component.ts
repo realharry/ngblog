@@ -20,6 +20,10 @@ import { BlogPostService } from '../../services/blog-post.service';
 import { BlogPostRegistry } from '../registry/blog-post-registry';
 
 
+// TBD:
+// Much of its original functionality has been moved to NgBlogPermalinkComponent.
+// This class can be now refactored to serve page redirection only.
+
 @Component({
   selector: 'app-ngblog-post',
   templateUrl: './ngblog-post.component.html',

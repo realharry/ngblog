@@ -1,0 +1,17 @@
+.ngblog-admin-header {
+  z-index: 2;
+  font-size: 0.9em;
+  min-height: 48px;
+  max-height: 48px;
+}
+.ngblog-admin-footer {
+  z-index: 2;
+  font-size: 0.85em;
+  min-height: 36px;
+  max-height: 36px;
+}
+
+.ngblog-admin-card {
+  margin: 24px;
+  padding: 8x;
+}

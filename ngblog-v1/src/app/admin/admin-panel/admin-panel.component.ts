@@ -11,11 +11,11 @@ import { VisitorTokenService } from '../../services/visitor-token.service';
 
 
 @Component({
-  selector: 'app-amdin-panel',
-  templateUrl: './amdin-panel.component.html',
-  styleUrls: ['./amdin-panel.component.css']
+  selector: 'app-admin-panel',
+  templateUrl: './admin-panel.component.html',
+  styleUrls: ['./admin-panel.component.css']
 })
-export class AmdinPanelComponent implements OnInit {
+export class AdminPanelComponent implements OnInit {
 
   paramsSub: any;
   hasValidAdminToken: boolean = false;
@@ -32,7 +32,7 @@ export class AmdinPanelComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(">>> AmdinPanelComponent::ngOnInit()");
+    console.log(">>> AdminPanelComponent::ngOnInit()");
 
     // This is needed for pagination.
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
@@ -75,6 +75,15 @@ export class AmdinPanelComponent implements OnInit {
     }
     this.router.navigate(['sitemaps'], {queryParams: qp}).then(suc => {
       console.log(`navigateSitemapGenerator() suc = ${suc}`);
+    });
+  }
+  navigateConfigView() {
+    let qp = {};
+    if(this.visitorTokenService.hasVisitorToken) {
+      qp = {v: this.visitorTokenService.visitorToken};
+    }
+    this.router.navigate(['config'], {queryParams: qp}).then(suc => {
+      console.log(`navigateConfigView() suc = ${suc}`);
     });
   }
   

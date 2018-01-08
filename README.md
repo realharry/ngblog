@@ -43,6 +43,8 @@ For example, set `"blog-post-folder"` to "/posts"
 Note that blog posts can be hosted on a remote server (that can be accessed via HTTP). For example, you can use Amazon S3. 
 Just specify in the config the absolute URL to the folder (or, S3 bucket, etc.) for blog posts.
 
+_(The dev config values are for demo purposes only, and they may not reflect a typical production deployment.)_
+
 
 ### (3) Create a post
 
@@ -85,11 +87,17 @@ Note that in order to use PWA features, your ngblog site should be served under 
 
 ### (6) "Maintenance"
 
+#### How to update the theme
+
+The material theme is defined in `custom-theme.scss`.
+Update the SCSS variables as you see fit.
+
+
 #### How to add sitemaps
 
 There is no easy way to add a dynamic client-side sitemap
 in a SPA app like Angular (with client-side only deployment).
-You can create a sitemap from `<your host url>/sitemaps`
+You can create a sitemap from the sitemaps page (accessible via `<your host url>/admin?v=<admin token>`)
 and manually update `sitemap.xml` in the app src root directory.
 (Requires re-deployment.)
 

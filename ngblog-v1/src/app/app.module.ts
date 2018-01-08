@@ -46,7 +46,8 @@ import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { AppRoutingModule } from './app-routing.module';
 import { SitemapGenComponent } from './admin/sitemap-gen/sitemap-gen.component';
 import { PostWriterComponent } from './admin/post-writer/post-writer.component';
-import { AmdinPanelComponent } from './admin/amdin-panel/amdin-panel.component';
+import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
+import { ConfigViewComponent } from './admin/config-view/config-view.component';
 
 
 @NgModule({
@@ -58,7 +59,8 @@ import { AmdinPanelComponent } from './admin/amdin-panel/amdin-panel.component';
     NotFoundComponent,
     SitemapGenComponent,
     PostWriterComponent,
-    AmdinPanelComponent,
+    AdminPanelComponent,
+    ConfigViewComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

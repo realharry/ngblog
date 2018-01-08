@@ -1,0 +1,29 @@
+<div>
+
+  <mat-toolbar class="ngblog-admin-header" layout="row" color="primary">
+    <mat-toolbar-row>
+      <span style="font-weight: bold;">App Config</span>
+      <span style="flex: 1 1 auto"></span>
+      <button mat-icon-button color="" matTooltip="Admin" (click)="navigateAdminHome()">
+        <mat-icon>security</mat-icon>
+      </button>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <div style="padding-top: 16px; padding-bottom: 16px; text-align: center;">
+
+   <textarea [value]="configFileJSON" style="margin: 16px; width:92%; height: 360px;">
+   </textarea>
+
+  </div>
+
+  <mat-toolbar class="ngblog-admin-footer" layout="row" color="accent">
+    <mat-toolbar-row>
+      <span style="font-style: italic; font-size:0.9em;">Copyright &copy;
+        <common-date-year></common-date-year></span>
+      <span style="flex: 1 1 auto"></span>
+      <span style="font-style: italic; font-size:0.85em;">-admin-</span>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+</div>

@@ -13,19 +13,20 @@
   <div style="padding-top: 16px; padding-bottom: 16px; text-align: center;">
 
 
-    <mat-card class="example-card">
+    <mat-card class="ngblog-admin-card">
       <mat-card-header>
-        <mat-card-title>Admin Interface</mat-card-title>
-        <mat-card-subtitle>-TBD-</mat-card-subtitle>
+        <mat-card-title>Admin/Author Interface</mat-card-title>
+        <mat-card-subtitle>-Work in progress-</mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>
         <p>
-          Manage your blog app.
+          Manage your ngblog.
         </p>
       </mat-card-content>
       <mat-card-actions>
         <button mat-button color="primary" [disabled]="!hasValidAdminToken" (click)="navigatePostWriter()">Post Writer</button>
         <button mat-button color="primary" [disabled]="!hasValidAdminToken" (click)="navigateSitemapGenerator()">Sitemap Generator</button>
+        <button mat-button color="primary" [disabled]="!hasValidAdminToken" (click)="navigateConfigView()">App Config</button>
       </mat-card-actions>
     </mat-card>    
     

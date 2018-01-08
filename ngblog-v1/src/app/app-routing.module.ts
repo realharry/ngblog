@@ -12,7 +12,8 @@ import { NotFoundComponent } from './errors/not-found/not-found.component';
 
 import { SitemapGenComponent } from './admin/sitemap-gen/sitemap-gen.component';
 import { PostWriterComponent } from './admin/post-writer/post-writer.component';
-import { AmdinPanelComponent } from './admin/amdin-panel/amdin-panel.component';
+import { ConfigViewComponent } from './admin/config-view/config-view.component';
+import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
 import { NgBlogSiteComponent } from './docs/ngblog-site/ngblog-site.component';
 import { NgBlogPostComponent } from './docs/ngblog-post/ngblog-post.component';
 import { NgBlogPermalinkComponent } from './docs/ngblog-permalink/ngblog-permalink.component';
@@ -33,7 +34,7 @@ const routes: Routes = [
   },
   {
     path: 'admin',
-    component: AmdinPanelComponent,
+    component: AdminPanelComponent,
     // canActivate: [AdminSentinelService]   // this does not work when accessed directly via URL.
   },
   {
@@ -44,6 +45,11 @@ const routes: Routes = [
   {
     path: 'sitemaps',
     component: SitemapGenComponent,
+    canActivate: [AdminSentinelService]   // this should be accessed via admin.
+  },
+  {
+    path: 'config',
+    component: ConfigViewComponent,
     canActivate: [AdminSentinelService]   // this should be accessed via admin.
   },
   {

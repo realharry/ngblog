@@ -22,13 +22,18 @@ Sitemap: Partially done. 2017/01/05
 Permalink: Done. 2017/01/06
     Now dateId post URLs are redirected to permalink URLs.
 
+Social sharing: Done. 2017/01/07
+    Supports Share on Twitter/Facebook/LinkedIn, and via email.
 
+Basic admin/author interface: Partially done. 2017/01/07
+    Added an admin screen, which is accesible with "admin visitor token".
 
-Social sharing: e.g., Share on Twitter, email this post, etc.
 
 Client-side search
 
 Tag/label support
+
+Support custom UI (other than Accordion listing)?
 
 
 Support more than one posts per day
