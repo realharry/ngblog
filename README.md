@@ -43,7 +43,7 @@ For example, set `"blog-post-folder"` to "/posts"
 Note that blog posts can be hosted on a remote server (that can be accessed via HTTP). For example, you can use Amazon S3. 
 Just specify in the config the absolute URL to the folder (or, S3 bucket, etc.) for blog posts.
 
-_(The dev config values are for demo purposes only, and they may not reflect a typical production deployment.)_
+_1. The dev config values are for demo purposes only, and they may not reflect a typical production setup. 2. Config file is publicly accessible. Do not put any sensitive information._
 
 
 ### (3) Create a post

@@ -4,10 +4,10 @@
     <mat-toolbar-row>
       <span style="font-weight: bold;">{{header}}</span>
       <span style="flex: 1 1 auto"></span>
-      <span style="vertical-align:bottom;">
-        <!-- <span style="font-style: italic; font-size:0.85em; margin-right: 16px;">
+      <span>
+        <span style="font-style: italic; font-size:0.9em; margin-right: 16px;">
           {{(docEntry.date) ? docEntry.date.toLocaleDateString() : docEntry.id}}
-        </span> -->
+        </span>
         <button mat-icon-button color="" matTooltip="Home" (click)="navigateHome()">
           <mat-icon>home</mat-icon>
         </button>
@@ -26,8 +26,16 @@
 
   <mat-toolbar class="ngblog-permalink-footer" layout="row" color="accent">
     <mat-toolbar-row>
-      <span style="font-style: italic; font-size:0.9em;">Copyright &copy;
-        <common-date-year></common-date-year> {{siteInfo.name}} - {{(docEntry.date) ? docEntry.date.toLocaleDateString() : docEntry.id}}
+      <span *ngIf="displayContactWebsite" style="font-style: italic; font-size:0.9em;">
+        <a mat-button [href]="contactWebsite">Copyright &copy;
+          <common-date-year></common-date-year> {{siteInfo.name}}</a>
+      </span>
+      <span *ngIf="!displayContactWebsite" style="font-style: italic; font-size:0.9em;">
+        Copyright &copy;
+        <common-date-year></common-date-year> {{siteInfo.name}}
+      </span>
+
+      <span style="font-style: italic; font-size:0.9em;">
       </span>
       <span style="flex: 1 1 auto"></span>
       <span>

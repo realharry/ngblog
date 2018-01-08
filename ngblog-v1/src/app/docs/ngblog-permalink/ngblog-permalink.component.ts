@@ -12,7 +12,9 @@ import { CommonMarkUtil } from '@ngcore/mark';
 import { CommonMarkEntryComponent } from '@ngcore/mark';
 
 import { SiteInfo } from '../../common/site-info';
+import { ContactInfo } from '../../common/contact-info';
 import { defaultSiteInfo } from '../info/default-site-info';
+import { defaultContactInfo } from '../info/default-contact-info';
 import { MarkdownDocEntry } from '../../entry/markdown-doc-entry';
 import { MarkdownEntryUtil } from '../../entry/util/markdown-entry-util';
 import { VisitorTokenService } from '../../services/visitor-token.service';
@@ -31,7 +33,10 @@ export class NgBlogPermalinkComponent implements OnInit {
   @ViewChild("commonMarkEntry")
   commonMarkEntry: CommonMarkEntryComponent;
 
+  contactWebsite: string = '';
+
   siteInfo: SiteInfo;
+  contactInfo: ContactInfo;
   docEntry: MarkdownDocEntry;
   // imgPrefix: string;
 
@@ -66,6 +71,8 @@ export class NgBlogPermalinkComponent implements OnInit {
     this.emailBody = this.emailSubject;
 
     this.siteInfo = new SiteInfo();
+    this.contactInfo = new ContactInfo();
+
     this.docEntry = new MarkdownDocEntry();   // ???
     // this.imgPrefix = '';
   }
@@ -82,6 +89,14 @@ export class NgBlogPermalinkComponent implements OnInit {
     } else {
       this.siteInfo.copy(defaultSiteInfo);
     }
+
+    let cInfo = this.appConfig.get('contact-info');
+    if (cInfo) {
+      this.contactInfo.copy(cInfo);
+    } else {
+      this.contactInfo.copy(defaultContactInfo);
+    }
+    this.contactWebsite = (this.contactInfo.website) ? this.contactInfo.website : '';
 
     let permalinkPath = this.activatedRoute.snapshot.params['path'];
     let dateId = PermalinkPathUtil.getUniqueId(permalinkPath);
@@ -152,6 +167,12 @@ export class NgBlogPermalinkComponent implements OnInit {
     } else {
       return this.docEntry.title;
     }
+  }
+
+  
+  // temporary
+  get displayContactWebsite(): boolean {
+    return !!this.contactWebsite;
   }
 
 

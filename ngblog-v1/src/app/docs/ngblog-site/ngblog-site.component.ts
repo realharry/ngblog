@@ -153,6 +153,20 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
       this.contactInfo.copy(defaultContactInfo);
     }
 
+    // if (this.hasNonBinaryVisitorToken) {
+    //   this.contactEmail = (this.contactInfo.email) ? this.contactInfo.email : '';
+    //   this.contactPhone = (this.contactInfo.phone) ? this.contactInfo.phone : '';
+    //   this.contactWebsite = (this.contactInfo.website) ? this.contactInfo.website : '';
+    // } else {
+    //   this.contactEmail = '';
+    //   this.contactPhone = '';
+    //   this.contactWebsite = '';
+    // }
+    this.contactEmail = (this.contactInfo.email) ? this.contactInfo.email : '';
+    this.contactPhone = (this.contactInfo.phone) ? this.contactInfo.phone : '';
+    this.contactWebsite = (this.contactInfo.website) ? this.contactInfo.website : '';
+    // console.log(`>>>>> this.contactEmail = ${this.contactEmail}`);
+
     // // testing...
     // this.imgPrefix = this.dailyPostsHelper.imgFolder;
 
@@ -173,20 +187,6 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
 
     this.hasValidVisitorToken = this.visitorTokenService.hasValidVisitorToken;
     this.hasNonBinaryVisitorToken = this.visitorTokenService.hasNonBinaryVisitorToken;
-
-    // if (this.hasNonBinaryVisitorToken) {
-    //   this.contactEmail = (this.contactInfo.email) ? this.contactInfo.email : '';
-    //   this.contactPhone = (this.contactInfo.phone) ? this.contactInfo.phone : '';
-    //   this.contactWebsite = (this.contactInfo.website) ? this.contactInfo.website : '';
-    // } else {
-    //   this.contactEmail = '';
-    //   this.contactPhone = '';
-    //   this.contactWebsite = '';
-    // }
-    this.contactEmail = (this.contactInfo.email) ? this.contactInfo.email : '';
-    this.contactPhone = (this.contactInfo.phone) ? this.contactInfo.phone : '';
-    this.contactWebsite = (this.contactInfo.website) ? this.contactInfo.website : '';
-    console.log(`>>>>> this.contactEmail = ${this.contactEmail}`);
 
     // Async.
     this.loadBlogPostEntries();
@@ -348,6 +348,11 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
     return `http://via.placeholder.com/${this.thumbnailWidth}x${this.thumbnailHeight}`;
   }
 
+
+  // temporary
+  get displayContactWebsite(): boolean {
+    return !!this.contactWebsite;
+  }
 
   private _displayContactEmail: boolean;
   get displayContactEmail(): boolean {
