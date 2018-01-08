@@ -36,6 +36,10 @@ Tag/label support
 Support custom UI (other than Accordion listing)?
 
 
+Weekly summary page
+Monthly summary page
+
+
 Support more than one posts per day
 --> Well, actually, we will probably limit one post per day, 
     but support more than one content files per post. TBD.
