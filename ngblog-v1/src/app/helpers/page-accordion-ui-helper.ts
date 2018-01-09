@@ -88,7 +88,7 @@ export class PageAccordionUiHelper {
       // Pick a random expansion_step of the day.
       // TBD: Initially, read it from user settings.
       let storedExpansionStep: ExpansionStep = this.getStoredExpansionStep(page);
-      // console.log(`>>> storedExpansionStep = ${storedExpansionStep.toString()}`);
+      // if(isDL()) dl.log(`>>> storedExpansionStep = ${storedExpansionStep.toString()}`);
       if (storedExpansionStep && storedExpansionStep.isFresh) {
         this._expansion_steps[page] = storedExpansionStep;
       } else {

@@ -1,3 +1,4 @@
+import { DevLogger as dl } from '@ngcore/core'; import isDL = dl.isLoggable;
 import { DateIdUtil } from '@ngcore/core';
 import { PermalinkPathUtil } from '@ngcore/link';
 
@@ -12,7 +13,7 @@ export namespace MarkdownEntryUtil {
     // if(!pm) {
     //   return null;   // ???
     // }
-    // console.log(`post metadata = ${pm}`);
+    // if(isDL()) dl.log(`post metadata = ${pm}`);
     let imgPrefix = DailyPostsHelper.getImgPrefix(pm.url);
     let entry = new MarkdownDocEntry(
       // (pm.dateId) ? pm.dateId : DailyPostsHelper.getDateId(pm.url),
@@ -31,7 +32,7 @@ export namespace MarkdownEntryUtil {
     if (pm.hasContent) {
       entry.showContent = true;
     }
-    console.log(`entry = ${entry}`);
+    if(isDL()) dl.log(`entry = ${entry}`);
     return entry;
   }
 

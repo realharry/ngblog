@@ -1,3 +1,4 @@
+import { DevLogger as dl } from '@ngcore/core'; import isDL = dl.isLoggable;
 import { PermalinkPathUtil } from '@ngcore/link';
 
 import { DocEntry } from './doc-entry';
@@ -91,9 +92,9 @@ export class MarkdownDocEntry extends DocEntry {
   }
 
   copy(obj: any) {
-    // console.log(`### obj = ${obj}`);
-    // // console.log(`### copy(): obj.id = ${obj.id}`);
-    // // console.log(`### copy(): obj.title = ${obj.title}`);
+    // if(isDL()) dl.log(`### obj = ${obj}`);
+    // // if(isDL()) dl.log(`### copy(): obj.id = ${obj.id}`);
+    // // if(isDL()) dl.log(`### copy(): obj.title = ${obj.title}`);
     
     this.id = obj.id;
     this.title = obj.title;
@@ -112,7 +113,7 @@ export class MarkdownDocEntry extends DocEntry {
     this.rendererOptions = Object.assign({}, obj.rendererOptions);
 
     // temporary
-    console.log(`### copy(): ${this.toString()}`);
+    if(isDL()) dl.log(`### copy(): ${this.toString()}`);
   }
 
   // static copy(target: MarkdownDocEntry, source: MarkdownDocEntry): MarkdownDocEntry {

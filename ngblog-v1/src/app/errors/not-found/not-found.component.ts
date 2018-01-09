@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
 
+import { DevLogger as dl } from '@ngcore/core'; import isDL = dl.isLoggable;
 import { DateTimeUtil, DateIdUtil } from '@ngcore/core';
 import { AppConfig } from '@ngcore/core';
 import { BrowserWindowService } from '@ngcore/core';
@@ -57,7 +58,7 @@ export class NotFoundComponent implements OnInit {
     this.contactEmail = (this.contactInfo.email) ? this.contactInfo.email : '';
     this.contactPhone = (this.contactInfo.phone) ? this.contactInfo.phone : '';
     this.contactWebsite = (this.contactInfo.website) ? this.contactInfo.website : '';
-    console.log(`>>>>> this.contactEmail = ${this.contactEmail}`);
+    if(isDL()) dl.log(`>>>>> this.contactEmail = ${this.contactEmail}`);
 
   }
 
@@ -65,12 +66,12 @@ export class NotFoundComponent implements OnInit {
   get displayContactEmail(): boolean {
     if (this._displayContactEmail !== true && this._displayContactEmail !== false) {
       let showContactEmail = this.appConfig.getBoolean("show-contact-email", false);
-      console.log(`>>>>> showContactEmail = ${showContactEmail}`);
+      if(isDL()) dl.log(`>>>>> showContactEmail = ${showContactEmail}`);
       this._displayContactEmail =
         !!(this.contactEmail) // tbd: validate email?
         &&
         this.appConfig.getBoolean("show-contact-email", false);
-      console.log(`>>>>> this._displayContactEmail = ${this._displayContactEmail}`);
+      if(isDL()) dl.log(`>>>>> this._displayContactEmail = ${this._displayContactEmail}`);
     }
     return this._displayContactEmail;
   }
@@ -80,7 +81,7 @@ export class NotFoundComponent implements OnInit {
     // How to clear history stack???
     // this.location.clear();
     this.router.navigate(['/']).then(suc => {
-      console.log(`navigate() suc = ${suc}`);
+      if(isDL()) dl.log(`navigate() suc = ${suc}`);
     });
   }
 
