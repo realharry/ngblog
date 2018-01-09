@@ -17,6 +17,8 @@ import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
 import { NgBlogSiteComponent } from './docs/ngblog-site/ngblog-site.component';
 import { NgBlogPostComponent } from './docs/ngblog-post/ngblog-post.component';
 import { NgBlogPermalinkComponent } from './docs/ngblog-permalink/ngblog-permalink.component';
+import { WeeklyDigestComponent } from './digests/weekly-digest/weekly-digest.component';
+import { MonthlyDigestComponent } from './digests/monthly-digest/monthly-digest.component';
 import { AppComponent } from './app.component';
 
 
@@ -51,6 +53,14 @@ const routes: Routes = [
     path: 'config',
     component: ConfigViewComponent,
     canActivate: [AdminSentinelService]   // this should be accessed via admin.
+  },
+  {
+    path: 'weekly/:id',
+    component: WeeklyDigestComponent
+  },
+  {
+    path: 'monthly/:id',
+    component: MonthlyDigestComponent
   },
   {
     path: 'post/:id',

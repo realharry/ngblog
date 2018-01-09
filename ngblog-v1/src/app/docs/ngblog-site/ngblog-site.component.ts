@@ -285,6 +285,39 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
   }
 
 
+  openWeeklyDigestPage() {
+    // TBD:
+    let currentWeekId = DateIdUtil.getTodayId();
+    this.router.navigate(['weekly', currentWeekId]).then(suc => {
+      if(isDL()) dl.log(`openWeeklyDigestPage() suc = ${suc}`);
+    });
+  }
+
+  private _showWeeklyDigest: boolean;
+  get showWeeklyDigest(): boolean {
+    if(this._showWeeklyDigest !== true && this._showWeeklyDigest !== false) {
+      this._showWeeklyDigest = this.appConfig.getBoolean("enable-weekly-digest", false);
+    }
+    return this._showWeeklyDigest;
+  }
+
+  openMonthlyDigestPage() {
+    // TBD:
+    let currentMonthId = DateIdUtil.getTodayId();
+    this.router.navigate(['monthly', currentMonthId]).then(suc => {
+      if(isDL()) dl.log(`openMonthlyDigestPage() suc = ${suc}`);
+    });
+  }
+
+  private _showMonthlyDigest: boolean;
+  get showMonthlyDigest(): boolean {
+    if(this._showMonthlyDigest !== true && this._showMonthlyDigest !== false) {
+      this._showMonthlyDigest = this.appConfig.getBoolean("enable-monthly-digest", false);
+    }
+    return this._showMonthlyDigest;
+  }
+
+
   openAdminHome() {
     // tbd: if "v" param is already set in the URL, use that value???
     // this.visitorTokenService.visitorToken = this.visitorTokenService.adminToken;

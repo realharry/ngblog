@@ -9,6 +9,8 @@
     "phone": "555-555-5555",
     "website": "https://gitlab.com/ngblog"
   },
+  "enable-weekly-digest": true,
+  "enable-monthly-digest": true,
   "show-contact-email": true,
   "blog-post-folder": "posts-dev/",
   "max-post-age": 180,

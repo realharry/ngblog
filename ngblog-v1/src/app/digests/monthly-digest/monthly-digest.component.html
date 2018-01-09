@@ -1,0 +1,35 @@
+<div>
+
+  <mat-toolbar class="ngblog-digest-header" layout="row" color="primary">
+    <mat-toolbar-row>
+      <span style="font-weight: bold;">{{siteInfo.name}} - Month of {{monthDate}}</span>
+      <span style="flex: 1 1 auto"></span>
+      <button mat-icon-button color="" matTooltip="Home" (click)="navigateHome()">
+        <mat-icon>home</mat-icon>
+      </button>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <div style="padding-top: 16px; padding-bottom: 16px; text-align: center;">
+
+    <span style="font-weight: bold; font-size: 2.0em;">TBD</span>
+
+  </div>
+
+  <mat-toolbar class="ngblog-digest-footer" layout="row" color="accent">
+    <mat-toolbar-row>
+      <span style="font-style: italic; font-size:0.9em;">Copyright &copy;
+        <common-date-year></common-date-year> {{siteInfo.name}}</span>
+      <span style="flex: 1 1 auto"></span>
+      <span style="font-style: italic; font-size:0.9em;">
+        <button mat-icon-button color="primary" [disabled]="true" matTooltip="Previous">
+          <mat-icon>keyboard_arrow_left</mat-icon>
+        </button>
+        <button mat-icon-button color="primary" [disabled]="true" matTooltip="Next">
+          <mat-icon>keyboard_arrow_right</mat-icon>
+        </button>
+      </span>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+</div>

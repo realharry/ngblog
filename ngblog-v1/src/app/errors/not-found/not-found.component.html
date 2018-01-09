@@ -18,10 +18,10 @@
 
   <mat-toolbar class="ngblog-notfound-footer" layout="row" color="accent">
     <mat-toolbar-row>
-      <span style="font-style: italic;">Copyright &copy;
+      <span style="font-style: italic; font-size:0.9em;">Copyright &copy;
         <common-date-year></common-date-year> {{siteInfo.name}}</span>
       <span style="flex: 1 1 auto"></span>
-      <span *ngIf="displayContactEmail" style="font-style: italic;">
+      <span *ngIf="displayContactEmail" style="font-style: italic; font-size:0.9em;">
         <a mat-button href="mailto:{{contactEmail}}">{{contactEmail}}</a>
       </span>
     </mat-toolbar-row>

@@ -4,10 +4,7 @@
     <mat-toolbar-row>
       <span style="font-weight: bold;">{{siteInfo.name}} - {{siteInfo.title}}</span>
       <span style="flex: 1 1 auto"></span>
-      <!-- <button mat-icon-button color="" matTooltip="Printable version" (click)="handlePrint()">
-        <mat-icon>print</mat-icon>
-      </button> -->
-      <span [hidden]="!isPaginationEnabled">
+      <!-- <span [hidden]="!isPaginationEnabled">
         <mat-chip-list>
           <button mat-icon-button color="accent" [disabled]="isInFirstPage" matTooltip="Previous Page" (click)="goToPreviousPage()">
             <mat-icon>keyboard_arrow_left</mat-icon>
@@ -17,6 +14,17 @@
             <mat-icon>keyboard_arrow_right</mat-icon>
           </button>
         </mat-chip-list>
+      </span> -->
+      <span>
+        <button *ngIf="showWeeklyDigest" mat-icon-button color="" matTooltip="This Week" (click)="openWeeklyDigestPage()">
+          <mat-icon>date_range</mat-icon>
+        </button>
+        <button *ngIf="showMonthlyDigest" mat-icon-button color="" matTooltip="This Month" (click)="openMonthlyDigestPage()">
+          <mat-icon>event_note</mat-icon>
+        </button>
+        <button *ngIf="showAdminButton" mat-icon-button color="" matTooltip="Admin" (click)="openAdminHome()">
+          <mat-icon>security</mat-icon>
+        </button>
       </span>
     </mat-toolbar-row>
   </mat-toolbar>
@@ -82,13 +90,22 @@
         <common-date-year></common-date-year> {{siteInfo.name}}
       </span>
       <span style="flex: 1 1 auto"></span>
+      <span [hidden]="!isPaginationEnabled">
+        <!-- <mat-chip-list>
+          <button mat-icon-button color="primary" [disabled]="isInFirstPage" matTooltip="Previous Page" (click)="goToPreviousPage()">
+            <mat-icon>keyboard_arrow_left</mat-icon>
+          </button>
+          <mat-chip color="primary" selected="true">{{pageIndicia}}</mat-chip>
+          <button mat-icon-button color="primary" [disabled]="isInLastPage" matTooltip="Next Page" (click)="goToNextPage()">
+            <mat-icon>keyboard_arrow_right</mat-icon>
+          </button>
+        </mat-chip-list> -->
+      </span>
+      <span style="flex: 1 1 auto"></span>
       <span *ngIf="displayContactEmail" style="font-style: italic; font-size:0.9em;">
         <a mat-button href="mailto:{{contactEmail}}">{{contactEmail}}</a>
-        <button *ngIf="showAdminButton" mat-icon-button color="" matTooltip="Admin" (click)="openAdminHome()">
-          <mat-icon>security</mat-icon>
-        </button>
       </span>
-      <!-- <span [hidden]="!isPaginationEnabled">
+      <span style="font-style: italic; font-size:0.9em;">
         <mat-chip-list>
           <button mat-icon-button color="primary" [disabled]="isInFirstPage" matTooltip="Previous Page" (click)="goToPreviousPage()">
             <mat-icon>keyboard_arrow_left</mat-icon>
@@ -98,7 +115,10 @@
             <mat-icon>keyboard_arrow_right</mat-icon>
           </button>
         </mat-chip-list>
-      </span> -->
+        <!-- <button *ngIf="showAdminButton" mat-icon-button color="" matTooltip="Admin" (click)="openAdminHome()">
+          <mat-icon>security</mat-icon>
+        </button> -->
+      </span>
     </mat-toolbar-row>
   </mat-toolbar>
 
