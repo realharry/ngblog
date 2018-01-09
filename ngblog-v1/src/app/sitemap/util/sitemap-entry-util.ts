@@ -1,3 +1,4 @@
+import { DevLogger as dl } from '@ngcore/core'; import isDL = dl.isLoggable;
 import { DateTimeUtil, DateIdUtil } from '@ngcore/core';
 
 import { ChangeFrequency, SiteEntry } from '@ngcore/link';
@@ -29,7 +30,7 @@ export namespace SitemapEntryUtil {
       }
 
       let absUrl = hostUrl + path;
-      console.log(`buildAbsoluteUrl(): absUrl = ${absUrl} from hostUrl = ${hostUrl}; path = ${path}`);
+      if(isDL()) dl.log(`buildAbsoluteUrl(): absUrl = ${absUrl} from hostUrl = ${hostUrl}; path = ${path}`);
       return absUrl;
     }
   }
@@ -50,7 +51,7 @@ export namespace SitemapEntryUtil {
       0.5,
       true
     );
-    console.log(`entry = ${entry}`);
+    if(isDL()) dl.log(`entry = ${entry}`);
     return entry;
   }
 

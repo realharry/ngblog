@@ -5,6 +5,7 @@ import { Location } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
 // import { MatDialog } from '@angular/material';
 
+import { DevLogger as dl } from '@ngcore/core'; import isDL = dl.isLoggable;
 import { DateTimeUtil, DateIdUtil } from '@ngcore/core';
 import { AppConfig } from '@ngcore/core';
 import { BrowserWindowService } from '@ngcore/core';
@@ -97,7 +98,7 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
     } else {
       this.hostUrl = '/';   // ???
     }
-    console.log(`hostUrl = ${this.hostUrl}`);
+    if(isDL()) dl.log(`hostUrl = ${this.hostUrl}`);
 
     this.siteInfo = new SiteInfo();
     this.contactInfo = new ContactInfo();
@@ -115,18 +116,18 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
       ) {
         this.windowWidth = newWidth;
         this.windowHeight = newHeight;
-        // console.log(`onResize() newWidth = ${newWidth}, newHeight = ${newHeight}`);
+        // if(isDL()) dl.log(`onResize() newWidth = ${newWidth}, newHeight = ${newHeight}`);
       }
     }
   }
 
   ngOnInit() {
-    console.log(">>> ngOnInit()");
+    if(isDL()) dl.log(">>> ngOnInit()");
 
     if (this.browserWindowService.window) {
       this.windowWidth = this.browserWindowService.window.innerWidth;
       this.windowHeight = this.browserWindowService.window.innerHeight;
-      console.log(`ngOnInit() this.windowWidth = ${this.windowWidth}, this.windowHeight = ${this.windowHeight}`);
+      if(isDL()) dl.log(`ngOnInit() this.windowWidth = ${this.windowWidth}, this.windowHeight = ${this.windowHeight}`);
     }
 
     // // This is needed for pagination.
@@ -136,7 +137,7 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
 
     // let config = this.appConfig.all;
     // for (let k in config) {
-    //   console.log(`:::config::: key = ${k}; value = ${config[k]}`);
+    //   if(isDL()) dl.log(`:::config::: key = ${k}; value = ${config[k]}`);
     // }
 
     let sInfo = this.appConfig.get('site-info');
@@ -165,14 +166,14 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
     this.contactEmail = (this.contactInfo.email) ? this.contactInfo.email : '';
     this.contactPhone = (this.contactInfo.phone) ? this.contactInfo.phone : '';
     this.contactWebsite = (this.contactInfo.website) ? this.contactInfo.website : '';
-    // console.log(`>>>>> this.contactEmail = ${this.contactEmail}`);
+    // if(isDL()) dl.log(`>>>>> this.contactEmail = ${this.contactEmail}`);
 
     // // testing...
     // this.imgPrefix = this.dailyPostsHelper.imgFolder;
 
     // TBD: For pagination
     let pageNumber = this.activatedRoute.snapshot.queryParams['page'];
-    console.log(`>>> pageNumber = ${pageNumber}.`);
+    if(isDL()) dl.log(`>>> pageNumber = ${pageNumber}.`);
     if (pageNumber) {   // Note: 0 is an invalid pageNumber.
       // this._currentPage = +pageNumber;
       try {
@@ -248,7 +249,7 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
     // maxDates = this.appConfig.getNumber("max-post-age", maxDates);
     // this.postListService.getDailyPosts(maxDates).subscribe(posts => {
     //   for (let pm of posts) {
-    //     console.log(`post metadata = ${pm}`);
+    //     if(isDL()) dl.log(`post metadata = ${pm}`);
     //     let entry = MarkdownEntryUtil.buildFromPostMetadata(pm, this.hasValidVisitorToken);
     //     // let entry = new MarkdownDocEntry(
     //     //   // (pm.dateId) ? pm.dateId : DailyPostsHelper.getDateId(pm.url),
@@ -264,7 +265,7 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
     //     //   && pm.hasContent) {
     //     //   entry.showContent = true;
     //     // }
-    //     console.log(`entry = ${entry}`);
+    //     if(isDL()) dl.log(`entry = ${entry}`);
     //     this.docEntries.push(entry);
     //   }
     //   if (this.docEntries.length == 0) {
@@ -280,7 +281,7 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
 
 
   ngAfterViewInit() {
-    console.log(">>> ngAfterViewInit()");
+    if(isDL()) dl.log(">>> ngAfterViewInit()");
   }
 
 
@@ -290,7 +291,7 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
     // let qParams = {v: this.visitorTokenService.visitorToken};
     let qParams = {v: this.visitorTokenService.adminToken};
     this.router.navigate(['admin'], {queryParams: qParams}).then(suc => {
-      console.log(`openAdminHome() suc = ${suc}`);
+      if(isDL()) dl.log(`openAdminHome() suc = ${suc}`);
     });
   }
 
@@ -310,7 +311,7 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
   get showPlaceholderThumbnail(): boolean {
     if (this._showPlaceholderThumbnail !== true && this._showPlaceholderThumbnail !== false) {
       this._showPlaceholderThumbnail = this.appConfig.getBoolean("show-placeholder-thumbnail", false);
-      console.log(`>>>>> this._showPlaceholderThumbnail = ${this._showPlaceholderThumbnail}`);
+      if(isDL()) dl.log(`>>>>> this._showPlaceholderThumbnail = ${this._showPlaceholderThumbnail}`);
     }
     return this._showPlaceholderThumbnail;
   }
@@ -358,12 +359,12 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
   get displayContactEmail(): boolean {
     if (this._displayContactEmail !== true && this._displayContactEmail !== false) {
       let showContactEmail = this.appConfig.getBoolean("show-contact-email", false);
-      console.log(`>>>>> showContactEmail = ${showContactEmail}`);
+      if(isDL()) dl.log(`>>>>> showContactEmail = ${showContactEmail}`);
       this._displayContactEmail =
         !!(this.contactEmail) // tbd: validate email?
         &&
         showContactEmail;
-      console.log(`>>>>> this._displayContactEmail = ${this._displayContactEmail}`);
+      if(isDL()) dl.log(`>>>>> this._displayContactEmail = ${this._displayContactEmail}`);
     }
     return this._displayContactEmail;
   }
@@ -445,20 +446,20 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
   }
 
   goToPreviousPage() {
-    console.log("goToPreviousPage()");
+    if(isDL()) dl.log("goToPreviousPage()");
 
     this.router.navigate(['/'], { queryParams: { page: this.previousPage } }).then(suc => {
-      console.log(`goToPreviousPage() suc = ${suc}`);
+      if(isDL()) dl.log(`goToPreviousPage() suc = ${suc}`);
       if (suc) {
         // reload the content.
       }
     });
   }
   goToNextPage() {
-    console.log("goToNextPage()");
+    if(isDL()) dl.log("goToNextPage()");
 
     this.router.navigate(['/'], { queryParams: { page: this.nextPage } }).then(suc => {
-      console.log(`goToNextPage() suc = ${suc}`);
+      if(isDL()) dl.log(`goToNextPage() suc = ${suc}`);
       if (suc) {
         // reload the content.
       }
@@ -469,13 +470,13 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
 
   // // Markdown button click handlers
   // onClickNgBlogHeaderIntroduction() {
-  //   console.log("onClickNgBlogHeaderIntroduction() ");
+  //   if(isDL()) dl.log("onClickNgBlogHeaderIntroduction() ");
   // }
 
 
   // showContentDialog(idx: number) {
   //   if(this.step === idx) {
-  //     console.log("showContentDialog() idx = " + idx);
+  //     if(isDL()) dl.log("showContentDialog() idx = " + idx);
   //     // Open the dialog.
   //   } else {
   //     // ignore
@@ -483,10 +484,10 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
   // }
 
   openContentPage(idx: number) {
-    console.log("showContentDialog() idx = " + idx);
+    if(isDL()) dl.log("showContentDialog() idx = " + idx);
 
     let entry = this.docEntries[idx];  // TBD: validate idx ???
-    console.log("showContentDialog() entry = " + entry);
+    if(isDL()) dl.log("showContentDialog() entry = " + entry);
 
     // tbd:
     // Use config option:
@@ -499,7 +500,7 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
     //   data: { id: entry.id }
     // });
     // dialogRef.afterClosed().subscribe(result => {
-    //   console.log('The dialog was closed. result = ' + result);
+    //   if(isDL()) dl.log('The dialog was closed. result = ' + result);
     // });
 
     if (entry.showContent) {
@@ -509,15 +510,15 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
       // // let routeUrl = `post/${dateId}`;
       // // this.router.navigateByUrl(routeUrl);
       // this.router.navigate(['/post', dateId]).then(suc => {
-      //   console.log(`navigate() suc = ${suc}`);
+      //   if(isDL()) dl.log(`navigate() suc = ${suc}`);
       // });
       // // this.router.navigate(['/post', dateId, { entry: JSON.stringify(entry) }]).then(suc => {
-      // //   console.log(`navigate() suc = ${suc}`);
+      // //   if(isDL()) dl.log(`navigate() suc = ${suc}`);
       // // });
 
       let permalinkPath = entry.permalinkPath;
       this.router.navigate(['', permalinkPath]).then(suc => {
-        console.log(`navigate() suc = ${suc}; permalinkPath = ${permalinkPath}`);
+        if(isDL()) dl.log(`navigate() suc = ${suc}; permalinkPath = ${permalinkPath}`);
       });
     }
 

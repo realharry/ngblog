@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
 
+import { DevLogger as dl } from '@ngcore/core'; import isDL = dl.isLoggable;
 import { DateTimeUtil, DateIdUtil } from '@ngcore/core';
 import { AppConfig } from '@ngcore/core';
 import { BrowserWindowService } from '@ngcore/core';
@@ -47,13 +48,13 @@ export class SitemapGenComponent implements OnInit {
     } else {
       this.hostUrl = '/';   // ???
     }
-    console.log(`hostUrl = ${this.hostUrl}`);
+    if(isDL()) dl.log(`hostUrl = ${this.hostUrl}`);
 
     this.sitemapXML = '';
   }
 
   ngOnInit() {
-    console.log(">>> SitemapGenComponent::ngOnInit() >>>")
+    if(isDL()) dl.log(">>> SitemapGenComponent::ngOnInit() >>>")
 
     // testing
     this.loadSiteEntries();
@@ -67,12 +68,12 @@ export class SitemapGenComponent implements OnInit {
         for (let i=0; i<size; i++) {
           let entry = entries[i];
           entry.pagePriority = Math.floor(((size - i)/size) * 10) / 10;  // Arbitrary...
-          console.log(`>>> entry = ${entry}`);
+          if(isDL()) dl.log(`>>> entry = ${entry}`);
 
           this.siteEntries.push(entry);
         }
       }
-      console.log(">>> siteEntries loaded >>>")
+      if(isDL()) dl.log(">>> siteEntries loaded >>>")
       console.dir(this.siteEntries);
 
       this.displaySitemap();
@@ -113,7 +114,7 @@ export class SitemapGenComponent implements OnInit {
       qp = {v: this.visitorTokenService.visitorToken};
     }
     this.router.navigate(['admin'], {queryParams: qp}).then(suc => {
-      console.log(`navigateAdminHome() suc = ${suc}`);
+      if(isDL()) dl.log(`navigateAdminHome() suc = ${suc}`);
     });
   }
 

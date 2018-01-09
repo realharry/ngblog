@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
 
+import { DevLogger as dl } from '@ngcore/core'; import isDL = dl.isLoggable;
 import { DateTimeUtil, DateIdUtil } from '@ngcore/core';
 import { AppConfig } from '@ngcore/core';
 import { BrowserWindowService } from '@ngcore/core';
@@ -43,13 +44,13 @@ export class ConfigViewComponent implements OnInit {
     // } else {
     //   this.hostUrl = '/';   // ???
     // }
-    // console.log(`hostUrl = ${this.hostUrl}`);
+    // if(isDL()) dl.log(`hostUrl = ${this.hostUrl}`);
 
     this.configFileJSON = '';
   }
 
   ngOnInit() {
-    console.log(">>> ConfigViewComponent::ngOnInit() >>>")
+    if(isDL()) dl.log(">>> ConfigViewComponent::ngOnInit() >>>")
 
     // testing
     this.displayConfigJSON();
@@ -69,7 +70,7 @@ export class ConfigViewComponent implements OnInit {
       qp = {v: this.visitorTokenService.visitorToken};
     }
     this.router.navigate(['admin'], {queryParams: qp}).then(suc => {
-      console.log(`navigateAdminHome() suc = ${suc}`);
+      if(isDL()) dl.log(`navigateAdminHome() suc = ${suc}`);
     });
   }
 

@@ -3,6 +3,7 @@ import { Location } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 
+import { DevLogger as dl } from '@ngcore/core'; import isDL = dl.isLoggable;
 import { DateTimeUtil, DateIdUtil } from '@ngcore/core';
 import { AppConfig } from '@ngcore/core';
 import { LazyLoaderService } from '@ngcore/idle';
@@ -57,11 +58,11 @@ export class NgBlogPostComponent implements OnInit {
   ngOnInit() {
     // let config = this.appConfig.all;
     // for (let k in config) {
-    //   console.log(`:::config::: key = ${k}; value = ${config[k]}`);
+    //   if(isDL()) dl.log(`:::config::: key = ${k}; value = ${config[k]}`);
     // }
 
     let dateId = this.activatedRoute.snapshot.params['id'];
-    console.log(`>>> path id = ${dateId}.`);
+    if(isDL()) dl.log(`>>> path id = ${dateId}.`);
 
     let sInfo = this.appConfig.get('site-info');
     if (sInfo) {
@@ -80,7 +81,7 @@ export class NgBlogPostComponent implements OnInit {
       // let permalinkPath = PermalinkPathUtil.getPermalinkPath(entry.id, entry.title, entry.description);
       let permalinkPath = entry.permalinkPath;
       this.router.navigate(['', permalinkPath], {replaceUrl:true}).then(suc => {
-        console.log(`Redirect navigate() suc = ${suc}; permalinkPath = ${permalinkPath}`);
+        if(isDL()) dl.log(`Redirect navigate() suc = ${suc}; permalinkPath = ${permalinkPath}`);
       });
 
       // this.docEntry = docEntry.clone();
@@ -91,18 +92,18 @@ export class NgBlogPostComponent implements OnInit {
       let postUrl = this.dailyPostsHelper.getPostUrl(dateId);
       let useCache = true;
       this.blogPostService.loadPostMetadata(postUrl, useCache).catch(err => {
-        console.log(`loadPostMetadata() error. postUrl = ${postUrl}; err = ${err}`);
+        if(isDL()) dl.log(`loadPostMetadata() error. postUrl = ${postUrl}; err = ${err}`);
         return Observable.of(null);
       }).subscribe(pm => {
-        console.log(`post metadata = ${pm}`);
+        if(isDL()) dl.log(`post metadata = ${pm}`);
         if (pm) {
           let entry = MarkdownEntryUtil.buildFromPostMetadata(pm);
-          console.log(`entry = ${entry}`);
+          if(isDL()) dl.log(`entry = ${entry}`);
 
           // let permalinkPath = PermalinkPathUtil.getPermalinkPath(entry.id, entry.title, entry.description);
           let permalinkPath = entry.permalinkPath;
           this.router.navigate(['', permalinkPath], {replaceUrl:true}).then(suc => {
-            console.log(`Redirect navigate() suc = ${suc}; permalinkPath = ${permalinkPath}`);
+            if(isDL()) dl.log(`Redirect navigate() suc = ${suc}; permalinkPath = ${permalinkPath}`);
           });
 
           // this.docEntry = entry;
@@ -129,7 +130,7 @@ export class NgBlogPostComponent implements OnInit {
         }
       });
     }
-    console.log(`>>> this.docEntry = ${this.docEntry}`);
+    if(isDL()) dl.log(`>>> this.docEntry = ${this.docEntry}`);
   }
 
   public get header(): string {
@@ -155,7 +156,7 @@ export class NgBlogPostComponent implements OnInit {
     // How to clear history stack???
     // this.location.clear();
     this.router.navigate(['/']).then(suc => {
-      console.log(`navigate() suc = ${suc}`);
+      if(isDL()) dl.log(`navigate() suc = ${suc}`);
     });
   }
 

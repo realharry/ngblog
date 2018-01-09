@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
 
+import { DevLogger as dl } from '@ngcore/core'; import isDL = dl.isLoggable;
 import { DateTimeUtil, DateIdUtil } from '@ngcore/core';
 import { LocalStorageService } from '@ngcore/core';
 import { LazyLoaderService } from '@ngcore/idle';
@@ -68,7 +69,7 @@ export class PostListService {
           let pms: PostMetadata[] = [];
           if (data) {
             for (let d of data) {
-              console.log(`### d = ${d}`)
+              if(isDL()) dl.log(`### d = ${d}`)
               if (d && statuses.indexOf(d.status) != -1) {
                 pms.push(d);
               }

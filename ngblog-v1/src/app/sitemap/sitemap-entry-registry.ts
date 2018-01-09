@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
 
+import { DevLogger as dl } from '@ngcore/core'; import isDL = dl.isLoggable;
 import { DateTimeUtil, DateIdUtil } from '@ngcore/core';
 import { AppConfig } from '@ngcore/core';
 
@@ -56,9 +57,9 @@ export class SitemapEntryRegistry {
         let map: { [location: string]: SiteEntry } = {};
         let list: SiteEntry[] = [];
         for (let pm of posts) {
-          console.log(`post metadata = ${pm}`);
+          if(isDL()) dl.log(`post metadata = ${pm}`);
           let entry = SitemapEntryUtil.buildFromPostMetadata(pm, hostUrl);
-          console.log(`entry = ${entry}`);
+          if(isDL()) dl.log(`entry = ${entry}`);
           if (entry) {
             map[entry.location] = entry;
             list.push(entry);

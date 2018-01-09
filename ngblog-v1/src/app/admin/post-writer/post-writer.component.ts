@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
 
+import { DevLogger as dl } from '@ngcore/core'; import isDL = dl.isLoggable;
 import { DateTimeUtil, DateIdUtil } from '@ngcore/core';
 import { AppConfig } from '@ngcore/core';
 import { BrowserWindowService } from '@ngcore/core';
@@ -32,7 +33,7 @@ export class PostWriterComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(">>> PostWriterComponent::ngOnInit() >>>")
+    if(isDL()) dl.log(">>> PostWriterComponent::ngOnInit() >>>")
   }
 
 
@@ -42,7 +43,7 @@ export class PostWriterComponent implements OnInit {
       qp = {v: this.visitorTokenService.visitorToken};
     }
     this.router.navigate(['admin'], {queryParams: qp}).then(suc => {
-      console.log(`navigateAdminHome() suc = ${suc}`);
+      if(isDL()) dl.log(`navigateAdminHome() suc = ${suc}`);
     });
   }
 

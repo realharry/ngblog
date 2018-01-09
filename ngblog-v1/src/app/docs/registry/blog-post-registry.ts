@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
 
+import { DevLogger as dl } from '@ngcore/core'; import isDL = dl.isLoggable;
 import { DateTimeUtil, DateIdUtil } from '@ngcore/core';
 import { AppConfig } from '@ngcore/core';
 
@@ -21,7 +22,7 @@ export class BlogPostRegistry {
     // private lazyLoaderService: LazyLoaderService,
   ) {
     // this.buildEntryMap().subscribe(map => {
-    //   console.log("map loaded.");
+    //   if(isDL()) dl.log("map loaded.");
     // });
   }
 
@@ -50,9 +51,9 @@ export class BlogPostRegistry {
   //   return this.postListService.getDailyPosts(maxDates).map(posts => {
   //     let map: { [dateId: string]: MarkdownDocEntry } = {};
   //     for (let pm of posts) {
-  //       console.log(`post metadata = ${pm}`);
+  //       if(isDL()) dl.log(`post metadata = ${pm}`);
   //       let entry = MarkdownEntryUtil.buildFromPostMetadata(pm);
-  //       console.log(`entry = ${entry}`);
+  //       if(isDL()) dl.log(`entry = ${entry}`);
   //       map[entry.id] = entry;
   //     }
   //     this.entryMap = map;
@@ -76,9 +77,9 @@ export class BlogPostRegistry {
       let map: { [dateId: string]: MarkdownDocEntry } = {};
       let list: MarkdownDocEntry[] = [];
       for (let pm of posts) {
-        console.log(`post metadata = ${pm}`);
+        if(isDL()) dl.log(`post metadata = ${pm}`);
         let entry = MarkdownEntryUtil.buildFromPostMetadata(pm);
-        console.log(`entry = ${entry}`);
+        if(isDL()) dl.log(`entry = ${entry}`);
         map[entry.id] = entry;
         list.push(entry);
       }

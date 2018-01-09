@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 
+import { DevLogger as dl } from '@ngcore/core'; import isDL = dl.isLoggable;
+
 import { VisitorTokenRegistry } from '../visitors/visitor-token-registry';
 
 

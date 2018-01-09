@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { DevLogger as dl } from '@ngcore/core'; import isDL = dl.isLoggable;
 import { DateRange, DateTimeUtil, DateIdUtil } from '@ngcore/core';
 import { AppConfig } from '@ngcore/core';
 // import { LocalStorageService } from '@ngcore/core';
@@ -30,7 +31,7 @@ export class DailyPostsHelper {
     if (!this._postFolder) {
       let folder = this.appConfig.getString("blog-post-folder", DailyPostsHelper.DEFAULT_POST_FOLDER);
       this._postFolder = (folder.endsWith('/')) ? folder : folder + "/";
-      console.log(`this._postFolder = ${this._postFolder}`);
+      if(isDL()) dl.log(`this._postFolder = ${this._postFolder}`);
     }
     return this._postFolder;
   }
@@ -80,7 +81,7 @@ export class DailyPostsHelper {
       return null;   // ???
     }
     let postUrl = metadataUrl.substr(0, metadataUrl.length - DailyPostsHelper.URL_POST_METADATA.length);
-    console.log(`getPostUrlFromMetadataUrl() metadataUrl = ${metadataUrl}; postUrl = ${postUrl}`);
+    if(isDL()) dl.log(`getPostUrlFromMetadataUrl() metadataUrl = ${metadataUrl}; postUrl = ${postUrl}`);
     return postUrl;
   }
 
@@ -95,7 +96,7 @@ export class DailyPostsHelper {
       return null;   // ???
     }
     let postUrl = summaryUrl.substr(0, summaryUrl.length - DailyPostsHelper.URL_POST_SUMMARY.length);
-    console.log(`getPostUrlFromSummaryUrl() summaryUrl = ${summaryUrl}; postUrl = ${postUrl}`);
+    if(isDL()) dl.log(`getPostUrlFromSummaryUrl() summaryUrl = ${summaryUrl}; postUrl = ${postUrl}`);
     return postUrl;
   }
 
@@ -110,7 +111,7 @@ export class DailyPostsHelper {
       return null;   // ???
     }
     let postUrl = contentUrl.substr(0, contentUrl.length - DailyPostsHelper.URL_POST_CONTENT.length);
-    console.log(`getPostUrlFromContentUrl() contentUrl = ${contentUrl}; postUrl = ${postUrl}`);
+    if(isDL()) dl.log(`getPostUrlFromContentUrl() contentUrl = ${contentUrl}; postUrl = ${postUrl}`);
     return postUrl;
   }
 
@@ -120,13 +121,13 @@ export class DailyPostsHelper {
   public static getDateId(postUrl: string): string {
     // tbd: validate?
     let dateId = postUrl.substr(postUrl.length - 9, 8);
-    console.log(`getDate() dateId = ${dateId}; postUrl = ${postUrl}`);
+    if(isDL()) dl.log(`getDate() dateId = ${dateId}; postUrl = ${postUrl}`);
     return dateId;
   }
   public static getDate(postUrl: string): Date {
     let dateId = this.getDateId(postUrl);
     let date = DateIdUtil.convertToDate(dateId);
-    console.log(`getDate() dateId = ${dateId}; date = ${date}`);
+    if(isDL()) dl.log(`getDate() dateId = ${dateId}; date = ${date}`);
     return date;
   }
 
@@ -136,7 +137,7 @@ export class DailyPostsHelper {
     endDate: string,   // = DateIdUtil.getTomorrowId(),
     oldPosts: (string[] | null) = null
   ): string[] {
-    console.log(`>>>> getDailyPostUrls() dayCount = ${dayCount}; endDate = ${endDate}`);
+    if(isDL()) dl.log(`>>>> getDailyPostUrls() dayCount = ${dayCount}; endDate = ${endDate}`);
 
     if (oldPosts && oldPosts.length > 0) {
       oldPosts = oldPosts.sort().reverse();
@@ -159,7 +160,7 @@ export class DailyPostsHelper {
         // let url = DailyPostsHelper.POSTS_FOLDER + d + '/' + DailyPostsHelper.URL_POST_METADATA;
         // let url = DailyPostsHelper.POSTS_FOLDER + d + '/';
         let url = this.getPostUrl(d);
-        // console.log(`>>>> date = ${d}; url = ${url}`);
+        // if(isDL()) dl.log(`>>>> date = ${d}; url = ${url}`);
         urls.push(url);
       }
     }

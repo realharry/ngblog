@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy, ViewChild, Input, Output } from '@angular
 import { Location } from '@angular/common';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
+import { DevLogger as dl } from '@ngcore/core'; import isDL = dl.isLoggable;
 import { DateTimeUtil, DateIdUtil } from '@ngcore/core';
 import { AppConfig } from '@ngcore/core';
 import { BrowserWindowService } from '@ngcore/core';
@@ -32,7 +33,7 @@ export class AdminPanelComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(">>> AdminPanelComponent::ngOnInit()");
+    if(isDL()) dl.log(">>> AdminPanelComponent::ngOnInit()");
 
     // This is needed for pagination.
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
@@ -41,7 +42,7 @@ export class AdminPanelComponent implements OnInit {
     .filter(params => VisitorTokenService.PARAM_VISITOR_TAG in params)
     .subscribe((params: Params) => {
       let v = params[VisitorTokenService.PARAM_VISITOR_TAG];
-      console.log(`>>> Query param ${VisitorTokenService.PARAM_VISITOR_TAG} = ${v}`);
+      if(isDL()) dl.log(`>>> Query param ${VisitorTokenService.PARAM_VISITOR_TAG} = ${v}`);
 
       this.visitorTokenService.visitorToken = v;
       this.hasValidAdminToken = this.visitorTokenService.hasValidAdminToken;
@@ -55,7 +56,7 @@ export class AdminPanelComponent implements OnInit {
 
   navigateHome() {
     this.router.navigate(['/']).then(suc => {
-      console.log(`navigateHome() suc = ${suc}`);
+      if(isDL()) dl.log(`navigateHome() suc = ${suc}`);
     });
   }
 
@@ -65,7 +66,7 @@ export class AdminPanelComponent implements OnInit {
       qp = {v: this.visitorTokenService.visitorToken};
     }
     this.router.navigate(['writer'], {queryParams: qp}).then(suc => {
-      console.log(`navigatePostWriter() suc = ${suc}`);
+      if(isDL()) dl.log(`navigatePostWriter() suc = ${suc}`);
     });
   }
   navigateSitemapGenerator() {
@@ -74,7 +75,7 @@ export class AdminPanelComponent implements OnInit {
       qp = {v: this.visitorTokenService.visitorToken};
     }
     this.router.navigate(['sitemaps'], {queryParams: qp}).then(suc => {
-      console.log(`navigateSitemapGenerator() suc = ${suc}`);
+      if(isDL()) dl.log(`navigateSitemapGenerator() suc = ${suc}`);
     });
   }
   navigateConfigView() {
@@ -83,7 +84,7 @@ export class AdminPanelComponent implements OnInit {
       qp = {v: this.visitorTokenService.visitorToken};
     }
     this.router.navigate(['config'], {queryParams: qp}).then(suc => {
-      console.log(`navigateConfigView() suc = ${suc}`);
+      if(isDL()) dl.log(`navigateConfigView() suc = ${suc}`);
     });
   }
   
