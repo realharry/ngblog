@@ -2,7 +2,7 @@
 
   <mat-toolbar class="ngblog-digest-header" layout="row" color="primary">
     <mat-toolbar-row>
-      <span style="font-weight: bold;">{{siteInfo.name}} - Month of {{monthDate}}</span>
+      <span style="font-weight: bold;">{{siteInfo.name}} - {{monthDateLabel}}</span>
       <span style="flex: 1 1 auto"></span>
       <button mat-icon-button color="" matTooltip="Home" (click)="navigateHome()">
         <mat-icon>home</mat-icon>
@@ -45,10 +45,10 @@
         <common-date-year></common-date-year> {{siteInfo.name}}</span>
       <span style="flex: 1 1 auto"></span>
       <span style="font-style: italic; font-size:0.9em;">
-        <button mat-icon-button color="primary" [disabled]="!canDoNextMonth" matTooltip="Next" (click)="navigateNextMonth()">
+        <button mat-icon-button color="primary" [disabled]="!canDoNextMonth" matTooltip="More Recent" (click)="navigateNextMonth()">
           <mat-icon>keyboard_arrow_left</mat-icon>
         </button>
-        <button mat-icon-button color="primary" [disabled]="!canDoPreviousMonth" matTooltip="Previous" (click)="navigatePreviousMonth()">
+        <button mat-icon-button color="primary" [disabled]="!canDoPreviousMonth" matTooltip="Previous Month" (click)="navigatePreviousMonth()">
           <mat-icon>keyboard_arrow_right</mat-icon>
         </button>
       </span>

@@ -42,16 +42,13 @@ export class SitemapEntryRegistry {
 
 
   public buildEntryMap(hostUrl: string): Observable<SiteEntry[]> {
-    let maxDates = 30;
-    maxDates = this.appConfig.getNumber("max-post-age", maxDates);
-    let oldPosts: (string[] | null) = null;
-    let oldPostList = this.appConfig.get("old-post-list");
-    if (oldPostList) {
-      oldPosts = (oldPostList as string[]).slice(0);
-    }
-    // if(isDL()) console.dir(oldPosts);
+    let maxDates = 100;
+    maxDates = this.appConfig.getNumber("max-sitemap-age", maxDates);
+    // TBD:
+    // Setting useCache to true throws exceptions.
+    // Need to investigate....
     let useCache = false;
-    return this.postListService.getDailyPosts(maxDates, null, oldPosts,
+    return this.postListService.getDailyPosts(maxDates, null, null,
       [PostStatus.Posted, PostStatus.Hidden], useCache).map(posts => {
         let map: { [location: string]: SiteEntry } = {};
         let list: SiteEntry[] = [];

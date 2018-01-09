@@ -70,9 +70,13 @@ export class MonthlyDigestComponent implements OnInit {
   ngOnInit() {
     this.dateId = this.activatedRoute.snapshot.params['id'];
     if (isDL()) dl.log(`>>> Month id = ${this.dateId}.`);
-    let dt = DateIdUtil.convertToDate(this.dateId);
-    let prevMo = new Date(dt.getFullYear(), dt.getMonth() - 1, dt.getDay());
-    let prevMoDays = DateTimeUtil.getNumberOfDaysForMonth(prevMo.getTime());
+    if(!this.dateId) {
+      this.dateId = DateIdUtil.getTodayId();
+    }
+    // let dt = DateIdUtil.convertToDate(this.dateId);
+    // let prevMo = new Date(dt.getFullYear(), dt.getMonth() - 1, dt.getDate());
+    // let prevMoDays = DateTimeUtil.getNumberOfDaysInMonth(prevMo);
+    let prevMoDays = DateIdUtil.getNumberOfDaysForPreviousMonth(this.dateId);
     let dates = DateRangeUtil.getDates(prevMoDays, DateIdUtil.getNextDayId(this.dateId));
     for (let d of dates) {
       this.monthDates[d] = d;
@@ -103,7 +107,10 @@ export class MonthlyDigestComponent implements OnInit {
   }
 
   private loadBlogPostEntries() {
-    this.blogPostRegistry.buildEntryMap().subscribe(entries => {
+    const maxDates = 31;
+    const endDate = DateIdUtil.getNextDayId(this.dateId);
+    const oldPosts: string[] = [];  // It's important to set it to non-null, empty list
+    this.blogPostRegistry.buildEntryMap(maxDates, endDate, oldPosts).subscribe(entries => {
       this.docEntries = [];
       // TBD: Need a more efficient algo.
       for (let entry of entries) {
@@ -132,7 +139,8 @@ export class MonthlyDigestComponent implements OnInit {
 
   navigateNextMonth() {
     let todayId = DateIdUtil.getTodayId();
-    let nextMoDays = DateTimeUtil.getNumberOfDaysForMonth(DateIdUtil.convertToEpochMillis(this.dateId));
+    // let nextMoDays = DateTimeUtil.getNumberOfDaysForMonth(DateIdUtil.convertToEpochMillis(this.dateId));
+    let nextMoDays = DateIdUtil.getNumberOfDaysForMonth(this.dateId);
     let nextMonthId = DateIdUtil.getNthDayId(this.dateId, nextMoDays);
     if(nextMonthId > todayId) {
       nextMonthId = todayId;
@@ -147,9 +155,10 @@ export class MonthlyDigestComponent implements OnInit {
   // There is a bug in calculating prevMonthId.
   // 2017/7/09 -> 2017/6/08 (instead of 6/09). Why???
   navigatePreviousMonth() {
-    let dt = DateIdUtil.convertToDate(this.dateId);
-    let prevMo = new Date(dt.getFullYear(), dt.getMonth() - 1, dt.getDay());
-    let prevMoDays = DateTimeUtil.getNumberOfDaysForMonth(prevMo.getTime());
+    // let dt = DateIdUtil.convertToDate(this.dateId);
+    // let prevMo = new Date(dt.getFullYear(), dt.getMonth() - 1, dt.getDate());
+    // let prevMoDays = DateTimeUtil.getNumberOfDaysInMonth(prevMo);
+    let prevMoDays = DateIdUtil.getNumberOfDaysForPreviousMonth(this.dateId);
     let prevMonthId = DateIdUtil.getNthDayId(this.dateId, -prevMoDays);
     this.router.navigate(['monthly', prevMonthId]).then(suc => {
       if (isDL()) dl.log(`navigatePreviousMonth() suc = ${suc}; prevMonthId = ${prevMonthId}`);
@@ -158,9 +167,13 @@ export class MonthlyDigestComponent implements OnInit {
 
 
 
-  get monthDate(): string {
-    return DateIdUtil.getISODateString(this.dateId, true);
-    // return DateIdUtil.convertToDate(this.dateId).toLocaleDateString();
+  get monthDateLabel(): string {
+    let endDate = DateIdUtil.convertToDate(this.dateId).toLocaleDateString();
+    let prevMoDays = DateIdUtil.getNumberOfDaysForPreviousMonth(this.dateId);
+    let prevMonthId = DateIdUtil.getNthDayId(this.dateId, -prevMoDays);
+    let startId = DateIdUtil.getNextDayId(prevMonthId);
+    let startDate = DateIdUtil.convertToDate(startId).toLocaleDateString();
+    return `Month of ${startDate} - ${endDate}`;
   }
 
   private _displayContactEmail: boolean;

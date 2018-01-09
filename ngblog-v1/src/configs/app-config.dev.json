@@ -13,11 +13,11 @@
   "enable-monthly-digest": true,
   "show-contact-email": true,
   "blog-post-folder": "posts-dev/",
-  "max-post-age": 180,
+  "max-post-age": 120,
   "old-post-list": ["20171231", "20171225"],
   "item-count-per-page": 20,
   "content-formats": ["markdown"],
-  "accordion-ui-stale-age": 3600000,
+  "accordion-ui-stale-age": 3600,
   "show-placeholder-thumbnail": false,
   "show-share-via-email": true,
   "show-share-on-twitter": true,
@@ -25,5 +25,6 @@
   "show-share-on-linkedin": true,
   "admin-visitor-token": "123456",
   "show-admin-button": true,
+  "max-sitemap-age": 180,
   "ssr-enabled": false
 }

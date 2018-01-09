@@ -38,7 +38,7 @@ export class BlogPostRegistry {
   }
 
   public getEntry(dateId: string): (MarkdownDocEntry | null) {
-    if(this.isLoaded) {
+    if (this.isLoaded) {
       return this.entryMap[dateId];
     } else {
       return null;
@@ -62,24 +62,27 @@ export class BlogPostRegistry {
   //   });
   // }
 
-  public buildEntryMap(): Observable<MarkdownDocEntry[]> {
-    let maxDates = 30;
-    maxDates = this.appConfig.getNumber("max-post-age", maxDates);
-    let oldPosts: (string[] | null) = null;
-    let oldPostList = this.appConfig.get("old-post-list");
-    if(oldPostList) {
-      // let opl: string[] = (oldPostList as string[]).slice(0);
-      // oldPosts = opl.sort().reverse();
-      oldPosts = (oldPostList as string[]).slice(0);
+  public buildEntryMap(maxDates: number = 0, endDate: (string | null) = null, oldPosts: (string[] | null) = null): Observable<MarkdownDocEntry[]> {
+    if (maxDates == 0) {
+      const defMaxDates = 30;
+      maxDates = this.appConfig.getNumber("max-post-age", defMaxDates);
+    }
+    if(oldPosts == null) {
+      let oldPostList = this.appConfig.get("old-post-list");
+      if (oldPostList) {
+        // let opl: string[] = (oldPostList as string[]).slice(0);
+        // oldPosts = opl.sort().reverse();
+        oldPosts = (oldPostList as string[]).slice(0);
+      }
     }
     // if(isDL()) console.dir(oldPosts);
-    return this.postListService.getDailyPosts(maxDates, null, oldPosts).map(posts => {
+    return this.postListService.getDailyPosts(maxDates, endDate, oldPosts).map(posts => {
       let map: { [dateId: string]: MarkdownDocEntry } = {};
       let list: MarkdownDocEntry[] = [];
       for (let pm of posts) {
-        if(isDL()) dl.log(`post metadata = ${pm}`);
+        if (isDL()) dl.log(`post metadata = ${pm}`);
         let entry = MarkdownEntryUtil.buildFromPostMetadata(pm);
-        if(isDL()) dl.log(`entry = ${entry}`);
+        if (isDL()) dl.log(`entry = ${entry}`);
         map[entry.id] = entry;
         list.push(entry);
       }

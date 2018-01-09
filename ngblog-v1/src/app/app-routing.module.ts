@@ -55,8 +55,16 @@ const routes: Routes = [
     canActivate: [AdminSentinelService]   // this should be accessed via admin.
   },
   {
+    path: 'thisweek',
+    component: WeeklyDigestComponent
+  },
+  {
     path: 'weekly/:id',
     component: WeeklyDigestComponent
+  },
+  {
+    path: 'thismonth',
+    component: MonthlyDigestComponent
   },
   {
     path: 'monthly/:id',

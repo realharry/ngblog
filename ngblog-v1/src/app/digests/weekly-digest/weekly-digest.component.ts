@@ -70,6 +70,9 @@ export class WeeklyDigestComponent implements OnInit {
   ngOnInit() {
     this.dateId = this.activatedRoute.snapshot.params['id'];
     if (isDL()) dl.log(`>>> Week id = ${this.dateId}.`);
+    if(!this.dateId) {
+      this.dateId = DateIdUtil.getTodayId();
+    }
     let dates = DateRangeUtil.getDates(7, DateIdUtil.getNextDayId(this.dateId));
     for (let d of dates) {
       this.weekDates[d] = d;
@@ -100,7 +103,10 @@ export class WeeklyDigestComponent implements OnInit {
   }
 
   private loadBlogPostEntries() {
-    this.blogPostRegistry.buildEntryMap().subscribe(entries => {
+    const maxDates = 7;
+    const endDate = DateIdUtil.getNextDayId(this.dateId);
+    const oldPosts: string[] = [];  // It's important to set it to non-null, empty list
+    this.blogPostRegistry.buildEntryMap(maxDates, endDate, oldPosts).subscribe(entries => {
       this.docEntries = [];
       // TBD: Need a more efficient algo.
       for (let entry of entries) {
@@ -146,9 +152,11 @@ export class WeeklyDigestComponent implements OnInit {
   }
 
 
-  get weekDate(): string {
-    return DateIdUtil.getISODateString(this.dateId, true);
-    // return DateIdUtil.convertToDate(this.dateId).toLocaleDateString();
+  get weekDateLabel(): string {
+    let endDate = DateIdUtil.convertToDate(this.dateId).toLocaleDateString();
+    let startId = DateIdUtil.getNthDayId(this.dateId, -6);
+    let startDate = DateIdUtil.convertToDate(startId).toLocaleDateString();
+    return `Week of ${startDate} - ${endDate}`;
   }
 
   private _displayContactEmail: boolean;

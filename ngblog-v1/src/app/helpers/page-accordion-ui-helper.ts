@@ -18,7 +18,10 @@ export class PageAccordionUiHelper {
     private appConfig: AppConfig,
     private localStorageService: LocalStorageService
   ) {
-    let staleAge = this.appConfig.getNumber("accordion-ui-stale-age", ExpansionStep.getDefaultStaleAge());
+    // Note: for convenience, we use seconds in config, but millseconds in the code.
+    //      TBD: Make sure this is the only place that does conversion....
+    let staleAge = this.appConfig.getNumber("accordion-ui-stale-age",
+      Math.floor(ExpansionStep.getDefaultStaleAge() / 1000)) * 1000;
     ExpansionStep.setDefaultStaleAge(staleAge);
   }
   // public static getInstance(): AccordionUiHelper {
@@ -81,7 +84,7 @@ export class PageAccordionUiHelper {
 
   // Cache.
   // private _expansion_step: (ExpansionStep | null) = null;
-  private _expansion_steps: {[page: number]: ExpansionStep} = {}
+  private _expansion_steps: { [page: number]: ExpansionStep } = {}
 
   public getExpansionStep(page: number = 1): ExpansionStep {
     if (!(page in this._expansion_steps)) {

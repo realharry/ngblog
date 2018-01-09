@@ -43,18 +43,18 @@ export class SitemapGenComponent implements OnInit {
     private sitemapEntryRegistry: SitemapEntryRegistry,
     private visitorTokenService: VisitorTokenService
   ) {
-    if(this.browserWindowService.window) {
+    if (this.browserWindowService.window) {
       this.hostUrl = this.browserWindowService.window.location.protocol + '//' + this.browserWindowService.window.location.host + '/';
     } else {
       this.hostUrl = '/';   // ???
     }
-    if(isDL()) dl.log(`hostUrl = ${this.hostUrl}`);
+    if (isDL()) dl.log(`hostUrl = ${this.hostUrl}`);
 
     this.sitemapXML = '';
   }
 
   ngOnInit() {
-    if(isDL()) dl.log(">>> SitemapGenComponent::ngOnInit() >>>")
+    if (isDL()) dl.log(">>> SitemapGenComponent::ngOnInit() >>>")
 
     // testing
     this.loadSiteEntries();
@@ -64,17 +64,17 @@ export class SitemapGenComponent implements OnInit {
     this.sitemapEntryRegistry.buildEntryMap(this.hostUrl).subscribe(entries => {
       this.siteEntries = [];
       let size = (entries) ? entries.length : 0;
-      if(size > 0) {
-        for (let i=0; i<size; i++) {
+      if (size > 0) {
+        for (let i = 0; i < size; i++) {
           let entry = entries[i];
-          entry.pagePriority = Math.floor(((size - i)/size) * 10) / 10;  // Arbitrary...
-          if(isDL()) dl.log(`>>> entry = ${entry}`);
+          entry.pagePriority = Math.floor(((size - i) / size) * 10) / 10;  // Arbitrary...
+          if (isDL()) dl.log(`>>> entry = ${entry}`);
 
           this.siteEntries.push(entry);
         }
       }
-      if(isDL()) dl.log(">>> siteEntries loaded >>>")
-      if(isDL()) console.dir(this.siteEntries);
+      if (isDL()) dl.log(">>> siteEntries loaded >>>")
+      if (isDL()) dl.log(this.siteEntries);
 
       this.displaySitemap();
     });
@@ -91,18 +91,42 @@ export class SitemapGenComponent implements OnInit {
     return entry.toXML();
   }
 
+  private buildWeeklyDigestPageXML(): string {
+    let entry = new SiteEntry(
+      SitemapEntryUtil.buildAbsoluteUrl(this.hostUrl, '/thisweek'),
+      DateIdUtil.convertToEpochMillis(DateIdUtil.getYesterdayId()),
+      ChangeFrequency.daily,
+      0.95,
+      true
+    );
+    // TBD: Include all recent weeks?
+    return entry.toXML();
+  }
+  private buildMonthlyDigestPageXML(): string {
+    let entry = new SiteEntry(
+      SitemapEntryUtil.buildAbsoluteUrl(this.hostUrl, '/thismonth'),
+      DateIdUtil.convertToEpochMillis(DateIdUtil.getNthDayId(DateIdUtil.getTodayId(), -3)),
+      ChangeFrequency.daily,
+      0.95,
+      true
+    );
+    // TBD: Include all recent months?
+    return entry.toXML();
+  }
+
   private buildSitemapXML(): string {
     let xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 `;
+
     xml += this.buildMainSiteEntryXML() + '\n';
-    for(let entry of this.siteEntries) {
+    xml += this.buildWeeklyDigestPageXML() + '\n';
+    xml += this.buildMonthlyDigestPageXML() + '\n';
+
+    for (let entry of this.siteEntries) {
       xml += entry.toXML() + '\n';
     }
 
-    // tbd:
-    // Include weekly/monthly digests?
-    
     xml += `</urlset>`;
     return xml;
   }
@@ -114,11 +138,11 @@ export class SitemapGenComponent implements OnInit {
 
   navigateAdminHome() {
     let qp = {};
-    if(this.visitorTokenService.hasVisitorToken) {
-      qp = {v: this.visitorTokenService.visitorToken};
+    if (this.visitorTokenService.hasVisitorToken) {
+      qp = { v: this.visitorTokenService.visitorToken };
     }
-    this.router.navigate(['admin'], {queryParams: qp}).then(suc => {
-      if(isDL()) dl.log(`navigateAdminHome() suc = ${suc}`);
+    this.router.navigate(['admin'], { queryParams: qp }).then(suc => {
+      if (isDL()) dl.log(`navigateAdminHome() suc = ${suc}`);
     });
   }
 

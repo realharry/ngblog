@@ -287,8 +287,11 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
 
   openWeeklyDigestPage() {
     // TBD:
-    let currentWeekId = DateIdUtil.getTodayId();
-    this.router.navigate(['weekly', currentWeekId]).then(suc => {
+    // let currentWeekId = DateIdUtil.getTodayId();
+    // this.router.navigate(['weekly', currentWeekId]).then(suc => {
+    //   if(isDL()) dl.log(`openWeeklyDigestPage() suc = ${suc}`);
+    // });
+    this.router.navigate(['thisweek']).then(suc => {
       if(isDL()) dl.log(`openWeeklyDigestPage() suc = ${suc}`);
     });
   }
@@ -303,8 +306,11 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
 
   openMonthlyDigestPage() {
     // TBD:
-    let currentMonthId = DateIdUtil.getTodayId();
-    this.router.navigate(['monthly', currentMonthId]).then(suc => {
+    // let currentMonthId = DateIdUtil.getTodayId();
+    // this.router.navigate(['monthly', currentMonthId]).then(suc => {
+    //   if(isDL()) dl.log(`openMonthlyDigestPage() suc = ${suc}`);
+    // });
+    this.router.navigate(['thismonth']).then(suc => {
       if(isDL()) dl.log(`openMonthlyDigestPage() suc = ${suc}`);
     });
   }
@@ -436,6 +442,9 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
     return this._itemCountPerPage;
   }
 
+  // TBD:
+  // Make this a user/reader input?
+  // Or at least make it user configurable ???
   private _isPaginationEnabled: boolean;
   get isPaginationEnabled(): boolean {
     if (this._isPaginationEnabled !== true && this._isPaginationEnabled !== false) {

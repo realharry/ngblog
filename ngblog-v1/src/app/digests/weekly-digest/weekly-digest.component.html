@@ -2,7 +2,7 @@
 
   <mat-toolbar class="ngblog-digest-header" layout="row" color="primary">
     <mat-toolbar-row>
-      <span style="font-weight: bold;">{{siteInfo.name}} - Week of {{weekDate}}</span>
+      <span style="font-weight: bold;">{{siteInfo.name}} - {{weekDateLabel}}</span>
       <span style="flex: 1 1 auto"></span>
       <button mat-icon-button color="" matTooltip="Home" (click)="navigateHome()">
         <mat-icon>home</mat-icon>
@@ -46,10 +46,10 @@
         <common-date-year></common-date-year> {{siteInfo.name}}</span>
       <span style="flex: 1 1 auto"></span>
       <span style="font-style: italic; font-size:0.9em;">
-        <button mat-icon-button color="primary" [disabled]="!canDoNextWeek" matTooltip="Next" (click)="navigateNextWeek()">
+        <button mat-icon-button color="primary" [disabled]="!canDoNextWeek" matTooltip="More Recent" (click)="navigateNextWeek()">
           <mat-icon>keyboard_arrow_left</mat-icon>
         </button>
-        <button mat-icon-button color="primary" [disabled]="!canDoPreviousWeek" matTooltip="Previous" (click)="navigatePreviousWeek()">
+        <button mat-icon-button color="primary" [disabled]="!canDoPreviousWeek" matTooltip="Previous Week" (click)="navigatePreviousWeek()">
           <mat-icon>keyboard_arrow_right</mat-icon>
         </button>
       </span>
