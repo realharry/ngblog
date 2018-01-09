@@ -13,7 +13,7 @@
   <div style="padding-top: 16px; padding-bottom: 16px; text-align: center;">
 
     <mat-card *ngFor="let mde of docEntries; let i = index" class="ngblog-weekly-digest-card">
-      <mat-card-header>
+      <mat-card-header style="text-align:left;">
         <mat-card-title>{{mde.title}}</mat-card-title>
         <mat-card-subtitle>{{(mde.date) ? mde.date.toLocaleDateString() : ''}} - {{mde.description}}</mat-card-subtitle>
       </mat-card-header>
@@ -46,10 +46,10 @@
         <common-date-year></common-date-year> {{siteInfo.name}}</span>
       <span style="flex: 1 1 auto"></span>
       <span style="font-style: italic; font-size:0.9em;">
-        <button mat-icon-button color="primary" [disabled]="true" matTooltip="Previous">
+        <button mat-icon-button color="primary" [disabled]="!canDoNextWeek" matTooltip="Next" (click)="navigateNextWeek()">
           <mat-icon>keyboard_arrow_left</mat-icon>
         </button>
-        <button mat-icon-button color="primary" [disabled]="true" matTooltip="Next">
+        <button mat-icon-button color="primary" [disabled]="!canDoPreviousWeek" matTooltip="Previous" (click)="navigatePreviousWeek()">
           <mat-icon>keyboard_arrow_right</mat-icon>
         </button>
       </span>

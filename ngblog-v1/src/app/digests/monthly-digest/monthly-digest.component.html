@@ -14,8 +14,11 @@
 
     <mat-card *ngFor="let mde of docEntries; let i = index" class="ngblog-monthly-digest-card">
       <mat-card-header>
-        <mat-card-title>{{mde.title}}</mat-card-title>
-        <mat-card-subtitle>{{(mde.date) ? mde.date.toLocaleDateString() : ''}} - {{mde.description}}</mat-card-subtitle>
+        <mat-card-title>{{(mde.date) ? mde.date.toLocaleDateString() : ''}} - {{mde.title}}
+        <button color="primary" *ngIf="mde.hasContent" mat-icon-button matTooltip="Read more" (click)="openContentPage(i);">
+          <mat-icon>message</mat-icon>
+        </button>
+      </mat-card-title>
       </mat-card-header>
       <mat-card-content>
         <div class="ngblog-digest-summary-block">
@@ -23,9 +26,6 @@
             [debug-enabled]="mde.debugEnabled" [renderer-options]="mde.rendererOptions"></common-mark-entry>
         </div>
       </mat-card-content>
-      <mat-card-actions>
-        <button *ngIf="mde.hasContent" mat-button color="primary" (click)="openContentPage(i)">Read More</button>
-      </mat-card-actions>
     </mat-card>
 
     <div *ngIf="isEmpty">
@@ -45,10 +45,10 @@
         <common-date-year></common-date-year> {{siteInfo.name}}</span>
       <span style="flex: 1 1 auto"></span>
       <span style="font-style: italic; font-size:0.9em;">
-        <button mat-icon-button color="primary" [disabled]="true" matTooltip="Previous">
+        <button mat-icon-button color="primary" [disabled]="!canDoNextMonth" matTooltip="Next" (click)="navigateNextMonth()">
           <mat-icon>keyboard_arrow_left</mat-icon>
         </button>
-        <button mat-icon-button color="primary" [disabled]="true" matTooltip="Next">
+        <button mat-icon-button color="primary" [disabled]="!canDoPreviousMonth" matTooltip="Previous" (click)="navigatePreviousMonth()">
           <mat-icon>keyboard_arrow_right</mat-icon>
         </button>
       </span>

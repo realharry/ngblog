@@ -121,6 +121,43 @@ export class MonthlyDigestComponent implements OnInit {
   }
 
 
+  get canDoNextMonth(): boolean {
+    let todayId = DateIdUtil.getTodayId();
+    return (todayId > this.dateId);
+  }
+
+  get canDoPreviousMonth(): boolean {
+    return true;
+  }
+
+  navigateNextMonth() {
+    let todayId = DateIdUtil.getTodayId();
+    let nextMoDays = DateTimeUtil.getNumberOfDaysForMonth(DateIdUtil.convertToEpochMillis(this.dateId));
+    let nextMonthId = DateIdUtil.getNthDayId(this.dateId, nextMoDays);
+    if(nextMonthId > todayId) {
+      nextMonthId = todayId;
+    }
+    this.router.navigate(['monthly', nextMonthId]).then(suc => {
+      if (isDL()) dl.log(`navigateNextMonth() suc = ${suc}; nextMonthId = ${nextMonthId}`);
+    });
+  }
+
+
+  // TBD:
+  // There is a bug in calculating prevMonthId.
+  // 2017/7/09 -> 2017/6/08 (instead of 6/09). Why???
+  navigatePreviousMonth() {
+    let dt = DateIdUtil.convertToDate(this.dateId);
+    let prevMo = new Date(dt.getFullYear(), dt.getMonth() - 1, dt.getDay());
+    let prevMoDays = DateTimeUtil.getNumberOfDaysForMonth(prevMo.getTime());
+    let prevMonthId = DateIdUtil.getNthDayId(this.dateId, -prevMoDays);
+    this.router.navigate(['monthly', prevMonthId]).then(suc => {
+      if (isDL()) dl.log(`navigatePreviousMonth() suc = ${suc}; prevMonthId = ${prevMonthId}`);
+    });
+  }
+
+
+
   get monthDate(): string {
     return DateIdUtil.getISODateString(this.dateId, true);
     // return DateIdUtil.convertToDate(this.dateId).toLocaleDateString();

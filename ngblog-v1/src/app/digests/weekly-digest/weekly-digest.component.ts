@@ -118,6 +118,34 @@ export class WeeklyDigestComponent implements OnInit {
   }
 
 
+  get canDoNextWeek(): boolean {
+    let todayId = DateIdUtil.getTodayId();
+    return (todayId > this.dateId);
+  }
+
+  get canDoPreviousWeek(): boolean {
+    return true;
+  }
+
+  navigateNextWeek() {
+    let todayId = DateIdUtil.getTodayId();
+    let nextWeekId = DateIdUtil.getNthDayId(this.dateId, 7);
+    if(nextWeekId > todayId) {
+      nextWeekId = todayId;
+    }
+    this.router.navigate(['weekly', nextWeekId]).then(suc => {
+      if (isDL()) dl.log(`navigateNextWeek() suc = ${suc}; nextWeekId = ${nextWeekId}`);
+    });
+  }
+
+  navigatePreviousWeek() {
+    let prevWeekId = DateIdUtil.getNthDayId(this.dateId, -7);
+    this.router.navigate(['weekly', prevWeekId]).then(suc => {
+      if (isDL()) dl.log(`navigatePreviousWeek() suc = ${suc}; prevWeekId = ${prevWeekId}`);
+    });
+  }
+
+
   get weekDate(): string {
     return DateIdUtil.getISODateString(this.dateId, true);
     // return DateIdUtil.convertToDate(this.dateId).toLocaleDateString();
