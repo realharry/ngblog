@@ -72,7 +72,7 @@ export class BlogPostRegistry {
       // oldPosts = opl.sort().reverse();
       oldPosts = (oldPostList as string[]).slice(0);
     }
-    // console.dir(oldPosts);
+    // if(isDL()) console.dir(oldPosts);
     return this.postListService.getDailyPosts(maxDates, null, oldPosts).map(posts => {
       let map: { [dateId: string]: MarkdownDocEntry } = {};
       let list: MarkdownDocEntry[] = [];

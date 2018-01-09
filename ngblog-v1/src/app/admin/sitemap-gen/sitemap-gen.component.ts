@@ -74,7 +74,7 @@ export class SitemapGenComponent implements OnInit {
         }
       }
       if(isDL()) dl.log(">>> siteEntries loaded >>>")
-      console.dir(this.siteEntries);
+      if(isDL()) console.dir(this.siteEntries);
 
       this.displaySitemap();
     });

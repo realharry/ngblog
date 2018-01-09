@@ -153,7 +153,7 @@ export class DailyPostsHelper {
     if (oldPosts && oldPosts.length > 0) {
       dates = dates.concat(oldPosts);
     }
-    console.dir(dates);
+    if(isDL()) console.dir(dates);
 
     if (dates) {
       for (let d of dates) {

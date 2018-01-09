@@ -35,7 +35,7 @@ export class AdminSentinelService implements CanActivate {
     if (route && route.queryParams) {
       let v = route.queryParams[VisitorTokenService.PARAM_VISITOR_TAG];
       if(isDL()) dl.log(`canActivate() Query param ${VisitorTokenService.PARAM_VISITOR_TAG} = ${v}`);
-      console.dir(v);
+      if(isDL()) console.dir(v);
 
       // This should be done here
       // since canActivate() is called before AppComponent is initialized.

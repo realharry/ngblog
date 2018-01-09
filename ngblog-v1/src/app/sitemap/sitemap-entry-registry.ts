@@ -5,10 +5,9 @@ import 'rxjs/add/operator/map';
 import { DevLogger as dl } from '@ngcore/core'; import isDL = dl.isLoggable;
 import { DateTimeUtil, DateIdUtil } from '@ngcore/core';
 import { AppConfig } from '@ngcore/core';
-
 import { SiteEntry } from '@ngcore/link';
-import { SitemapEntryUtil } from './util/sitemap-entry-util';
 
+import { SitemapEntryUtil } from './util/sitemap-entry-util';
 import { PostStatus } from '../blog/core/post-status';
 import { PostListService } from '../services/post-list.service';
 
@@ -50,7 +49,7 @@ export class SitemapEntryRegistry {
     if (oldPostList) {
       oldPosts = (oldPostList as string[]).slice(0);
     }
-    // console.dir(oldPosts);
+    // if(isDL()) console.dir(oldPosts);
     let useCache = false;
     return this.postListService.getDailyPosts(maxDates, null, oldPosts,
       [PostStatus.Posted, PostStatus.Hidden], useCache).map(posts => {
