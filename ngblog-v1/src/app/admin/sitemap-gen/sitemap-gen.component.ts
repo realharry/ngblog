@@ -99,6 +99,10 @@ export class SitemapGenComponent implements OnInit {
     for(let entry of this.siteEntries) {
       xml += entry.toXML() + '\n';
     }
+
+    // tbd:
+    // Include weekly/monthly digests?
+    
     xml += `</urlset>`;
     return xml;
   }

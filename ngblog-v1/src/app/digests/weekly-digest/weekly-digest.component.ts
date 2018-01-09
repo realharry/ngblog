@@ -3,16 +3,25 @@ import { Location } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { DevLogger as dl } from '@ngcore/core'; import isDL = dl.isLoggable;
-import { DateTimeUtil, DateIdUtil } from '@ngcore/core';
+import { DateTimeUtil, DateIdUtil, DateRange } from '@ngcore/core';
 import { AppConfig } from '@ngcore/core';
 import { BrowserWindowService } from '@ngcore/core';
 import { LazyLoaderService } from '@ngcore/idle';
+import { DateRangeUtil } from '@ngcore/time';
+
+import { MarkdownDocEntry } from '../../entry/markdown-doc-entry';
+import { MarkdownEntryUtil } from '../../entry/util/markdown-entry-util';
 
 import { SiteInfo } from '../../common/site-info';
 import { ContactInfo } from '../../common/contact-info';
 
 import { defaultSiteInfo } from '../../docs/info/default-site-info';
 import { defaultContactInfo } from '../../docs/info/default-contact-info';
+
+import { DailyPostsHelper } from '../../helpers/daily-posts-helper';
+import { PostListService } from '../../services/post-list.service';
+import { BlogPostService } from '../../services/blog-post.service';
+import { BlogPostRegistry } from '../../docs/registry/blog-post-registry';
 
 
 @Component({
@@ -25,6 +34,9 @@ export class WeeklyDigestComponent implements OnInit {
   // Weekly means (1) rolling 7 days?
   //           or (2) Calendar week???
   dateId: string = '';
+  // weekRange: DateRange = new DateRange();
+  // weekDates: string[] = [];
+  weekDates: { [id: string]: string } = {};
 
   contactEmail: string = '';
   contactPhone: string = '';
@@ -33,6 +45,12 @@ export class WeeklyDigestComponent implements OnInit {
   siteInfo: SiteInfo;
   contactInfo: ContactInfo;
 
+  docEntries: MarkdownDocEntry[] = [];
+  entryLength: number = 0;
+
+  // temporary
+  delayInterval: number[] = [250, 750];
+
   constructor(
     private location: Location,
     private router: Router,
@@ -40,6 +58,10 @@ export class WeeklyDigestComponent implements OnInit {
     private appConfig: AppConfig,
     private browserWindowService: BrowserWindowService,
     private lazyLoaderService: LazyLoaderService,
+    private dailyPostsHelper: DailyPostsHelper,
+    private postListService: PostListService,
+    private blogPostService: BlogPostService,
+    private blogPostRegistry: BlogPostRegistry,
   ) {
     this.siteInfo = new SiteInfo();
     this.contactInfo = new ContactInfo();
@@ -47,7 +69,12 @@ export class WeeklyDigestComponent implements OnInit {
 
   ngOnInit() {
     this.dateId = this.activatedRoute.snapshot.params['id'];
-    if(isDL()) dl.log(`>>> Week id = ${this.dateId}.`);
+    if (isDL()) dl.log(`>>> Week id = ${this.dateId}.`);
+    let dates = DateRangeUtil.getDates(7, DateIdUtil.getNextDayId(this.dateId));
+    for (let d of dates) {
+      this.weekDates[d] = d;
+    }
+    if (isDL()) dl.log(Object.keys(this.weekDates));
 
     let sInfo = this.appConfig.get('site-info');
     if (sInfo) {
@@ -66,9 +93,30 @@ export class WeeklyDigestComponent implements OnInit {
     this.contactEmail = (this.contactInfo.email) ? this.contactInfo.email : '';
     this.contactPhone = (this.contactInfo.phone) ? this.contactInfo.phone : '';
     this.contactWebsite = (this.contactInfo.website) ? this.contactInfo.website : '';
-    if(isDL()) dl.log(`>>>>> this.contactEmail = ${this.contactEmail}`);
+    if (isDL()) dl.log(`>>>>> this.contactEmail = ${this.contactEmail}`);
 
+    // Async.
+    this.loadBlogPostEntries();
   }
+
+  private loadBlogPostEntries() {
+    this.blogPostRegistry.buildEntryMap().subscribe(entries => {
+      this.docEntries = [];
+      // TBD: Need a more efficient algo.
+      for (let entry of entries) {
+        if (entry.id in this.weekDates) {
+          this.docEntries.push(entry);
+        }
+      }
+      if (isDL()) dl.log(this.docEntries);
+      this.entryLength = this.docEntries.length;
+    });
+  }
+
+  get isEmpty(): boolean {
+    return (this.entryLength == 0);
+  }
+
 
   get weekDate(): string {
     return DateIdUtil.getISODateString(this.dateId, true);
@@ -79,14 +127,31 @@ export class WeeklyDigestComponent implements OnInit {
   get displayContactEmail(): boolean {
     if (this._displayContactEmail !== true && this._displayContactEmail !== false) {
       let showContactEmail = this.appConfig.getBoolean("show-contact-email", false);
-      if(isDL()) dl.log(`>>>>> showContactEmail = ${showContactEmail}`);
+      if (isDL()) dl.log(`>>>>> showContactEmail = ${showContactEmail}`);
       this._displayContactEmail =
         !!(this.contactEmail) // tbd: validate email?
         &&
         this.appConfig.getBoolean("show-contact-email", false);
-      if(isDL()) dl.log(`>>>>> this._displayContactEmail = ${this._displayContactEmail}`);
+      if (isDL()) dl.log(`>>>>> this._displayContactEmail = ${this._displayContactEmail}`);
     }
     return this._displayContactEmail;
+  }
+
+
+  openContentPage(idx: number) {
+    if (isDL()) dl.log("openContentPage() idx = " + idx);
+
+    let entry = this.docEntries[idx];  // TBD: validate idx ???
+    if (isDL()) dl.log("openContentPage() entry = " + entry);
+
+    if (entry.showContent) {
+      let dateId = entry.id;
+
+      let permalinkPath = entry.permalinkPath;
+      this.router.navigate(['', permalinkPath]).then(suc => {
+        if (isDL()) dl.log(`openContentPage() suc = ${suc}; permalinkPath = ${permalinkPath}`);
+      });
+    }
   }
 
 
@@ -94,7 +159,7 @@ export class WeeklyDigestComponent implements OnInit {
     // How to clear history stack???
     // this.location.clear();
     this.router.navigate(['/']).then(suc => {
-      if(isDL()) dl.log(`navigate() suc = ${suc}`);
+      if (isDL()) dl.log(`navigate() suc = ${suc}`);
     });
   }
 

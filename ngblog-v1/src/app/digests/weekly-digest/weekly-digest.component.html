@@ -12,7 +12,31 @@
 
   <div style="padding-top: 16px; padding-bottom: 16px; text-align: center;">
 
-    <span style="font-weight: bold; font-size: 2.0em;">TBD</span>
+    <mat-card *ngFor="let mde of docEntries; let i = index" class="ngblog-weekly-digest-card">
+      <mat-card-header>
+        <mat-card-title>{{mde.title}}</mat-card-title>
+        <mat-card-subtitle>{{(mde.date) ? mde.date.toLocaleDateString() : ''}} - {{mde.description}}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="ngblog-digest-summary-block">
+          <common-mark-entry [delay]="delayInterval" [url]="mde.summaryUrl" [markdown]="mde.summaryContent" [img-prefix]="mde.imgPrefix"
+            [debug-enabled]="mde.debugEnabled" [renderer-options]="mde.rendererOptions"></common-mark-entry>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button *ngIf="mde.hasContent" mat-button color="primary" (click)="openContentPage(i)">Read More</button>
+      </mat-card-actions>
+    </mat-card>
+
+    <div *ngIf="isEmpty">
+      <mat-card class="ngblog-weekly-digest-card">
+        <mat-card-content>
+          <div class="ngblog-digest-summary-block">
+            <span style="font-size:1.1em;">No posts found</span>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
 
   </div>
 

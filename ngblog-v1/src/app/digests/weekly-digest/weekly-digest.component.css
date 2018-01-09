@@ -10,3 +10,15 @@
   min-height: 42px;
   max-height: 42px;
 }
+
+.ngblog-weekly-digest-card {
+  margin: 12px;
+  padding: 8x;
+}
+
+.ngblog-digest-summary-block {
+  margin: 8px;
+  margin-top: 0px;
+  text-align:left; 
+  vertical-align:top;
+}

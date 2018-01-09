@@ -3,16 +3,25 @@ import { Location } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { DevLogger as dl } from '@ngcore/core'; import isDL = dl.isLoggable;
-import { DateTimeUtil, DateIdUtil } from '@ngcore/core';
+import { DateTimeUtil, DateIdUtil, DateRange } from '@ngcore/core';
 import { AppConfig } from '@ngcore/core';
 import { BrowserWindowService } from '@ngcore/core';
 import { LazyLoaderService } from '@ngcore/idle';
+import { DateRangeUtil } from '@ngcore/time';
+
+import { MarkdownDocEntry } from '../../entry/markdown-doc-entry';
+import { MarkdownEntryUtil } from '../../entry/util/markdown-entry-util';
 
 import { SiteInfo } from '../../common/site-info';
 import { ContactInfo } from '../../common/contact-info';
 
 import { defaultSiteInfo } from '../../docs/info/default-site-info';
 import { defaultContactInfo } from '../../docs/info/default-contact-info';
+
+import { DailyPostsHelper } from '../../helpers/daily-posts-helper';
+import { PostListService } from '../../services/post-list.service';
+import { BlogPostService } from '../../services/blog-post.service';
+import { BlogPostRegistry } from '../../docs/registry/blog-post-registry';
 
 
 @Component({
@@ -25,6 +34,9 @@ export class MonthlyDigestComponent implements OnInit {
   // Monthly means (1) rolling 30 days?
   //           or (2) Calendar month???
   dateId: string = '';
+  // monthRange: DateRange = new DateRange();
+  // monthDates: string[] = [];
+  monthDates: { [id: string]: string } = {};
 
   contactEmail: string = '';
   contactPhone: string = '';
@@ -33,6 +45,12 @@ export class MonthlyDigestComponent implements OnInit {
   siteInfo: SiteInfo;
   contactInfo: ContactInfo;
 
+  docEntries: MarkdownDocEntry[] = [];
+  entryLength: number = 0;
+
+  // temporary
+  delayInterval: number[] = [250, 1250];
+
   constructor(
     private location: Location,
     private router: Router,
@@ -40,6 +58,10 @@ export class MonthlyDigestComponent implements OnInit {
     private appConfig: AppConfig,
     private browserWindowService: BrowserWindowService,
     private lazyLoaderService: LazyLoaderService,
+    private dailyPostsHelper: DailyPostsHelper,
+    private postListService: PostListService,
+    private blogPostService: BlogPostService,
+    private blogPostRegistry: BlogPostRegistry,
   ) {
     this.siteInfo = new SiteInfo();
     this.contactInfo = new ContactInfo();
@@ -47,7 +69,15 @@ export class MonthlyDigestComponent implements OnInit {
 
   ngOnInit() {
     this.dateId = this.activatedRoute.snapshot.params['id'];
-    if(isDL()) dl.log(`>>> Month id = ${this.dateId}.`);
+    if (isDL()) dl.log(`>>> Month id = ${this.dateId}.`);
+    let dt = DateIdUtil.convertToDate(this.dateId);
+    let prevMo = new Date(dt.getFullYear(), dt.getMonth() - 1, dt.getDay());
+    let prevMoDays = DateTimeUtil.getNumberOfDaysForMonth(prevMo.getTime());
+    let dates = DateRangeUtil.getDates(prevMoDays, DateIdUtil.getNextDayId(this.dateId));
+    for (let d of dates) {
+      this.monthDates[d] = d;
+    }
+    if (isDL()) dl.log(Object.keys(this.monthDates));
 
     let sInfo = this.appConfig.get('site-info');
     if (sInfo) {
@@ -66,9 +96,30 @@ export class MonthlyDigestComponent implements OnInit {
     this.contactEmail = (this.contactInfo.email) ? this.contactInfo.email : '';
     this.contactPhone = (this.contactInfo.phone) ? this.contactInfo.phone : '';
     this.contactWebsite = (this.contactInfo.website) ? this.contactInfo.website : '';
-    if(isDL()) dl.log(`>>>>> this.contactEmail = ${this.contactEmail}`);
+    if (isDL()) dl.log(`>>>>> this.contactEmail = ${this.contactEmail}`);
 
+    // Async.
+    this.loadBlogPostEntries();
   }
+
+  private loadBlogPostEntries() {
+    this.blogPostRegistry.buildEntryMap().subscribe(entries => {
+      this.docEntries = [];
+      // TBD: Need a more efficient algo.
+      for (let entry of entries) {
+        if (entry.id in this.monthDates) {
+          this.docEntries.push(entry);
+        }
+      }
+      if (isDL()) dl.log(this.docEntries);
+      this.entryLength = this.docEntries.length;
+    });
+  }
+
+  get isEmpty(): boolean {
+    return (this.entryLength == 0);
+  }
+
 
   get monthDate(): string {
     return DateIdUtil.getISODateString(this.dateId, true);
@@ -79,14 +130,31 @@ export class MonthlyDigestComponent implements OnInit {
   get displayContactEmail(): boolean {
     if (this._displayContactEmail !== true && this._displayContactEmail !== false) {
       let showContactEmail = this.appConfig.getBoolean("show-contact-email", false);
-      if(isDL()) dl.log(`>>>>> showContactEmail = ${showContactEmail}`);
+      if (isDL()) dl.log(`>>>>> showContactEmail = ${showContactEmail}`);
       this._displayContactEmail =
         !!(this.contactEmail) // tbd: validate email?
         &&
         this.appConfig.getBoolean("show-contact-email", false);
-      if(isDL()) dl.log(`>>>>> this._displayContactEmail = ${this._displayContactEmail}`);
+      if (isDL()) dl.log(`>>>>> this._displayContactEmail = ${this._displayContactEmail}`);
     }
     return this._displayContactEmail;
+  }
+
+
+  openContentPage(idx: number) {
+    if (isDL()) dl.log("openContentPage() idx = " + idx);
+
+    let entry = this.docEntries[idx];  // TBD: validate idx ???
+    if (isDL()) dl.log("openContentPage() entry = " + entry);
+
+    if (entry.showContent) {
+      let dateId = entry.id;
+
+      let permalinkPath = entry.permalinkPath;
+      this.router.navigate(['', permalinkPath]).then(suc => {
+        if (isDL()) dl.log(`openContentPage() suc = ${suc}; permalinkPath = ${permalinkPath}`);
+      });
+    }
   }
 
 
@@ -94,7 +162,7 @@ export class MonthlyDigestComponent implements OnInit {
     // How to clear history stack???
     // this.location.clear();
     this.router.navigate(['/']).then(suc => {
-      if(isDL()) dl.log(`navigate() suc = ${suc}`);
+      if (isDL()) dl.log(`navigate() suc = ${suc}`);
     });
   }
 
