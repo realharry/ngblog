@@ -99,9 +99,16 @@ export class NgBlogPermalinkComponent implements OnInit {
     }
     this.contactWebsite = (this.contactInfo.website) ? this.contactInfo.website : '';
 
+    // TBD:
+    // If the path is not the exact permalink,
+    //    redirect to the permalink (canonical url) ????
     let permalinkPath = this.activatedRoute.snapshot.params['path'];
     let dateId = PermalinkPathUtil.getUniqueId(permalinkPath);
     if(isDL()) dl.log(`>>> date id = ${dateId}; permalinkPath = ${permalinkPath}`);
+    // tbd
+    // let canonialPath = PermalinkPathUtil.getPermalinkPath(entry.id, entry.title, entry.description);
+    // compare canonicalPath with the input param path ????
+    // ...
 
     // // // testing...
     // // this.imgPrefix = this.dailyPostsHelper.postFolder;

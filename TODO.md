@@ -36,6 +36,9 @@ Client-side search
 
 Tag/label support
 
+"Related" posts?
+
+
 Prev/Next navigation from the post/permalink page
 
 Support custom UI (other than Accordion listing)?
