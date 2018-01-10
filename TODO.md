@@ -69,6 +69,12 @@ And, in general, "admin" interface?
 Or, even a separate admin app?
 
 
+Chrome extension?
+
+Native apps?
+
+
+
 Better content management:
 Currently, posts are essentially "file system"-based 
   (even when they are served from remote content server/static web server).
@@ -79,4 +85,9 @@ which has negative implications for "permalinks", etc.
 (For example, when a post folder is moved/deleted, the reader with the permalink to that post
 will get 404 instead of a more friendly post moved/deleted message.)
 
+
+
+Multiple blog support?
+   server/author side
+   vs. client/reader side
 

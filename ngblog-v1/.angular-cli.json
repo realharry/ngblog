@@ -15,7 +15,7 @@
         "posts",
         "posts-dev",
         "favicon.ico",
-        "manifest.json",
+        "web-manifest.json",
         "sitemap.xml",
         "404.html"
       ],
@@ -49,7 +49,7 @@
         "posts",
         "posts-dev",
         "favicon.ico",
-        "manifest.json",
+        "web-manifest.json",
         "sitemap.xml",
         "404.html"
       ],
