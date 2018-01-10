@@ -13,6 +13,10 @@
         "/*.bundle.css",
         "/*.bundle.js",
         "/*.chunk.js"
+      ],
+      "urls": [
+        "https://www.googletagmanager.com/gtag/**",
+        "https://use.fontawesome.com/700a3d322c.js"
       ]
     }
   }, {
@@ -26,6 +30,9 @@
         "/styles/**",
         "/posts/**",
         "/posts-dev/**"
+      ],
+      "urls": [
+        "https://fonts.googleapis.com/**"
       ]
     }
   }]

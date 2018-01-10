@@ -11,7 +11,7 @@
         <!-- <button mat-icon-button color="" matTooltip="Back" (click)="navigateBack()">
           <mat-icon>arrow_back</mat-icon>
         </button> -->
-        <button mat-icon-button color="" matTooltip="Home" (click)="navigateHome()">
+        <button mat-icon-button color="" aria-label="Home" matTooltip="Home" (click)="navigateHome()">
           <mat-icon>home</mat-icon>
         </button>
       </span>
@@ -30,7 +30,7 @@
   <mat-toolbar class="ngblog-permalink-footer" layout="row" color="accent">
     <mat-toolbar-row>
       <span style="font-style: italic; font-size:0.9em; margin-left:-12px;">
-        <button mat-icon-button color="" matTooltip="Back" (click)="navigateBack()">
+        <button mat-icon-button color="" aria-label="Back" matTooltip="Back" (click)="navigateBack()">
           <mat-icon>arrow_back</mat-icon>
         </button>
       </span>
@@ -45,16 +45,16 @@
 
       <span style="flex: 1 1 auto"></span>
       <span>
-        <button *ngIf="showShareOnLinkedIn" mat-icon-button matTooltip="LinkedIn" shareButton="linkedin">
+        <button *ngIf="showShareOnLinkedIn" mat-icon-button aria-label="Share on LinkedIn" matTooltip="LinkedIn" shareButton="linkedin">
           <i class="fa fa-linkedin fa-lg" aria-hidden="true"></i>
         </button>
-        <button *ngIf="showShareOnFacebook" mat-icon-button matTooltip="Facebook" shareButton="facebook">
+        <button *ngIf="showShareOnFacebook" mat-icon-button aria-label="Share on Facebook" matTooltip="Facebook" shareButton="facebook">
           <i class="fa fa-facebook fa-lg" aria-hidden="true"></i>
         </button>
-        <button *ngIf="showShareOnTwitter" mat-icon-button matTooltip="Twitter" shareButton="twitter">
+        <button *ngIf="showShareOnTwitter" mat-icon-button aria-label="Share on Twitter" matTooltip="Twitter" shareButton="twitter">
           <i class="fa fa-twitter fa-lg" aria-hidden="true"></i>
         </button>
-        <a *ngIf="showShareViaEmail" mat-icon-button matTooltip="Email" [href]="'mailto:?subject='+emailSubject+'&body='+emailBody">
+        <a *ngIf="showShareViaEmail" mat-icon-button aria-label="Share via email" matTooltip="Email" [href]="'mailto:?subject='+emailSubject+'&body='+emailBody">
           <i class="fa fa-envelope fa-lg" aria-hidden="true"></i>
         </a>
       </span>

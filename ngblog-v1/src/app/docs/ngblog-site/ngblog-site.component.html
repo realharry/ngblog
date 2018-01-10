@@ -16,13 +16,13 @@
         </mat-chip-list>
       </span> -->
       <span>
-        <button *ngIf="showWeeklyDigest" mat-icon-button color="" matTooltip="This Week" (click)="openWeeklyDigestPage()">
+        <button *ngIf="showWeeklyDigest" mat-icon-button color="" aria-label="This week's digest" matTooltip="This Week" (click)="openWeeklyDigestPage()">
           <mat-icon>date_range</mat-icon>
         </button>
-        <button *ngIf="showMonthlyDigest" mat-icon-button color="" matTooltip="This Month" (click)="openMonthlyDigestPage()">
+        <button *ngIf="showMonthlyDigest" mat-icon-button color="" aria-label="This month's digest" matTooltip="This Month" (click)="openMonthlyDigestPage()">
           <mat-icon>event_note</mat-icon>
         </button>
-        <button *ngIf="showAdminButton" mat-icon-button color="" matTooltip="Admin" (click)="openAdminHome()">
+        <button *ngIf="showAdminButton" mat-icon-button color="" aria-label="Admin dashboard" matTooltip="Admin" (click)="openAdminHome()">
           <mat-icon>security</mat-icon>
         </button>
       </span>
@@ -67,7 +67,7 @@
         </div>
 
         <mat-action-row>
-          <button color="primary" *ngIf="mde.hasContent" mat-icon-button matTooltip="Read more" (click)="openContentPage(i);">
+          <button color="primary" *ngIf="mde.hasContent" mat-icon-button aria-label="Read more" matTooltip="Read more" (click)="openContentPage(i);">
             <mat-icon>message</mat-icon>
           </button>
           <span style="flex: 1 1 auto"></span>
@@ -82,7 +82,7 @@
   <mat-toolbar class="ngblog-site-footer" layout="row" color="accent">
     <mat-toolbar-row>
       <span style="font-style: italic; font-size:0.9em; margin-left:-12px;">
-        <button mat-icon-button color="" matTooltip="Back" (click)="navigateBack()">
+        <button mat-icon-button color="" aria-label="Back" matTooltip="Back" (click)="navigateBack()">
           <mat-icon>arrow_back</mat-icon>
         </button>
       </span>
@@ -112,11 +112,11 @@
       </span>
       <span style="font-style: italic; font-size:0.9em;">
         <mat-chip-list>
-          <button mat-icon-button color="primary" [disabled]="isInFirstPage" matTooltip="Previous Page" (click)="goToPreviousPage()">
+          <button mat-icon-button color="primary" [disabled]="isInFirstPage" aria-label="Previous page" matTooltip="Previous Page" (click)="goToPreviousPage()">
             <mat-icon>chevron_left</mat-icon>
           </button>
           <mat-chip color="primary" selected="true">{{pageIndicia}}</mat-chip>
-          <button mat-icon-button color="primary" [disabled]="isInLastPage" matTooltip="Next Page" (click)="goToNextPage()">
+          <button mat-icon-button color="primary" [disabled]="isInLastPage" aria-label="Next page" matTooltip="Next Page" (click)="goToNextPage()">
             <mat-icon>chevron_right</mat-icon>
           </button>
         </mat-chip-list>

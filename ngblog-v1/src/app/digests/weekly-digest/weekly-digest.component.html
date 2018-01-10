@@ -4,7 +4,7 @@
     <mat-toolbar-row>
       <span style="font-weight: bold;">{{siteInfo.name}} - {{weekDateLabel}}</span>
       <span style="flex: 1 1 auto"></span>
-      <button mat-icon-button color="" matTooltip="Home" (click)="navigateHome()">
+      <button mat-icon-button color="" aria-label="Home" matTooltip="Home" (click)="navigateHome()">
         <mat-icon>home</mat-icon>
       </button>
     </mat-toolbar-row>
@@ -24,7 +24,7 @@
         </div>
       </mat-card-content>
       <mat-card-actions>
-        <button *ngIf="mde.hasContent" mat-button color="primary" (click)="openContentPage(i)">Read More</button>
+        <button *ngIf="mde.hasContent" mat-button color="primary" aria-label="Read more" (click)="openContentPage(i)">Read More</button>
       </mat-card-actions>
     </mat-card>
 
@@ -43,7 +43,7 @@
   <mat-toolbar class="ngblog-digest-footer" layout="row" color="accent">
     <mat-toolbar-row>
       <span style="font-style: italic; font-size:0.9em; margin-left:-12px;">
-        <button mat-icon-button color="" matTooltip="Back" (click)="navigateBack()">
+        <button mat-icon-button color="" aria-label="Back" matTooltip="Back" (click)="navigateBack()">
           <mat-icon>arrow_back</mat-icon>
         </button>
       </span>
@@ -57,10 +57,10 @@
       </span>
       <span style="flex: 1 1 auto"></span>
       <span style="font-style: italic; font-size:0.9em;">
-        <button mat-icon-button color="primary" [disabled]="!canDoNextWeek" matTooltip="More Recent" (click)="navigateNextWeek()">
+        <button mat-icon-button color="primary" [disabled]="!canDoNextWeek" aria-label="More recent" matTooltip="More Recent" (click)="navigateNextWeek()">
           <mat-icon>chevron_left</mat-icon>
         </button>
-        <button mat-icon-button color="primary" [disabled]="!canDoPreviousWeek" matTooltip="Previous Week" (click)="navigatePreviousWeek()">
+        <button mat-icon-button color="primary" [disabled]="!canDoPreviousWeek" aria-label="Previous week" matTooltip="Previous Week" (click)="navigatePreviousWeek()">
           <mat-icon>chevron_right</mat-icon>
         </button>
       </span>

@@ -4,7 +4,7 @@
     <mat-toolbar-row>
       <span style="font-weight: bold;">{{siteInfo.name}} - {{monthDateLabel}}</span>
       <span style="flex: 1 1 auto"></span>
-      <button mat-icon-button color="" matTooltip="Home" (click)="navigateHome()">
+      <button mat-icon-button color="" aria-label="Home" matTooltip="Home" (click)="navigateHome()">
         <mat-icon>home</mat-icon>
       </button>
     </mat-toolbar-row>
@@ -15,7 +15,7 @@
     <mat-card *ngFor="let mde of docEntries; let i = index" class="ngblog-monthly-digest-card">
       <mat-card-header>
         <mat-card-title>{{(mde.date) ? mde.date.toLocaleDateString() : ''}} - {{mde.title}}
-        <button color="primary" *ngIf="mde.hasContent" mat-icon-button matTooltip="Read more" (click)="openContentPage(i);">
+        <button color="primary" *ngIf="mde.hasContent" mat-icon-button aria-label="Read more" matTooltip="Read more" (click)="openContentPage(i);">
           <mat-icon>message</mat-icon>
         </button>
       </mat-card-title>
@@ -42,7 +42,7 @@
   <mat-toolbar class="ngblog-digest-footer" layout="row" color="accent">
     <mat-toolbar-row>
       <span style="font-style: italic; font-size:0.9em; margin-left:-12px;">
-        <button mat-icon-button color="" matTooltip="Back" (click)="navigateBack()">
+        <button mat-icon-button color="" aria-label="Back" matTooltip="Back" (click)="navigateBack()">
           <mat-icon>arrow_back</mat-icon>
         </button>
       </span>
@@ -56,10 +56,10 @@
       </span>
       <span style="flex: 1 1 auto"></span>
       <span style="font-style: italic; font-size:0.9em;">
-        <button mat-icon-button color="primary" [disabled]="!canDoNextMonth" matTooltip="More Recent" (click)="navigateNextMonth()">
+        <button mat-icon-button color="primary" [disabled]="!canDoNextMonth" aria-label="More recent" matTooltip="More Recent" (click)="navigateNextMonth()">
           <mat-icon>chevron_left</mat-icon>
         </button>
-        <button mat-icon-button color="primary" [disabled]="!canDoPreviousMonth" matTooltip="Previous Month" (click)="navigatePreviousMonth()">
+        <button mat-icon-button color="primary" [disabled]="!canDoPreviousMonth" aria-label="Previous month" matTooltip="Previous Month" (click)="navigatePreviousMonth()">
           <mat-icon>chevron_right</mat-icon>
         </button>
       </span>
