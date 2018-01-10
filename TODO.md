@@ -28,16 +28,17 @@ Social sharing: Done. 2017/01/07
 Basic admin/author interface: Partially done. 2017/01/07
     Added an admin screen, which is accesible with "admin visitor token".
 
+Weekly/Monthly digest page: Done. 2017/01/09
+
+
 
 Client-side search
 
 Tag/label support
 
+Prev/Next navigation from the post/permalink page
+
 Support custom UI (other than Accordion listing)?
-
-
-Weekly summary page
-Monthly summary page
 
 
 Support more than one posts per day

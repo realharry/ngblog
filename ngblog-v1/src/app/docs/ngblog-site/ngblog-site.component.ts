@@ -566,4 +566,9 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
 
   }
 
+  
+  navigateBack() {
+    this.location.back();
+  }
+
 }

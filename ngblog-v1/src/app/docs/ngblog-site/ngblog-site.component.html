@@ -7,11 +7,11 @@
       <!-- <span [hidden]="!isPaginationEnabled">
         <mat-chip-list>
           <button mat-icon-button color="accent" [disabled]="isInFirstPage" matTooltip="Previous Page" (click)="goToPreviousPage()">
-            <mat-icon>keyboard_arrow_left</mat-icon>
+            <mat-icon>chevron_left</mat-icon>
           </button>
           <mat-chip color="accent" selected="true">{{pageIndicia}}</mat-chip>
           <button mat-icon-button color="accent" [disabled]="isInLastPage" matTooltip="Next Page" (click)="goToNextPage()">
-            <mat-icon>keyboard_arrow_right</mat-icon>
+            <mat-icon>chevron_right</mat-icon>
           </button>
         </mat-chip-list>
       </span> -->
@@ -81,6 +81,11 @@
 
   <mat-toolbar class="ngblog-site-footer" layout="row" color="accent">
     <mat-toolbar-row>
+      <span style="font-style: italic; font-size:0.9em; margin-left:-12px;">
+        <button mat-icon-button color="" matTooltip="Back" (click)="navigateBack()">
+          <mat-icon>arrow_back</mat-icon>
+        </button>
+      </span>
       <span *ngIf="displayContactWebsite" style="font-style: italic; font-size:0.9em;">
         <a mat-button [href]="contactWebsite">Copyright &copy;
           <common-date-year></common-date-year> {{siteInfo.name}}</a>
@@ -93,11 +98,11 @@
       <span [hidden]="!isPaginationEnabled">
         <!-- <mat-chip-list>
           <button mat-icon-button color="primary" [disabled]="isInFirstPage" matTooltip="Previous Page" (click)="goToPreviousPage()">
-            <mat-icon>keyboard_arrow_left</mat-icon>
+            <mat-icon>chevron_left</mat-icon>
           </button>
           <mat-chip color="primary" selected="true">{{pageIndicia}}</mat-chip>
           <button mat-icon-button color="primary" [disabled]="isInLastPage" matTooltip="Next Page" (click)="goToNextPage()">
-            <mat-icon>keyboard_arrow_right</mat-icon>
+            <mat-icon>chevron_right</mat-icon>
           </button>
         </mat-chip-list> -->
       </span>
@@ -108,11 +113,11 @@
       <span style="font-style: italic; font-size:0.9em;">
         <mat-chip-list>
           <button mat-icon-button color="primary" [disabled]="isInFirstPage" matTooltip="Previous Page" (click)="goToPreviousPage()">
-            <mat-icon>keyboard_arrow_left</mat-icon>
+            <mat-icon>chevron_left</mat-icon>
           </button>
           <mat-chip color="primary" selected="true">{{pageIndicia}}</mat-chip>
           <button mat-icon-button color="primary" [disabled]="isInLastPage" matTooltip="Next Page" (click)="goToNextPage()">
-            <mat-icon>keyboard_arrow_right</mat-icon>
+            <mat-icon>chevron_right</mat-icon>
           </button>
         </mat-chip-list>
         <!-- <button *ngIf="showAdminButton" mat-icon-button color="" matTooltip="Admin" (click)="openAdminHome()">

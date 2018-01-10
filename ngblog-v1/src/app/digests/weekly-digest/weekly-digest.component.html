@@ -42,15 +42,26 @@
 
   <mat-toolbar class="ngblog-digest-footer" layout="row" color="accent">
     <mat-toolbar-row>
-      <span style="font-style: italic; font-size:0.9em;">Copyright &copy;
-        <common-date-year></common-date-year> {{siteInfo.name}}</span>
+      <span style="font-style: italic; font-size:0.9em; margin-left:-12px;">
+        <button mat-icon-button color="" matTooltip="Back" (click)="navigateBack()">
+          <mat-icon>arrow_back</mat-icon>
+        </button>
+      </span>
+      <span *ngIf="displayContactWebsite" style="font-style: italic; font-size:0.9em;">
+        <a mat-button [href]="contactWebsite">Copyright &copy;
+          <common-date-year></common-date-year> {{siteInfo.name}}</a>
+      </span>
+      <span *ngIf="!displayContactWebsite" style="font-style: italic; font-size:0.9em;">
+        Copyright &copy;
+        <common-date-year></common-date-year> {{siteInfo.name}}
+      </span>
       <span style="flex: 1 1 auto"></span>
       <span style="font-style: italic; font-size:0.9em;">
         <button mat-icon-button color="primary" [disabled]="!canDoNextWeek" matTooltip="More Recent" (click)="navigateNextWeek()">
-          <mat-icon>keyboard_arrow_left</mat-icon>
+          <mat-icon>chevron_left</mat-icon>
         </button>
         <button mat-icon-button color="primary" [disabled]="!canDoPreviousWeek" matTooltip="Previous Week" (click)="navigatePreviousWeek()">
-          <mat-icon>keyboard_arrow_right</mat-icon>
+          <mat-icon>chevron_right</mat-icon>
         </button>
       </span>
     </mat-toolbar-row>

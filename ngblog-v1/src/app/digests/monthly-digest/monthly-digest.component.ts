@@ -128,6 +128,12 @@ export class MonthlyDigestComponent implements OnInit {
   }
 
 
+  // temporary
+  get displayContactWebsite(): boolean {
+    return !!this.contactWebsite;
+  }
+
+
   get canDoNextMonth(): boolean {
     let todayId = DateIdUtil.getTodayId();
     return (todayId > this.dateId);
@@ -207,6 +213,10 @@ export class MonthlyDigestComponent implements OnInit {
     }
   }
 
+ 
+  navigateBack() {
+    this.location.back();
+  }
 
   navigateHome() {
     // How to clear history stack???

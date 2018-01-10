@@ -8,6 +8,9 @@
         <span style="font-style: italic; font-size:0.9em; margin-right: 16px;">
           {{(docEntry.date) ? docEntry.date.toLocaleDateString() : docEntry.id}}
         </span>
+        <!-- <button mat-icon-button color="" matTooltip="Back" (click)="navigateBack()">
+          <mat-icon>arrow_back</mat-icon>
+        </button> -->
         <button mat-icon-button color="" matTooltip="Home" (click)="navigateHome()">
           <mat-icon>home</mat-icon>
         </button>
@@ -26,6 +29,11 @@
 
   <mat-toolbar class="ngblog-permalink-footer" layout="row" color="accent">
     <mat-toolbar-row>
+      <span style="font-style: italic; font-size:0.9em; margin-left:-12px;">
+        <button mat-icon-button color="" matTooltip="Back" (click)="navigateBack()">
+          <mat-icon>arrow_back</mat-icon>
+        </button>
+      </span>
       <span *ngIf="displayContactWebsite" style="font-style: italic; font-size:0.9em;">
         <a mat-button [href]="contactWebsite">Copyright &copy;
           <common-date-year></common-date-year> {{siteInfo.name}}</a>
@@ -35,8 +43,6 @@
         <common-date-year></common-date-year> {{siteInfo.name}}
       </span>
 
-      <span style="font-style: italic; font-size:0.9em;">
-      </span>
       <span style="flex: 1 1 auto"></span>
       <span>
         <button *ngIf="showShareOnLinkedIn" mat-icon-button matTooltip="LinkedIn" shareButton="linkedin">

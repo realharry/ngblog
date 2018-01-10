@@ -124,6 +124,12 @@ export class WeeklyDigestComponent implements OnInit {
   }
 
 
+  // temporary
+  get displayContactWebsite(): boolean {
+    return !!this.contactWebsite;
+  }
+
+
   get canDoNextWeek(): boolean {
     let todayId = DateIdUtil.getTodayId();
     return (todayId > this.dateId);
@@ -190,6 +196,10 @@ export class WeeklyDigestComponent implements OnInit {
     }
   }
 
+ 
+  navigateBack() {
+    this.location.back();
+  }
 
   navigateHome() {
     // How to clear history stack???

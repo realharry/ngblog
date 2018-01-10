@@ -12,6 +12,16 @@ export abstract class DocEntry {
   // public detailLink: (string | null) = null;  
   public showContent: boolean = false;
 
+  // Support "next post", "previous post" from the post page???
+  public olderPostId: (string | null) = null;  // previous
+  public nextPostId: (string | null) = null;   // next/more recent
+  // TBD:
+  // Due to the way we dynamically load entry lists based on date ranges
+  // (sometimes for sitelist, sometimes for weekly lists, monthly lists, etc.),
+  // unfortunately, we cannot reliably populate these older/newer post ids while loading a post list.
+  // --> We cannot support older/newer navigation from a post/permalink page
+  //     until we figure out a way to do this in an efficient manner.
+
   constructor(
     public id: string = '',   // "dateId" used for id. There can be no more than one entries per day.
     public title: string = '',
