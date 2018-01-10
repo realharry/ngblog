@@ -24,6 +24,7 @@
     "updateMode": "prefetch",
     "resources": {
       "files": [
+        "/sitemap.xml",
         "/assets/**",
         "/icons/**",
         "/styles/**",
