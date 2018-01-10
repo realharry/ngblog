@@ -116,11 +116,17 @@ export class WeeklyDigestComponent implements OnInit {
       }
       if (isDL()) dl.log(this.docEntries);
       this.entryLength = this.docEntries.length;
+      this._isEmpty = (this.entryLength == 0);
+      if(this._isEmpty) {
+        this.placeholderText = 'No posts found';
+      }
     });
   }
 
+  placeholderText: string = '';
+  private _isEmpty: boolean = undefined;
   get isEmpty(): boolean {
-    return (this.entryLength == 0);
+    return this._isEmpty;
   }
 
 

@@ -28,11 +28,11 @@
       </mat-card-actions>
     </mat-card>
 
-    <div *ngIf="isEmpty">
+    <div *ngIf="(isEmpty === true)">
       <mat-card class="ngblog-weekly-digest-card">
         <mat-card-content>
           <div class="ngblog-digest-summary-block">
-            <span style="font-size:1.1em;">No posts found</span>
+            <span style="font-size:1.1em;">{{placeholderText}}</span>
           </div>
         </mat-card-content>
       </mat-card>
