@@ -105,7 +105,7 @@ export class WeeklyDigestComponent implements OnInit {
     this.loadBlogPostEntries();
 
     // Failsafe.
-    Observable.timer(2000).subscribe(o => {
+    Observable.timer(1625).subscribe(o => {
       this.isEnoughTimePassed = true;
     });
   }
@@ -129,7 +129,10 @@ export class WeeklyDigestComponent implements OnInit {
         this.placeholderText = 'No posts found';
       }
 
-      this.isContentLoaded = true;
+      // this.isContentLoaded = true;  // This seems to be too quick...
+      Observable.timer(125).subscribe(o => {
+        this.isContentLoaded = true;
+      });
     });
   }
 

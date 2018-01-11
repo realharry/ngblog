@@ -196,7 +196,7 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
     this.loadBlogPostEntries();
 
     // Failsafe.
-    Observable.timer(2000).subscribe(o => {
+    Observable.timer(1625).subscribe(o => {
       this.isEnoughTimePassed = true;
     });
   }
@@ -251,7 +251,10 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
       this.delayInterval[0] = 250;
       this.delayInterval[1] = 500 + Math.floor(250 * Math.sqrt(entryLength));
 
-      this.isContentLoaded = true;
+      // this.isContentLoaded = true;  // This seems to be too quick...
+      Observable.timer(125).subscribe(o => {
+        this.isContentLoaded = true;
+      });
     });
 
     // // tempoary

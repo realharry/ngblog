@@ -59,14 +59,14 @@ export class NgBlogPermalinkComponent implements OnInit {
     private blogPostService: BlogPostService,
     private blogPostRegistry: BlogPostRegistry,
   ) {
-    if(this.browserWindowService.window) {
+    if (this.browserWindowService.window) {
       this.hostUrl = this.browserWindowService.window.location.protocol + '//' + this.browserWindowService.window.location.host + '/';
       this.pageUrl = this.browserWindowService.window.location.href;
     } else {
       this.hostUrl = '/';   // ???
       this.pageUrl = '';    // ???
     }
-    if(isDL()) dl.log(`hostUrl = ${this.hostUrl}; pageUrl = ${this.pageUrl}`);
+    if (isDL()) dl.log(`hostUrl = ${this.hostUrl}; pageUrl = ${this.pageUrl}`);
 
     this.emailSubject = this.pageUrl;
     this.emailBody = this.emailSubject;
@@ -106,7 +106,7 @@ export class NgBlogPermalinkComponent implements OnInit {
     //    redirect to the permalink (canonical url) ????
     let permalinkPath = this.activatedRoute.snapshot.params['path'];
     let dateId = PermalinkPathUtil.getUniqueId(permalinkPath);
-    if(isDL()) dl.log(`>>> date id = ${dateId}; permalinkPath = ${permalinkPath}`);
+    if (isDL()) dl.log(`>>> date id = ${dateId}; permalinkPath = ${permalinkPath}`);
     // tbd
     // let canonialPath = PermalinkPathUtil.getPermalinkPath(entry.id, entry.title, entry.description);
     // compare canonicalPath with the input param path ????
@@ -126,61 +126,75 @@ export class NgBlogPermalinkComponent implements OnInit {
       this.emailSubject = encodeURIComponent(entry.title + ': ' + this.pageUrl);
       this.emailBody = encodeURIComponent(entry.title + ' - ' + entry.description + '\n' + this.pageUrl + '\n\n');
 
-      this.isContentLoaded = true;
+      // this.isContentLoaded = true;  // This seems to be too quick...
+      Observable.timer(125).subscribe(o => {
+        this.isContentLoaded = true;
+      });
     } else {
       let postUrl = this.dailyPostsHelper.getPostUrl(dateId);
       let useCache = true;
       this.blogPostService.loadPostMetadata(postUrl, useCache).catch(err => {
-        if(isDL()) dl.log(`loadPostMetadata() error. postUrl = ${postUrl}; err = ${err}`);
+        if (isDL()) dl.log(`loadPostMetadata() error. postUrl = ${postUrl}; err = ${err}`);
 
         // this.isContentLoaded = true;  // ???
         return Observable.of(null);
       }).subscribe(pm => {
-        if(isDL()) dl.log(`post metadata = ${pm}`);
+        if (isDL()) dl.log(`post metadata = ${pm}`);
         if (pm) {
           let entry = MarkdownEntryUtil.buildFromPostMetadata(pm);
-          if(isDL()) dl.log(`entry = ${entry}`);
+          if (isDL()) dl.log(`entry = ${entry}`);
           // this.docEntry = entry;
           // this.docEntry = MarkdownDocEntry.copy(this.docEntry, entry);
           // MarkdownDocEntry.copy(this.docEntry, entry);
           this.docEntry.copy(entry);
           this.emailSubject = encodeURIComponent(entry.title + ': ' + this.pageUrl);
           this.emailBody = encodeURIComponent(entry.title + ' - ' + entry.description + '\n' + this.pageUrl + '\n\n');
-    
+
           // tbd:
           // Prepend the summary.md before content.md???
 
           let contentUrl = this.docEntry.contentUrl;
           this.blogPostService.loadPostContentFromContentUrl(contentUrl, true).subscribe(pc => {
-            if(pc && pc.content) {
+            if (pc && pc.content) {
               this.commonMarkEntry.setMarkdownInput(pc.content, entry.imgPrefix);
             } else {
               // ???
+              // Keep the empy content. Nothing to do. ??
             }
+
+            // this.isContentLoaded = true;  // This seems to be too quick...
+            Observable.timer(125).subscribe(o => {
+              this.isContentLoaded = true;
+            });
           });
         } else {
-          // ????
+          // ???? This should not happen.
           // this.docEntry.clear();
           this.docEntry.id = dateId;
           // ...
+
+          // this.isContentLoaded = true;  // This seems to be too quick...
+          Observable.timer(125).subscribe(o => {
+            this.isContentLoaded = true;
+          });
         }
 
-        this.isContentLoaded = true;
+        // this.isContentLoaded = true;
       });
     }
-    if(isDL()) dl.log(`>>> this.docEntry = ${this.docEntry}`);
+    if (isDL()) dl.log(`>>> this.docEntry = ${this.docEntry}`);
 
     // Failsafe.
-    Observable.timer(2000).subscribe(o => {
+    Observable.timer(1625).subscribe(o => {
       this.isEnoughTimePassed = true;
     });
   }
 
   public get header(): string {
-    if(this.docEntry.isEmpty) {
+    if (this.docEntry.isEmpty) {
       return "Not found";   // tbd.
-    } else if(!this.docEntry.title) {
-      if(this.docEntry.id) {
+    } else if (!this.docEntry.title) {
+      if (this.docEntry.id) {
         return this.docEntry.id;
       } else {
         return "(Title)";   // tbd.
@@ -190,7 +204,7 @@ export class NgBlogPermalinkComponent implements OnInit {
     }
   }
 
-  
+
   // temporary
   get displayContactWebsite(): boolean {
     return !!this.contactWebsite;
@@ -199,7 +213,7 @@ export class NgBlogPermalinkComponent implements OnInit {
 
   private _showShareViaEmail: boolean;
   get showShareViaEmail(): boolean {
-    if(this._showShareViaEmail !== true && this._showShareViaEmail !== false) {
+    if (this._showShareViaEmail !== true && this._showShareViaEmail !== false) {
       this._showShareViaEmail = this.appConfig.getBoolean("show-share-via-email", false);
     }
     return this._showShareViaEmail;
@@ -207,7 +221,7 @@ export class NgBlogPermalinkComponent implements OnInit {
 
   private _showShareOnTwitter: boolean;
   get showShareOnTwitter(): boolean {
-    if(this._showShareOnTwitter !== true && this._showShareOnTwitter !== false) {
+    if (this._showShareOnTwitter !== true && this._showShareOnTwitter !== false) {
       this._showShareOnTwitter = this.appConfig.getBoolean("show-share-on-twitter", false);
     }
     return this._showShareOnTwitter;
@@ -215,7 +229,7 @@ export class NgBlogPermalinkComponent implements OnInit {
 
   private _showShareOnFacebook: boolean;
   get showShareOnFacebook(): boolean {
-    if(this._showShareOnFacebook !== true && this._showShareOnFacebook !== false) {
+    if (this._showShareOnFacebook !== true && this._showShareOnFacebook !== false) {
       this._showShareOnFacebook = this.appConfig.getBoolean("show-share-on-facebook", false);
     }
     return this._showShareOnFacebook;
@@ -223,12 +237,12 @@ export class NgBlogPermalinkComponent implements OnInit {
 
   private _showShareOnLinkedIn: boolean;
   get showShareOnLinkedIn(): boolean {
-    if(this._showShareOnLinkedIn !== true && this._showShareOnLinkedIn !== false) {
+    if (this._showShareOnLinkedIn !== true && this._showShareOnLinkedIn !== false) {
       this._showShareOnLinkedIn = this.appConfig.getBoolean("show-share-on-linkedin", false);
     }
     return this._showShareOnLinkedIn;
   }
-  
+
 
   navigateBack() {
     this.location.back();
@@ -238,7 +252,7 @@ export class NgBlogPermalinkComponent implements OnInit {
     // How to clear history stack???
     // this.location.clear();
     this.router.navigate(['/']).then(suc => {
-      if(isDL()) dl.log(`navigate() suc = ${suc}`);
+      if (isDL()) dl.log(`navigate() suc = ${suc}`);
     });
   }
 
