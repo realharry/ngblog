@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
 
 import { DevLogger as dl } from '@ngcore/core'; import isDL = dl.isLoggable;
 import { DateTimeUtil, DateIdUtil, DateRange } from '@ngcore/core';
@@ -67,6 +68,8 @@ export class WeeklyDigestComponent implements OnInit {
     this.contactInfo = new ContactInfo();
   }
 
+  isContentLoaded: boolean = false;
+  isEnoughTimePassed: boolean = false;
   ngOnInit() {
     this.dateId = this.activatedRoute.snapshot.params['id'];
     if (isDL()) dl.log(`>>> Week id = ${this.dateId}.`);
@@ -100,6 +103,11 @@ export class WeeklyDigestComponent implements OnInit {
 
     // Async.
     this.loadBlogPostEntries();
+
+    // Failsafe.
+    Observable.timer(2000).subscribe(o => {
+      this.isEnoughTimePassed = true;
+    });
   }
 
   private loadBlogPostEntries() {
@@ -120,6 +128,8 @@ export class WeeklyDigestComponent implements OnInit {
       if(this._isEmpty) {
         this.placeholderText = 'No posts found';
       }
+
+      this.isContentLoaded = true;
     });
   }
 

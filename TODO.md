@@ -32,11 +32,18 @@ Weekly/Monthly digest page: Done. 2017/01/09
 
 
 
+Accordion UI bug
+(Index/step is currently used as "state" rather than the post id/date.)
+
+
 Client-side search
 
 Tag/label support
 
 "Related" posts?
+
+
+RSS feed ?
 
 
 Prev/Next navigation from the post/permalink page
@@ -47,6 +54,9 @@ Support custom UI (other than Accordion listing)?
 Support more than one posts per day
 --> Well, actually, we will probably limit one post per day, 
     but support more than one content files per post. TBD.
+
+
+Content/post database ???
 
 
 Better pagination: Currently, the metadta (post.json) of all posts are loaded/fetched regardless of pagination.

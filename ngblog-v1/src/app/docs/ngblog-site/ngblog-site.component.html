@@ -79,7 +79,7 @@
     </mat-accordion>
   </div>
 
-  <mat-toolbar class="ngblog-site-footer" layout="row" color="accent">
+  <mat-toolbar *ngIf="isContentLoaded || isEnoughTimePassed" class="ngblog-site-footer" layout="row" color="accent">
     <mat-toolbar-row>
       <span style="font-style: italic; font-size:0.9em; margin-left:-12px;">
         <button mat-icon-button color="" aria-label="Back" matTooltip="Back" (click)="navigateBack()">
@@ -112,7 +112,8 @@
       </span>
       <span style="font-style: italic; font-size:0.9em;">
         <mat-chip-list>
-          <button mat-icon-button color="primary" [disabled]="isInFirstPage" aria-label="Previous page" matTooltip="Previous Page" (click)="goToPreviousPage()">
+          <button mat-icon-button color="primary" [disabled]="isInFirstPage" aria-label="Previous page" matTooltip="Previous Page"
+            (click)="goToPreviousPage()">
             <mat-icon>chevron_left</mat-icon>
           </button>
           <mat-chip color="primary" selected="true">{{pageIndicia}}</mat-chip>

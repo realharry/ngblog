@@ -78,6 +78,8 @@ export class NgBlogPermalinkComponent implements OnInit {
     // this.imgPrefix = '';
   }
 
+  isContentLoaded: boolean = false;
+  isEnoughTimePassed: boolean = false;
   ngOnInit() {
     // let config = this.appConfig.all;
     // for (let k in config) {
@@ -123,11 +125,15 @@ export class NgBlogPermalinkComponent implements OnInit {
       this.docEntry.copy(entry);
       this.emailSubject = encodeURIComponent(entry.title + ': ' + this.pageUrl);
       this.emailBody = encodeURIComponent(entry.title + ' - ' + entry.description + '\n' + this.pageUrl + '\n\n');
+
+      this.isContentLoaded = true;
     } else {
       let postUrl = this.dailyPostsHelper.getPostUrl(dateId);
       let useCache = true;
       this.blogPostService.loadPostMetadata(postUrl, useCache).catch(err => {
         if(isDL()) dl.log(`loadPostMetadata() error. postUrl = ${postUrl}; err = ${err}`);
+
+        // this.isContentLoaded = true;  // ???
         return Observable.of(null);
       }).subscribe(pm => {
         if(isDL()) dl.log(`post metadata = ${pm}`);
@@ -158,9 +164,16 @@ export class NgBlogPermalinkComponent implements OnInit {
           this.docEntry.id = dateId;
           // ...
         }
+
+        this.isContentLoaded = true;
       });
     }
     if(isDL()) dl.log(`>>> this.docEntry = ${this.docEntry}`);
+
+    // Failsafe.
+    Observable.timer(2000).subscribe(o => {
+      this.isEnoughTimePassed = true;
+    });
   }
 
   public get header(): string {

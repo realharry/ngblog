@@ -1,5 +1,5 @@
 <div>
-
+<!-- 
   <mat-toolbar class="ngblog-post-header" layout="row" color="primary">
     <mat-toolbar-row>
       <span style="font-weight: bold;">{{header}}</span>
@@ -12,8 +12,6 @@
 
   <div style="padding-top: 16px; padding-bottom: 16px;">
 
-    <!-- <common-mark-entry [delay]="[100,500]" [url]="docEntry.contentUrl" [markdown]=""
-      [debug-enabled]="docEntry.debugEnabled" [renderer-options]="docEntry.rendererOptions"></common-mark-entry> -->
     <common-mark-entry #commonMarkEntry [url]="docEntry.contentUrl" [img-prefix]="docEntry.imgPrefix" [debug-enabled]="docEntry.debugEnabled"
       [renderer-options]="docEntry.rendererOptions"></common-mark-entry>
 
@@ -28,6 +26,7 @@
         {{(docEntry.date) ? docEntry.date.toLocaleDateString() : docEntry.id}}
       </span>
     </mat-toolbar-row>
-  </mat-toolbar>
+  </mat-toolbar> 
+-->
 
 </div>

@@ -4,6 +4,7 @@ import { HostListener } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
 // import { MatDialog } from '@angular/material';
+import { Observable } from 'rxjs';
 
 import { DevLogger as dl } from '@ngcore/core'; import isDL = dl.isLoggable;
 import { DateTimeUtil, DateIdUtil } from '@ngcore/core';
@@ -121,6 +122,8 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
     }
   }
 
+  isContentLoaded: boolean = false;
+  isEnoughTimePassed: boolean = false;
   ngOnInit() {
     if(isDL()) dl.log(">>> ngOnInit()");
 
@@ -191,6 +194,11 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
 
     // Async.
     this.loadBlogPostEntries();
+
+    // Failsafe.
+    Observable.timer(2000).subscribe(o => {
+      this.isEnoughTimePassed = true;
+    });
   }
 
   private loadBlogPostEntries() {
@@ -242,6 +250,8 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
       // temporary
       this.delayInterval[0] = 250;
       this.delayInterval[1] = 500 + Math.floor(250 * Math.sqrt(entryLength));
+
+      this.isContentLoaded = true;
     });
 
     // // tempoary
