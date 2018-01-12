@@ -301,10 +301,10 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
   openWeeklyDigestPage() {
     // TBD:
     // let currentWeekId = DateIdUtil.getTodayId();
-    // this.router.navigate(['weekly', currentWeekId]).then(suc => {
+    // this.router.navigate(['week', currentWeekId]).then(suc => {
     //   if(isDL()) dl.log(`openWeeklyDigestPage() suc = ${suc}`);
     // });
-    this.router.navigate(['thisweek']).then(suc => {
+    this.router.navigate(['week']).then(suc => {
       if(isDL()) dl.log(`openWeeklyDigestPage() suc = ${suc}`);
     });
   }
@@ -320,10 +320,10 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
   openMonthlyDigestPage() {
     // TBD:
     // let currentMonthId = DateIdUtil.getTodayId();
-    // this.router.navigate(['monthly', currentMonthId]).then(suc => {
+    // this.router.navigate(['month', currentMonthId]).then(suc => {
     //   if(isDL()) dl.log(`openMonthlyDigestPage() suc = ${suc}`);
     // });
-    this.router.navigate(['thismonth']).then(suc => {
+    this.router.navigate(['month']).then(suc => {
       if(isDL()) dl.log(`openMonthlyDigestPage() suc = ${suc}`);
     });
   }

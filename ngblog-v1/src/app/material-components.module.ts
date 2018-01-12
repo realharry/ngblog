@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
-// import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+// // import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatIconModule,
   MatButtonModule,
@@ -24,8 +24,8 @@ import {
 
 @NgModule({
   imports: [
-    // NoopAnimationsModule,
-    BrowserAnimationsModule,
+    // // NoopAnimationsModule,
+    // BrowserAnimationsModule,
     MatIconModule,
     MatButtonModule,
     MatChipsModule,
@@ -44,8 +44,8 @@ import {
     MatExpansionModule
   ],
   exports: [
-    // NoopAnimationsModule,
-    BrowserAnimationsModule,
+    // // NoopAnimationsModule,
+    // BrowserAnimationsModule,
     MatIconModule,
     MatButtonModule,
     MatChipsModule,

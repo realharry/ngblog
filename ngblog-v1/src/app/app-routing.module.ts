@@ -4,9 +4,13 @@ import { RouterModule, Routes } from '@angular/router';
 
 // import { StoreRouterConnectingModule } from '@ngrx/router-store';
 
-import { environment } from '../environments/environment';
+// import { environment } from '../environments/environment';
 
-import { AdminSentinelService } from './admin/sentinels/admin-sentinel.service';
+// import { AdminModule } from './admin/admin.module';
+// import { WeeklyDigestModule } from './digests/weekly-digest.module';
+// import { MonthlyDigestModule } from './digests/monthly-digest.module';
+
+// import { AdminSentinelService } from './admin/sentinels/admin-sentinel.service';
 
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 
@@ -20,6 +24,8 @@ import { NgBlogPermalinkComponent } from './docs/ngblog-permalink/ngblog-permali
 import { WeeklyDigestComponent } from './digests/weekly-digest/weekly-digest.component';
 import { MonthlyDigestComponent } from './digests/monthly-digest/monthly-digest.component';
 import { AppComponent } from './app.component';
+import { AdminSentinelService } from './admin/sentinels/admin-sentinel.service';
+import { CoreModule } from './core/core.module';
 
 
 // temporary
@@ -34,42 +40,55 @@ const routes: Routes = [
     pathMatch: 'full',
     component: NgBlogSiteComponent
   },
+  // {
+  //   path: 'admin',
+  //   component: AdminPanelComponent,
+  //   // canActivate: [AdminSentinelService]   // this does not work when accessed directly via URL.
+  // },
+  // {
+  //   path: 'writer',
+  //   component: PostWriterComponent,
+  //   canActivate: [AdminSentinelService]   // this should be accessed via admin.
+  // },
+  // {
+  //   path: 'sitemaps',
+  //   component: SitemapGenComponent,
+  //   canActivate: [AdminSentinelService]   // this should be accessed via admin.
+  // },
+  // {
+  //   path: 'config',
+  //   component: ConfigViewComponent,
+  //   canActivate: [AdminSentinelService]   // this should be accessed via admin.
+  // },
   {
     path: 'admin',
-    component: AdminPanelComponent,
-    // canActivate: [AdminSentinelService]   // this does not work when accessed directly via URL.
+    loadChildren: './admin/admin.module#AdminModule'
+  },
+  // {
+  //   path: 'thisweek',
+  //   component: WeeklyDigestComponent
+  // },
+  // {
+  //   path: 'weekly/:id',
+  //   component: WeeklyDigestComponent
+  // },
+  // {
+  //   path: 'thismonth',
+  //   component: MonthlyDigestComponent
+  // },
+  // {
+  //   path: 'monthly/:id',
+  //   component: MonthlyDigestComponent
+  // },
+  {
+    path: 'week',
+    loadChildren: './digests/weekly-digest.module#WeeklyDigestModule'
   },
   {
-    path: 'writer',
-    component: PostWriterComponent,
-    canActivate: [AdminSentinelService]   // this should be accessed via admin.
+    path: 'month',
+    loadChildren: './digests/monthly-digest.module#MonthlyDigestModule'
   },
-  {
-    path: 'sitemaps',
-    component: SitemapGenComponent,
-    canActivate: [AdminSentinelService]   // this should be accessed via admin.
-  },
-  {
-    path: 'config',
-    component: ConfigViewComponent,
-    canActivate: [AdminSentinelService]   // this should be accessed via admin.
-  },
-  {
-    path: 'thisweek',
-    component: WeeklyDigestComponent
-  },
-  {
-    path: 'weekly/:id',
-    component: WeeklyDigestComponent
-  },
-  {
-    path: 'thismonth',
-    component: MonthlyDigestComponent
-  },
-  {
-    path: 'monthly/:id',
-    component: MonthlyDigestComponent
-  },
+
   {
     path: 'post/:id',
     component: NgBlogPostComponent
@@ -96,6 +115,11 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
+    CoreModule,
+    // AdminModule,
+    // WeeklyDigestModule,
+    // MonthlyDigestModule,
+
     // temporary.
     // rmodule
     // GitLab Pages does not support multiple paths.
@@ -110,7 +134,7 @@ const routes: Routes = [
     RouterModule
   ],
   providers: [
-    AdminSentinelService
+    // AdminSentinelService
   ]
 })
 export class AppRoutingModule {
@@ -118,7 +142,7 @@ export class AppRoutingModule {
     return {
       ngModule: AppRoutingModule,
       providers: [
-        AdminSentinelService,
+        // AdminSentinelService,
       ]
     };
   }

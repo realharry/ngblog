@@ -65,7 +65,7 @@ export class AdminPanelComponent implements OnInit {
     if(this.visitorTokenService.hasVisitorToken) {
       qp = {v: this.visitorTokenService.visitorToken};
     }
-    this.router.navigate(['writer'], {queryParams: qp}).then(suc => {
+    this.router.navigate(['admin/writer'], {queryParams: qp}).then(suc => {
       if(isDL()) dl.log(`navigatePostWriter() suc = ${suc}`);
     });
   }
@@ -74,7 +74,7 @@ export class AdminPanelComponent implements OnInit {
     if(this.visitorTokenService.hasVisitorToken) {
       qp = {v: this.visitorTokenService.visitorToken};
     }
-    this.router.navigate(['sitemaps'], {queryParams: qp}).then(suc => {
+    this.router.navigate(['admin/sitemaps'], {queryParams: qp}).then(suc => {
       if(isDL()) dl.log(`navigateSitemapGenerator() suc = ${suc}`);
     });
   }
@@ -83,7 +83,7 @@ export class AdminPanelComponent implements OnInit {
     if(this.visitorTokenService.hasVisitorToken) {
       qp = {v: this.visitorTokenService.visitorToken};
     }
-    this.router.navigate(['config'], {queryParams: qp}).then(suc => {
+    this.router.navigate(['admin/config'], {queryParams: qp}).then(suc => {
       if(isDL()) dl.log(`navigateConfigView() suc = ${suc}`);
     });
   }

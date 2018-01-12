@@ -164,14 +164,14 @@ export class WeeklyDigestComponent implements OnInit {
     if(nextWeekId > todayId) {
       nextWeekId = todayId;
     }
-    this.router.navigate(['weekly', nextWeekId]).then(suc => {
+    this.router.navigate(['week', nextWeekId]).then(suc => {
       if (isDL()) dl.log(`navigateNextWeek() suc = ${suc}; nextWeekId = ${nextWeekId}`);
     });
   }
 
   navigatePreviousWeek() {
     let prevWeekId = DateIdUtil.getNthDayId(this.dateId, -7);
-    this.router.navigate(['weekly', prevWeekId]).then(suc => {
+    this.router.navigate(['week', prevWeekId]).then(suc => {
       if (isDL()) dl.log(`navigatePreviousWeek() suc = ${suc}; prevWeekId = ${prevWeekId}`);
     });
   }

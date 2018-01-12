@@ -170,7 +170,7 @@ export class MonthlyDigestComponent implements OnInit {
     if(nextMonthId > todayId) {
       nextMonthId = todayId;
     }
-    this.router.navigate(['monthly', nextMonthId]).then(suc => {
+    this.router.navigate(['month', nextMonthId]).then(suc => {
       if (isDL()) dl.log(`navigateNextMonth() suc = ${suc}; nextMonthId = ${nextMonthId}`);
     });
   }
@@ -185,7 +185,7 @@ export class MonthlyDigestComponent implements OnInit {
     // let prevMoDays = DateTimeUtil.getNumberOfDaysInMonth(prevMo);
     let prevMoDays = DateIdUtil.getNumberOfDaysForPreviousMonth(this.dateId);
     let prevMonthId = DateIdUtil.getNthDayId(this.dateId, -prevMoDays);
-    this.router.navigate(['monthly', prevMonthId]).then(suc => {
+    this.router.navigate(['month', prevMonthId]).then(suc => {
       if (isDL()) dl.log(`navigatePreviousMonth() suc = ${suc}; prevMonthId = ${prevMonthId}`);
     });
   }

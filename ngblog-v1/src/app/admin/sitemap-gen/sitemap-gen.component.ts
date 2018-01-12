@@ -93,7 +93,7 @@ export class SitemapGenComponent implements OnInit {
 
   private buildWeeklyDigestPageXML(): string {
     let entry = new SiteEntry(
-      SitemapEntryUtil.buildAbsoluteUrl(this.hostUrl, '/thisweek'),
+      SitemapEntryUtil.buildAbsoluteUrl(this.hostUrl, '/week'),
       DateIdUtil.convertToEpochMillis(DateIdUtil.getYesterdayId()),
       ChangeFrequency.daily,
       0.95,
@@ -104,7 +104,7 @@ export class SitemapGenComponent implements OnInit {
   }
   private buildMonthlyDigestPageXML(): string {
     let entry = new SiteEntry(
-      SitemapEntryUtil.buildAbsoluteUrl(this.hostUrl, '/thismonth'),
+      SitemapEntryUtil.buildAbsoluteUrl(this.hostUrl, '/month'),
       DateIdUtil.convertToEpochMillis(DateIdUtil.getNthDayId(DateIdUtil.getTodayId(), -3)),
       ChangeFrequency.daily,
       0.95,
