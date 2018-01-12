@@ -4,8 +4,8 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { DevLogger as dl } from '@ngcore/core'; import isDL = dl.isLoggable;
 
-import { VisitorTokenService } from './services/visitor-token.service';
-import { NgBlogSiteComponent } from './docs/ngblog-site/ngblog-site.component';
+import { VisitorTokenService } from '../services/visitor-token.service';
+import { NgBlogSiteComponent } from '../docs/ngblog-site/ngblog-site.component';
 
 
 @Component({

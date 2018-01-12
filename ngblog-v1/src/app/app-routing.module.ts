@@ -23,8 +23,8 @@ import { NgBlogPostComponent } from './docs/ngblog-post/ngblog-post.component';
 import { NgBlogPermalinkComponent } from './docs/ngblog-permalink/ngblog-permalink.component';
 import { WeeklyDigestComponent } from './digests/weekly-digest/weekly-digest.component';
 import { MonthlyDigestComponent } from './digests/monthly-digest/monthly-digest.component';
-import { AppComponent } from './app.component';
-import { AdminSentinelService } from './admin/sentinels/admin-sentinel.service';
+import { AppComponent } from './main/app.component';
+// import { AdminSentinelService } from './admin/sentinels/admin-sentinel.service';
 import { CoreModule } from './core/core.module';
 
 

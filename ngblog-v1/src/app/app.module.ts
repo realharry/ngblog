@@ -39,7 +39,7 @@ import { BlogPostRegistry } from './docs/registry/blog-post-registry';
 import { SitemapEntryRegistry } from './sitemap/sitemap-entry-registry';
 // import { AdminSentinelService } from './admin/sentinels/admin-sentinel.service';
 
-import { AppComponent } from './app.component';
+import { AppComponent } from './main/app.component';
 import { NgBlogSiteComponent } from './docs/ngblog-site/ngblog-site.component';
 import { NgBlogPostComponent } from './docs/ngblog-post/ngblog-post.component';
 import { NgBlogPermalinkComponent } from './docs/ngblog-permalink/ngblog-permalink.component';
