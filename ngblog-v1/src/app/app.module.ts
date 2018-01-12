@@ -54,10 +54,22 @@ import { AppRoutingModule } from './app-routing.module';
 // import { MonthlyDigestComponent } from './digests/monthly-digest/monthly-digest.component';
 
 
+
+// We can potentially load config files from a remote server.
+var configFileUrl: string;
+if(environment.production) {
+  configFileUrl = 'configs/app-config.json';
+} else {
+  configFileUrl = 'configs/app-config.dev.json';
+}
+
 export function loadAppConfig(config: AppConfig) {
-  return () => config.load().then(o => {
-    console.log("App config loaded.");
-  });
+  return () => {
+    config.setConfigFile(configFileUrl);
+    return config.load().then(o => {
+      console.log("App config loaded.");
+    });
+  }
 }
 
 @NgModule({

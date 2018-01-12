@@ -30,10 +30,21 @@ Basic admin/author interface: Partially done. 2017/01/07
 
 Weekly/Monthly digest page: Done. 2017/01/09
 
+Feature module lazy loading: Partially done. 2017/01/11
+    Serious bug with AppConfig DI.
+
 
 
 Accordion UI bug
 (Index/step is currently used as "state" rather than the post id/date.)
+
+AppConfig DI bug
+(AppConfig instance is not shared in lazy-loaded modules.)
+
+
+
+"Convert" markdown links/urls into Angular nav links
+How ???
 
 
 Client-side search
