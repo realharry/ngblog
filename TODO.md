@@ -33,14 +33,16 @@ Weekly/Monthly digest page: Done. 2017/01/09
 Feature module lazy loading: Partially done. 2017/01/12
     Serious bug with AppConfig DI.
     Lazy-loading actually deteriorated the performance.
-    (Revert back???)
+
+
+AppConfig DI bug
+(AppConfig instance is not shared in lazy-loaded modules.)
+--> Fixed (Added a workaround) by adding an AppConfig wrapper service.
+
 
 
 Accordion UI bug
 (Index/step is currently used as "state" rather than the post id/date.)
-
-AppConfig DI bug
-(AppConfig instance is not shared in lazy-loaded modules.)
 
 
 
