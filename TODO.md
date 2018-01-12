@@ -30,9 +30,10 @@ Basic admin/author interface: Partially done. 2017/01/07
 
 Weekly/Monthly digest page: Done. 2017/01/09
 
-Feature module lazy loading: Partially done. 2017/01/11
+Feature module lazy loading: Partially done. 2017/01/12
     Serious bug with AppConfig DI.
-
+    Lazy-loading actually deteriorated the performance.
+    (Revert back???)
 
 
 Accordion UI bug

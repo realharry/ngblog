@@ -25,9 +25,11 @@ import { CoreModule } from './core/core.module';
 
 import { DevLogger as dl } from '@ngcore/core'; import isDL = dl.isLoggable;
 import { AppConfig } from '@ngcore/core';
+import { AppConfigService } from './config/app-config.service';
 
 import { environment } from '../environments/environment';
 
+// import { AppConfigService } from './config/app-config.service';
 // import { PageAccordionUiHelper } from './helpers/page-accordion-ui-helper';
 // import { DailyPostsHelper } from './helpers/daily-posts-helper';
 // import { VisitorTokenRegistry } from './visitors/visitor-token-registry';
@@ -121,7 +123,9 @@ export function loadAppConfig(config: AppConfig) {
     //     (config: AppConfig) => () => config.load().then(o => { console.log("App config loaded."); }),
     //   deps: [AppConfig], multi: true
     // },
-    { provide: APP_INITIALIZER, useFactory: loadAppConfig, deps: [AppConfig], multi: true },
+    { provide: APP_INITIALIZER, useFactory: loadAppConfig, deps: [AppConfig], multi: true }, 
+
+    // AppConfigService,
 
     // PageAccordionUiHelper,
     // VisitorTokenRegistry,

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { DevLogger as dl } from '@ngcore/core'; import isDL = dl.isLoggable;
 import { DateRange, DateTimeUtil, DateIdUtil } from '@ngcore/core';
 import { AppConfig } from '@ngcore/core';
+import { AppConfigService } from '../config/app-config.service';
 // import { LocalStorageService } from '@ngcore/core';
 import { CommonLinkUtil } from '@ngcore/link';
 import { DateRangeUtil } from '@ngcore/time';
@@ -11,10 +12,15 @@ import { DateRangeUtil } from '@ngcore/time';
 export class DailyPostsHelper {
   // // Singleton.
   // private static _Instance: (DailyPostsHelper | null) = null;
+
+  private appConfig: AppConfig;
   constructor(
-    private appConfig: AppConfig,
+    // private appConfig: AppConfig,
+    private appConfigService: AppConfigService,
     // private localStorageService: LocalStorageService
-  ) { }
+  ) { 
+    this.appConfig = this.appConfigService.appConfig;
+  }
   // public static getInstance(): DailyPostsHelper {
   //   return this._Instance || (this._Instance = new DailyPostsHelper());
   // }

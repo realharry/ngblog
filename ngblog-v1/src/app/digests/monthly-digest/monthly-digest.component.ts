@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { DevLogger as dl } from '@ngcore/core'; import isDL = dl.isLoggable;
 import { DateTimeUtil, DateIdUtil, DateRange } from '@ngcore/core';
 import { AppConfig } from '@ngcore/core';
+import { AppConfigService } from '../../config/app-config.service';
 import { BrowserWindowService } from '@ngcore/core';
 import { LazyLoaderService } from '@ngcore/idle';
 import { DateRangeUtil } from '@ngcore/time';
@@ -52,11 +53,13 @@ export class MonthlyDigestComponent implements OnInit {
   // temporary
   delayInterval: number[] = [250, 1250];
 
+  private appConfig: AppConfig;
   constructor(
     private location: Location,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private appConfig: AppConfig,
+    // private appConfig: AppConfig,
+    private appConfigService: AppConfigService,
     private browserWindowService: BrowserWindowService,
     private lazyLoaderService: LazyLoaderService,
     private dailyPostsHelper: DailyPostsHelper,
@@ -64,6 +67,8 @@ export class MonthlyDigestComponent implements OnInit {
     private blogPostService: BlogPostService,
     private blogPostRegistry: BlogPostRegistry,
   ) {
+    this.appConfig = this.appConfigService.appConfig;
+
     this.siteInfo = new SiteInfo();
     this.contactInfo = new ContactInfo();
   }

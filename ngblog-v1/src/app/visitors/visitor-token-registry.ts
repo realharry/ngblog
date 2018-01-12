@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 // import { DateTimeUtil, DateIdUtil } from '@ngcore/core';
 import { AppConfig } from '@ngcore/core';
+import { AppConfigService } from '../config/app-config.service';
 
 
 // Tbd:
@@ -14,9 +15,13 @@ export class VisitorTokenRegistry {
   // token => note/info (e.g., like the name of the granted visitor, etc.)
   private tokenMap: {[token: string]: string} = {};
 
+  private appConfig: AppConfig;
   constructor(
-    private appConfig: AppConfig,
+    // private appConfig: AppConfig,
+    private appConfigService: AppConfigService,
   ) {
+    this.appConfig = this.appConfigService.appConfig;
+
     // tbd:
     // special binary tokens...
     this.tokenMap['000000'] = 'Demo token 1';

@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { DevLogger as dl } from '@ngcore/core'; import isDL = dl.isLoggable;
 import { DateTimeUtil, DateIdUtil } from '@ngcore/core';
 import { AppConfig } from '@ngcore/core';
+import { AppConfigService } from '../../config/app-config.service';
 import { BrowserWindowService } from '@ngcore/core';
 import { LazyLoaderService } from '@ngcore/idle';
 import { PermalinkPathUtil } from '@ngcore/link';
@@ -47,11 +48,13 @@ export class NgBlogPermalinkComponent implements OnInit {
   emailSubject: string;
   emailBody: string;
 
+  private appConfig: AppConfig;
   constructor(
     private location: Location,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private appConfig: AppConfig,
+    // private appConfig: AppConfig,
+    private appConfigService: AppConfigService,
     private browserWindowService: BrowserWindowService,
     private lazyLoaderService: LazyLoaderService,
     private visitorTokenService: VisitorTokenService,
@@ -59,6 +62,8 @@ export class NgBlogPermalinkComponent implements OnInit {
     private blogPostService: BlogPostService,
     private blogPostRegistry: BlogPostRegistry,
   ) {
+    this.appConfig = this.appConfigService.appConfig;
+
     if (this.browserWindowService.window) {
       this.hostUrl = this.browserWindowService.window.location.protocol + '//' + this.browserWindowService.window.location.host + '/';
       this.pageUrl = this.browserWindowService.window.location.href;

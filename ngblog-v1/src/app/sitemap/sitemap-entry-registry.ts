@@ -5,6 +5,7 @@ import 'rxjs/add/operator/map';
 import { DevLogger as dl } from '@ngcore/core'; import isDL = dl.isLoggable;
 import { DateTimeUtil, DateIdUtil } from '@ngcore/core';
 import { AppConfig } from '@ngcore/core';
+import { AppConfigService } from '../config/app-config.service';
 import { SiteEntry } from '@ngcore/link';
 
 import { SitemapEntryUtil } from './util/sitemap-entry-util';
@@ -15,10 +16,13 @@ import { PostListService } from '../services/post-list.service';
 @Injectable()
 export class SitemapEntryRegistry {
 
+  private appConfig: AppConfig;
   constructor(
-    private appConfig: AppConfig,
+    // private appConfig: AppConfig,
+    private appConfigService: AppConfigService,
     private postListService: PostListService,
   ) {
+    this.appConfig = this.appConfigService.appConfig;
   }
 
   private _isLoaded = false;

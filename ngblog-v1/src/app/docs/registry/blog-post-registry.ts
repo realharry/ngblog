@@ -5,6 +5,7 @@ import 'rxjs/add/operator/map';
 import { DevLogger as dl } from '@ngcore/core'; import isDL = dl.isLoggable;
 import { DateTimeUtil, DateIdUtil } from '@ngcore/core';
 import { AppConfig } from '@ngcore/core';
+import { AppConfigService } from '../../config/app-config.service';
 
 import { MarkdownDocEntry } from '../../entry/markdown-doc-entry';
 import { MarkdownEntryUtil } from '../../entry/util/markdown-entry-util';
@@ -15,12 +16,16 @@ import { PostListService } from '../../services/post-list.service';
 @Injectable()
 export class BlogPostRegistry {
 
+  private appConfig: AppConfig;
   constructor(
-    private appConfig: AppConfig,
+    // private appConfig: AppConfig,
+    private appConfigService: AppConfigService,
     private postListService: PostListService,
     // private localStorageService: LocalStorageService,
     // private lazyLoaderService: LazyLoaderService,
   ) {
+    this.appConfig = this.appConfigService.appConfig;
+
     // this.buildEntryMap().subscribe(map => {
     //   if(isDL()) dl.log("map loaded.");
     // });

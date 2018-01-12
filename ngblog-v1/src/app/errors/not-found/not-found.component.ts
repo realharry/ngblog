@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { DevLogger as dl } from '@ngcore/core'; import isDL = dl.isLoggable;
 import { DateTimeUtil, DateIdUtil } from '@ngcore/core';
 import { AppConfig } from '@ngcore/core';
+import { AppConfigService } from '../../config/app-config.service';
 import { BrowserWindowService } from '@ngcore/core';
 import { LazyLoaderService } from '@ngcore/idle';
 
@@ -28,14 +29,18 @@ export class NotFoundComponent implements OnInit {
   siteInfo: SiteInfo;
   contactInfo: ContactInfo;
 
+  private appConfig: AppConfig;
   constructor(
     private location: Location,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private appConfig: AppConfig,
+    // private appConfig: AppConfig,
+    private appConfigService: AppConfigService,
     private browserWindowService: BrowserWindowService,
     private lazyLoaderService: LazyLoaderService,
   ) {
+    this.appConfig = this.appConfigService.appConfig;
+
     this.siteInfo = new SiteInfo();
     this.contactInfo = new ContactInfo();
   }

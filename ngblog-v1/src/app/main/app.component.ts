@@ -3,7 +3,8 @@ import { isDevMode } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { DevLogger as dl } from '@ngcore/core'; import isDL = dl.isLoggable;
-
+import { AppConfig } from '@ngcore/core';
+import { AppConfigService } from '../config/app-config.service';
 import { VisitorTokenService } from '../services/visitor-token.service';
 import { NgBlogSiteComponent } from '../docs/ngblog-site/ngblog-site.component';
 
@@ -21,11 +22,25 @@ export class AppComponent implements OnInit, OnDestroy {
   paramsSub: any;
   hasValidVisitorToken: boolean = false;
 
+  private appConfig: AppConfig;
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
+    // private appConfig: AppConfig,
+    private appConfigService: AppConfigService,
     private visitorTokenService: VisitorTokenService
   ) {
+    this.appConfig = this.appConfigService.appConfig;
+
+    // // testing
+    // if(isDL()) dl.log(">>> Loading AppComponent");
+    // if(isDL()) dl.log(this.appConfig.all);
+    // // // this.appConfigService.appConfig = this.appConfig;
+    // // // // this.appConfigService.appConfig = Object.assign({}, this.appConfig);
+    // // this.appConfigService.mainConfig = Object.assign({}, this.appConfig);
+    // let config = this.appConfigService.appConfig;
+    // if(isDL()) dl.log(config.all);
+    // // testing
   }
 
   ngOnInit(): void {

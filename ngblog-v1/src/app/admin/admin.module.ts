@@ -15,7 +15,7 @@ import { CoreModule } from '../core/core.module';
 
 import { DevLogger as dl } from '@ngcore/core'; import isDL = dl.isLoggable;
 import { AppConfig } from '@ngcore/core';
-
+import { AppConfigService } from '../config/app-config.service';
 import { AdminSentinelService } from './sentinels/admin-sentinel.service';
 import { SitemapGenComponent } from './sitemap-gen/sitemap-gen.component';
 import { PostWriterComponent } from './post-writer/post-writer.component';
@@ -84,16 +84,24 @@ const routes: Routes = [
   ],
 })
 export class AdminModule {
-  constructor(private appConfig: AppConfig) {
-    // TBD:
-    // Why is the app.module AppConfig not shared???
-    if(isDL()) dl.log(">>> Loading AdminModule");
-    // if(isDL()) dl.log(this.appConfig.all);   // this is always empty.
-    // As a workaround, just reload it here.
-    // But, this does not always work (because it's async loading).
-    //   --> Need to fix this.
-    appConfig.load().then(o => {
-      console.log("AdminModule: App config loaded.");
-    });
+  constructor(
+    // // private appConfig: AppConfig,
+    // private appConfigService: AppConfigService
+  ) {
+    // // // TBD:
+    // // // Why is the app.module AppConfig not shared???
+    // if(isDL()) dl.log(">>> Loading AdminModule");
+    // // // if(isDL()) dl.log(this.appConfig.all);   // this is always empty.
+    // // // As a workaround, just reload it here.
+    // // // But, this does not always work (because it's async loading).
+    // // //   --> Need to fix this.
+    // // appConfig.load().then(o => {
+    // //   console.log("AdminModule: App config loaded.");
+    // // });
+
+    // // testing
+    // let config = this.appConfigService.appConfig;
+    // if(isDL()) dl.log(config.all);
+    // // testing
   }
 }

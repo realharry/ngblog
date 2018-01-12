@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { DevLogger as dl } from '@ngcore/core'; import isDL = dl.isLoggable;
 import { DateTimeUtil, DateIdUtil } from '@ngcore/core';
 import { AppConfig } from '@ngcore/core';
+import { AppConfigService } from '../../config/app-config.service';
 import { LazyLoaderService } from '@ngcore/idle';
 import { PermalinkPathUtil } from '@ngcore/link';
 import { CommonMarkUtil } from '@ngcore/mark';
@@ -39,17 +40,21 @@ export class NgBlogPostComponent implements OnInit {
   docEntry: MarkdownDocEntry;
   // imgPrefix: string;
 
+  private appConfig: AppConfig;
   constructor(
     private location: Location,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private appConfig: AppConfig,
+    // private appConfig: AppConfig,
+    private appConfigService: AppConfigService,
     private lazyLoaderService: LazyLoaderService,
     private visitorTokenService: VisitorTokenService,
     private dailyPostsHelper: DailyPostsHelper,
     private blogPostService: BlogPostService,
     private blogPostRegistry: BlogPostRegistry,
   ) {
+    this.appConfig = this.appConfigService.appConfig;
+
     this.siteInfo = new SiteInfo();
     this.docEntry = new MarkdownDocEntry();   // ???
     // this.imgPrefix = '';

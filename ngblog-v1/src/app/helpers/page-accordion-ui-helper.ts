@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { DevLogger as dl } from '@ngcore/core'; import isDL = dl.isLoggable;
 import { DateTimeUtil } from '@ngcore/core';
 import { AppConfig } from '@ngcore/core';
+import { AppConfigService } from '../config/app-config.service';
 import { LocalStorageService } from '@ngcore/core';
 import { ExpansionStep } from './core/expansion-step';
 // import { PageExpansionStep } from './core/page-expansion-step';
@@ -14,10 +15,15 @@ import { ExpansionStep } from './core/expansion-step';
 export class PageAccordionUiHelper {
   // // Singleton.
   // private static _Instance: (AccordionUiHelper | null) = null;
+
+  private appConfig: AppConfig;
   constructor(
-    private appConfig: AppConfig,
+    // private appConfig: AppConfig,
+    private appConfigService: AppConfigService,
     private localStorageService: LocalStorageService
   ) {
+    this.appConfig = this.appConfigService.appConfig;
+
     // Note: for convenience, we use seconds in config, but millseconds in the code.
     //      TBD: Make sure this is the only place that does conversion....
     let staleAge = this.appConfig.getNumber("accordion-ui-stale-age",

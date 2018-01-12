@@ -14,6 +14,7 @@ import { NgCoreTimeModule } from '@ngcore/time';
 
 import { MaterialComponentsModule } from '../material-components.module';
 
+import { AppConfigService } from '../config/app-config.service';
 import { PageAccordionUiHelper } from '../helpers/page-accordion-ui-helper';
 import { DailyPostsHelper } from '../helpers/daily-posts-helper';
 import { VisitorTokenRegistry } from '../visitors/visitor-token-registry';
@@ -62,23 +63,13 @@ import { NotFoundComponent } from '../errors/not-found/not-found.component';
   declarations: [
     NotFoundComponent
   ],
-  // providers: [
-  //   // PageAccordionUiHelper,
-  //   // VisitorTokenRegistry,
-  //   // GuestbookDataService,
-  //   // VisitorTokenService,
-  //   // DailyPostsHelper,
-  //   // BlogPostService,
-  //   // PostListService,
-  //   // BlogPostRegistry,
-  //   // SitemapEntryRegistry,
-  // ],
 })
 export class CoreModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: CoreModule,
       providers: [
+        AppConfigService,
         PageAccordionUiHelper,
         VisitorTokenRegistry,
         GuestbookDataService,
