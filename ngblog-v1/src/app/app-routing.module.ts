@@ -6,23 +6,19 @@ import { RouterModule, Routes } from '@angular/router';
 
 // import { environment } from '../environments/environment';
 
-// import { AdminModule } from './admin/admin.module';
-// import { WeeklyDigestModule } from './digests/weekly-digest.module';
-// import { MonthlyDigestModule } from './digests/monthly-digest.module';
-
 // import { AdminSentinelService } from './admin/sentinels/admin-sentinel.service';
 
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 
-import { SitemapGenComponent } from './admin/sitemap-gen/sitemap-gen.component';
-import { PostWriterComponent } from './admin/post-writer/post-writer.component';
-import { ConfigViewComponent } from './admin/config-view/config-view.component';
-import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
+// import { SitemapGenComponent } from './admin/sitemap-gen/sitemap-gen.component';
+// import { PostWriterComponent } from './admin/post-writer/post-writer.component';
+// import { ConfigViewComponent } from './admin/config-view/config-view.component';
+// import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
 import { NgBlogSiteComponent } from './docs/ngblog-site/ngblog-site.component';
-import { NgBlogPostComponent } from './docs/ngblog-post/ngblog-post.component';
-import { NgBlogPermalinkComponent } from './docs/ngblog-permalink/ngblog-permalink.component';
-import { WeeklyDigestComponent } from './digests/weekly-digest/weekly-digest.component';
-import { MonthlyDigestComponent } from './digests/monthly-digest/monthly-digest.component';
+// import { NgBlogPostComponent } from './docs/ngblog-post/ngblog-post.component';
+// import { NgBlogPermalinkComponent } from './docs/ngblog-permalink/ngblog-permalink.component';
+// import { WeeklyDigestComponent } from './digests/weekly-digest/weekly-digest.component';
+// import { MonthlyDigestComponent } from './digests/monthly-digest/monthly-digest.component';
 import { AppComponent } from './main/app.component';
 // import { AdminSentinelService } from './admin/sentinels/admin-sentinel.service';
 import { CoreModule } from './core/core.module';
@@ -89,14 +85,24 @@ const routes: Routes = [
     loadChildren: './digests/monthly-digest.module#MonthlyDigestModule'
   },
 
+  // {
+  //   path: 'post/:id',
+  //   component: NgBlogPostComponent
+  // },
+  // {
+  //   path: ':path',
+  //   component: NgBlogPermalinkComponent
+  // },  
   {
-    path: 'post/:id',
-    component: NgBlogPostComponent
+    path: 'post',
+    loadChildren: './posts/post-redirect.module#PostRedirectModule'
   },
   {
     path: ':path',
-    component: NgBlogPermalinkComponent
+    pathMatch: 'full',
+    loadChildren: './posts/post-permalink.module#PostPermalinkModule'
   },
+
   {
     path: '**',
     component: NotFoundComponent
@@ -116,9 +122,6 @@ const routes: Routes = [
 @NgModule({
   imports: [
     CoreModule,
-    // AdminModule,
-    // WeeklyDigestModule,
-    // MonthlyDigestModule,
 
     // temporary.
     // rmodule

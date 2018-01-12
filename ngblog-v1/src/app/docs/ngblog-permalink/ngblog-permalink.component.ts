@@ -119,6 +119,8 @@ export class NgBlogPermalinkComponent implements OnInit {
 
     let entry = this.blogPostRegistry.getEntry(dateId);
     if (entry) {
+      if (isDL()) dl.log(`>>> entry found in blogPostRegistry for dateId = ${dateId}`);
+
       // this.docEntry = docEntry.clone();
       // this.docEntry = MarkdownDocEntry.copy(this.docEntry, entry);
       // MarkdownDocEntry.copy(this.docEntry, entry);
@@ -131,6 +133,8 @@ export class NgBlogPermalinkComponent implements OnInit {
         this.isContentLoaded = true;
       });
     } else {
+      if (isDL()) dl.log(`>>> entry NOT found in blogPostRegistry for dateId = ${dateId}`);
+
       let postUrl = this.dailyPostsHelper.getPostUrl(dateId);
       let useCache = true;
       this.blogPostService.loadPostMetadata(postUrl, useCache).catch(err => {

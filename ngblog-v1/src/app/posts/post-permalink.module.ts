@@ -10,13 +10,12 @@ import { NgCoreIdleModule } from '@ngcore/idle';
 import { NgCoreLinkModule } from '@ngcore/link';
 import { NgCoreMarkModule } from '@ngcore/mark';
 
-// import { MaterialComponentsModule } from '../material-components.module';
 import { CoreModule } from '../core/core.module';
 
 import { DevLogger as dl } from '@ngcore/core'; import isDL = dl.isLoggable;
 import { AppConfig } from '@ngcore/core';
 
-import { WeeklyDigestComponent } from './weekly-digest/weekly-digest.component';
+import { NgBlogPermalinkComponent } from '../docs/ngblog-permalink/ngblog-permalink.component';
 
 import { NotFoundComponent } from '../errors/not-found/not-found.component';
 
@@ -25,12 +24,7 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    component: WeeklyDigestComponent
-  },
-  {
-    path: ':id',
-    pathMatch: 'full',
-    component: WeeklyDigestComponent
+    component: NgBlogPermalinkComponent
   },
   {
     path: '**',
@@ -39,6 +33,7 @@ const routes: Routes = [
 
 ];
 
+// Not being used.
 @NgModule({
   imports: [
     CommonModule,
@@ -59,23 +54,22 @@ const routes: Routes = [
     CoreModule,
   ],
   declarations: [
-    WeeklyDigestComponent,
-    // NotFoundComponent
+    NgBlogPermalinkComponent,
   ],
   providers: [
   ],
 })
-export class WeeklyDigestModule {
+export class PostPermalinkModule {
   constructor(private appConfig: AppConfig) {
     // TBD:
     // Why is the app.module AppConfig not shared???
-    if(isDL()) dl.log(">>> Loading WeeklyDigestModule");
+    if(isDL()) dl.log(">>> Loading PostPermalinkModule");
     // if(isDL()) dl.log(this.appConfig.all);   // this is always empty.
     // As a workaround, just reload it here.
     // But, this does not always work (because it's async loading).
     //   --> Need to fix this.
     appConfig.load().then(o => {
-      console.log("WeeklyDigestModule: App config loaded.");
+      console.log("PostPermalinkModule: App config loaded.");
     });
   }
 }

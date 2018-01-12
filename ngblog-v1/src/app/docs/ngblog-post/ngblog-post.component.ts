@@ -32,8 +32,8 @@ import { BlogPostRegistry } from '../registry/blog-post-registry';
 })
 export class NgBlogPostComponent implements OnInit {
 
-  @ViewChild("commonMarkEntry")
-  commonMarkEntry: CommonMarkEntryComponent;
+  // @ViewChild("commonMarkEntry")
+  // commonMarkEntry: CommonMarkEntryComponent;
 
   siteInfo: SiteInfo;
   docEntry: MarkdownDocEntry;
@@ -106,24 +106,24 @@ export class NgBlogPostComponent implements OnInit {
             if(isDL()) dl.log(`Redirect navigate() suc = ${suc}; permalinkPath = ${permalinkPath}`);
           });
 
-          // this.docEntry = entry;
-          // this.docEntry = MarkdownDocEntry.copy(this.docEntry, entry);
-          // MarkdownDocEntry.copy(this.docEntry, entry);
-          this.docEntry.copy(entry);
+          // // this.docEntry = entry;
+          // // this.docEntry = MarkdownDocEntry.copy(this.docEntry, entry);
+          // // MarkdownDocEntry.copy(this.docEntry, entry);
+          // this.docEntry.copy(entry);
 
-          // tbd:
-          // Prepend the summary.md before content.md???
+          // // tbd:
+          // // Prepend the summary.md before content.md???
 
-          let contentUrl = this.docEntry.contentUrl;
-          this.blogPostService.loadPostContentFromContentUrl(contentUrl, true).subscribe(pc => {
-            if (pc && pc.content) {
-              this.commonMarkEntry.setMarkdownInput(pc.content, entry.imgPrefix);
-            } else {
-              // ???
-            }
-          });
+          // let contentUrl = this.docEntry.contentUrl;
+          // this.blogPostService.loadPostContentFromContentUrl(contentUrl, true).subscribe(pc => {
+          //   if (pc && pc.content) {
+          //     this.commonMarkEntry.setMarkdownInput(pc.content, entry.imgPrefix);
+          //   } else {
+          //     // ???
+          //   }
+          // });
         } else {
-          // ????
+          // ???? What to do ???
           // this.docEntry.clear();
           this.docEntry.id = dateId;
           // ...
