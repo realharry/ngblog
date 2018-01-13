@@ -16,6 +16,7 @@ import { DevLogger as dl } from '@ngcore/core'; import isDL = dl.isLoggable;
 import { AppConfig } from '@ngcore/core';
 import { AppConfigService } from '../config/app-config.service';
 
+import { RedirectPermalinkComponent } from '../docs/redirect-permalink/redirect-permalink.component';
 import { NgBlogPermalinkComponent } from '../docs/ngblog-permalink/ngblog-permalink.component';
 
 import { NotFoundComponent } from '../errors/not-found/not-found.component';
@@ -26,6 +27,7 @@ const routes: Routes = [
     path: '',
     pathMatch: 'full',
     component: NgBlogPermalinkComponent
+    // component: RedirectPermalinkComponent
   },
   {
     path: '**',
@@ -55,6 +57,7 @@ const routes: Routes = [
     CoreModule,
   ],
   declarations: [
+    RedirectPermalinkComponent,
     NgBlogPermalinkComponent,
   ],
   providers: [

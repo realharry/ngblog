@@ -17,6 +17,7 @@ import { DevLogger as dl } from '@ngcore/core'; import isDL = dl.isLoggable;
 import { AppConfig } from '@ngcore/core';
 import { AppConfigService } from '../config/app-config.service';
 
+import { RedirectWeeklyComponent } from './redirect-weekly/redirect-weekly.component';
 import { WeeklyDigestComponent } from './weekly-digest/weekly-digest.component';
 
 import { NotFoundComponent } from '../errors/not-found/not-found.component';
@@ -27,11 +28,13 @@ const routes: Routes = [
     path: '',
     pathMatch: 'full',
     component: WeeklyDigestComponent
+    // component: RedirectWeeklyComponent
   },
   {
     path: ':id',
     pathMatch: 'full',
     component: WeeklyDigestComponent
+    // component: RedirectWeeklyComponent
   },
   {
     path: '**',
@@ -61,6 +64,7 @@ const routes: Routes = [
   ],
   declarations: [
     WeeklyDigestComponent,
+    RedirectWeeklyComponent,
     // NotFoundComponent
   ],
   providers: [

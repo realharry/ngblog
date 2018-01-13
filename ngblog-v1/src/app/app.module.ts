@@ -42,6 +42,7 @@ import { environment } from '../environments/environment';
 // import { AdminSentinelService } from './admin/sentinels/admin-sentinel.service';
 
 import { AppComponent } from './main/app.component';
+import { RedirectSiteComponent } from './docs/redirect-site/redirect-site.component';
 import { NgBlogSiteComponent } from './docs/ngblog-site/ngblog-site.component';
 // import { NgBlogPostComponent } from './docs/ngblog-post/ngblog-post.component';
 // import { NgBlogPermalinkComponent } from './docs/ngblog-permalink/ngblog-permalink.component';
@@ -78,6 +79,7 @@ export function loadAppConfig(config: AppConfig) {
   declarations: [
     AppComponent,
     NgBlogSiteComponent,
+    RedirectSiteComponent,
     // NgBlogPostComponent,
     // NgBlogPermalinkComponent,
     // NotFoundComponent,

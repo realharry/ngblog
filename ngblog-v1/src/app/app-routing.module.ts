@@ -14,6 +14,7 @@ import { NotFoundComponent } from './errors/not-found/not-found.component';
 // import { PostWriterComponent } from './admin/post-writer/post-writer.component';
 // import { ConfigViewComponent } from './admin/config-view/config-view.component';
 // import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
+import { RedirectSiteComponent } from './docs/redirect-site/redirect-site.component';
 import { NgBlogSiteComponent } from './docs/ngblog-site/ngblog-site.component';
 // import { NgBlogPostComponent } from './docs/ngblog-post/ngblog-post.component';
 // import { NgBlogPermalinkComponent } from './docs/ngblog-permalink/ngblog-permalink.component';
@@ -35,6 +36,7 @@ const routes: Routes = [
     path: '',
     pathMatch: 'full',
     component: NgBlogSiteComponent
+    // component: RedirectSiteComponent
   },
   // {
   //   path: 'admin',
