@@ -79,6 +79,8 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
   // temporary
   hostUrl: string;
 
+  pageLinkPrefix: string = '';
+
   private appConfig: AppConfig;
   constructor(
     // private dialog: MatDialog,
@@ -143,6 +145,8 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
       }
     }
     if (isDL()) dl.log(`>>> pagePath = ${pagePath}`);
+    this.pageLinkPrefix = pagePath;
+
     this.activatedRoute.fragment.subscribe(fragment => {
       if (isDL()) dl.log(`>>> fragment = ${fragment}`);
       if (fragment) {

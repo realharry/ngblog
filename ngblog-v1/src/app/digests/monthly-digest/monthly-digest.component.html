@@ -23,7 +23,8 @@
       <mat-card-content>
         <div class="ngblog-digest-summary-block">
           <common-mark-entry [delay]="delayInterval" [url]="mde.summaryUrl" [markdown]="mde.summaryContent" [img-prefix]="mde.imgPrefix"
-            [debug-enabled]="mde.debugEnabled" [renderer-options]="mde.rendererOptions"></common-mark-entry>
+          [link-prefix]="pageLinkPrefix" 
+          [debug-enabled]="mde.debugEnabled" [renderer-options]="mde.rendererOptions"></common-mark-entry>
         </div>
       </mat-card-content>
     </mat-card>

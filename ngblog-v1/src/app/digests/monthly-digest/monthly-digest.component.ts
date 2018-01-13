@@ -53,6 +53,8 @@ export class MonthlyDigestComponent implements OnInit {
   // temporary
   delayInterval: number[] = [250, 1250];
 
+  pageLinkPrefix: string = '';
+
   private appConfig: AppConfig;
   constructor(
     private location: Location,
@@ -89,6 +91,8 @@ export class MonthlyDigestComponent implements OnInit {
       }
     }
     if (isDL()) dl.log(`>>> pagePath = ${pagePath}`);
+    this.pageLinkPrefix = pagePath;
+
     this.activatedRoute.fragment.subscribe(fragment => {
       if (isDL()) dl.log(`>>> fragment = ${fragment}`);
       if (fragment) {

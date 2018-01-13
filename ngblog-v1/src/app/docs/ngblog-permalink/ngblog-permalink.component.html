@@ -22,7 +22,9 @@
 
     <!-- <common-mark-entry [delay]="[100,500]" [url]="docEntry.contentUrl" [markdown]=""
       [debug-enabled]="docEntry.debugEnabled" [renderer-options]="docEntry.rendererOptions"></common-mark-entry> -->
-    <common-mark-entry #commonMarkEntry [url]="docEntry.contentUrl" [img-prefix]="docEntry.imgPrefix" [debug-enabled]="docEntry.debugEnabled"
+    <common-mark-entry #commonMarkEntry [url]="docEntry.contentUrl" [img-prefix]="docEntry.imgPrefix" 
+    [link-prefix]="pageLinkPrefix"
+    [debug-enabled]="docEntry.debugEnabled"
       [renderer-options]="docEntry.rendererOptions"></common-mark-entry>
 
   </div>

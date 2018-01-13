@@ -60,7 +60,8 @@
               [width]="thumbnailWidth"></common-lazy-image>
           </div>
           <div class="ngblog-summary-block">
-            <common-mark-entry [delay]="(i === step) ? 0 : delayInterval" [url]="mde.summaryUrl" [markdown]="mde.summaryContent" [img-prefix]="mde.imgPrefix"
+            <common-mark-entry [delay]="(i === step) ? 0 : delayInterval" [url]="mde.summaryUrl" [markdown]="mde.summaryContent" 
+            [img-prefix]="mde.imgPrefix" [link-prefix]="pageLinkPrefix"
               [debug-enabled]="mde.debugEnabled" [renderer-options]="mde.rendererOptions"></common-mark-entry>
           </div>
           <!-- <div style="clear:both; font-size:1px;"></div> -->

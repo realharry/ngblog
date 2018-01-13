@@ -48,6 +48,8 @@ export class NgBlogPermalinkComponent implements OnInit {
   emailSubject: string;
   emailBody: string;
 
+  pageLinkPrefix: string = '';
+
   private appConfig: AppConfig;
   constructor(
     private location: Location,
@@ -99,6 +101,8 @@ export class NgBlogPermalinkComponent implements OnInit {
       }
     }
     if (isDL()) dl.log(`>>> pagePath = ${pagePath}`);
+    this.pageLinkPrefix = pagePath;
+
     this.activatedRoute.fragment.subscribe(fragment => {
       if (isDL()) dl.log(`>>> fragment = ${fragment}`);
       if (fragment) {
@@ -208,7 +212,9 @@ export class NgBlogPermalinkComponent implements OnInit {
             if (pc && pc.content) {
           //testing
           // this.commonMarkEntry.setMarkdownInput(pc.content, entry.imgPrefix, true);
-          this.commonMarkEntry.setMarkdownInput(pc.content, entry.imgPrefix);
+          // this.commonMarkEntry.setMarkdownInput(pc.content, entry.imgPrefix);
+          this.commonMarkEntry.setMarkdownContent(pc.content, entry.imgPrefix, this.pageLinkPrefix, '', true);
+          // this.commonMarkEntry.setMarkdownContent(pc.content, entry.imgPrefix, this.pageLinkPrefix);
           //testing
         } else {
               // ???
