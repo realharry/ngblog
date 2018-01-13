@@ -78,6 +78,7 @@ Better pagination: Currently, the metadta (post.json) of all posts are loaded/fe
 Better sitemap: (Server-based) dynamic generation of sitemap.
 
 "Pinned" posts & main dashboard/gallery page?
+   Author pinning vs reader pinning (bookmarking) ???
 And/or "blog rolls"?
 (Client-side) bookmarks?
 

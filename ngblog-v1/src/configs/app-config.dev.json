@@ -18,6 +18,7 @@
   "item-count-per-page": 20,
   "content-formats": ["markdown"],
   "accordion-ui-stale-age": 3600,
+  "use-hash-link-redirect": true,
   "show-placeholder-thumbnail": false,
   "show-share-via-email": true,
   "show-share-on-twitter": true,

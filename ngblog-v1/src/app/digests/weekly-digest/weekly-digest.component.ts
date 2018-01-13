@@ -83,38 +83,40 @@ export class WeeklyDigestComponent implements OnInit {
 
     // Experimenting....
     // Routing trick with hash tags
-    let pagePath = this.router.url;
-    if (pagePath) {
-      let h = pagePath.indexOf('#');
-      if (h != -1) {
-        pagePath = pagePath.substring(0, h);
+    if (this.appConfigService.useHashLinkRedirect) {
+      let pagePath = this.router.url;
+      if (pagePath) {
+        let h = pagePath.indexOf('#');
+        if (h != -1) {
+          pagePath = pagePath.substring(0, h);
+        }
       }
-    }
-    if (isDL()) dl.log(`>>> pagePath = ${pagePath}`);
-    this.pageLinkPrefix = pagePath;
+      if (isDL()) dl.log(`>>> pagePath = ${pagePath}`);
+      this.pageLinkPrefix = pagePath;
 
-    this.activatedRoute.fragment.subscribe(fragment => {
-      if (isDL()) dl.log(`>>> fragment = ${fragment}`);
-      if (fragment) {
-        // Treating the fragment as the redirect url path.
-        // let redirectPath = decodeURIComponent(fragment);
-        let redirectPath = fragment;
-        let segments = fragment.split('/');
-        Observable.timer(1).subscribe(i => {
-          this.router.navigate(segments, { replaceUrl: true }).then(suc => {
-            if (isDL()) dl.log(`Redirect navigate() suc = ${suc}; fragment-path = ${redirectPath}`);
-          }).catch(err => {
-            if (isDL()) dl.log(`Redirect navigate() err = ${err}}`);
+      this.activatedRoute.fragment.subscribe(fragment => {
+        if (isDL()) dl.log(`>>> fragment = ${fragment}`);
+        if (fragment) {
+          // Treating the fragment as the redirect url path.
+          // let redirectPath = decodeURIComponent(fragment);
+          let redirectPath = fragment;
+          let segments = fragment.split('/');
+          Observable.timer(1).subscribe(i => {
+            this.router.navigate(segments, { replaceUrl: true }).then(suc => {
+              if (isDL()) dl.log(`Redirect navigate() suc = ${suc}; fragment-path = ${redirectPath}`);
+            }).catch(err => {
+              if (isDL()) dl.log(`Redirect navigate() err = ${err}}`);
+            });
           });
-        });
-      }
-    });
+        }
+      });
+    }
     // Routing trick with hash tags
 
 
     this.dateId = this.activatedRoute.snapshot.params['id'];
     if (isDL()) dl.log(`>>> Week id = ${this.dateId}.`);
-    if(!this.dateId) {
+    if (!this.dateId) {
       this.dateId = DateIdUtil.getTodayId();
     }
     let dates = DateRangeUtil.getDates(7, DateIdUtil.getNextDayId(this.dateId));
@@ -166,12 +168,12 @@ export class WeeklyDigestComponent implements OnInit {
       if (isDL()) dl.log(this.docEntries);
       this.entryLength = this.docEntries.length;
       this._isEmpty = (this.entryLength == 0);
-      if(this._isEmpty) {
+      if (this._isEmpty) {
         this.placeholderText = 'No posts found';
       }
 
       // this.isContentLoaded = true;  // This seems to be too quick...
-      Observable.timer(125).subscribe(o => {
+      Observable.timer(215).subscribe(o => {
         this.isContentLoaded = true;
       });
     });
@@ -202,7 +204,7 @@ export class WeeklyDigestComponent implements OnInit {
   navigateNextWeek() {
     let todayId = DateIdUtil.getTodayId();
     let nextWeekId = DateIdUtil.getNthDayId(this.dateId, 7);
-    if(nextWeekId > todayId) {
+    if (nextWeekId > todayId) {
       nextWeekId = todayId;
     }
     this.router.navigate(['week', nextWeekId]).then(suc => {
@@ -256,7 +258,7 @@ export class WeeklyDigestComponent implements OnInit {
     }
   }
 
- 
+
   navigateBack() {
     this.location.back();
   }

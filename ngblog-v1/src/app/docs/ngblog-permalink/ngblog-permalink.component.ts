@@ -93,32 +93,34 @@ export class NgBlogPermalinkComponent implements OnInit {
 
     // Experimenting....
     // Routing trick with hash tags
-    let pagePath = this.router.url;
-    if (pagePath) {
-      let h = pagePath.indexOf('#');
-      if (h != -1) {
-        pagePath = pagePath.substring(0, h);
+    if (this.appConfigService.useHashLinkRedirect) {
+      let pagePath = this.router.url;
+      if (pagePath) {
+        let h = pagePath.indexOf('#');
+        if (h != -1) {
+          pagePath = pagePath.substring(0, h);
+        }
       }
-    }
-    if (isDL()) dl.log(`>>> pagePath = ${pagePath}`);
-    this.pageLinkPrefix = pagePath;
+      if (isDL()) dl.log(`>>> pagePath = ${pagePath}`);
+      this.pageLinkPrefix = pagePath;
 
-    this.activatedRoute.fragment.subscribe(fragment => {
-      if (isDL()) dl.log(`>>> fragment = ${fragment}`);
-      if (fragment) {
-        // Treating the fragment as the redirect url path.
-        // let redirectPath = decodeURIComponent(fragment);
-        let redirectPath = fragment;
-        let segments = fragment.split('/');
-        Observable.timer(1).subscribe(i => {
-          this.router.navigate(segments, { replaceUrl: true }).then(suc => {
-            if (isDL()) dl.log(`Redirect navigate() suc = ${suc}; fragment-path = ${redirectPath}`);
-          }).catch(err => {
-            if (isDL()) dl.log(`Redirect navigate() err = ${err}}`);
+      this.activatedRoute.fragment.subscribe(fragment => {
+        if (isDL()) dl.log(`>>> fragment = ${fragment}`);
+        if (fragment) {
+          // Treating the fragment as the redirect url path.
+          // let redirectPath = decodeURIComponent(fragment);
+          let redirectPath = fragment;
+          let segments = fragment.split('/');
+          Observable.timer(1).subscribe(i => {
+            this.router.navigate(segments, { replaceUrl: true }).then(suc => {
+              if (isDL()) dl.log(`Redirect navigate() suc = ${suc}; fragment-path = ${redirectPath}`);
+            }).catch(err => {
+              if (isDL()) dl.log(`Redirect navigate() err = ${err}}`);
+            });
           });
-        });
-      }
-    });
+        }
+      });
+    }
     // Routing trick with hash tags
 
 
@@ -175,7 +177,7 @@ export class NgBlogPermalinkComponent implements OnInit {
       // //testing
 
       // this.isContentLoaded = true;  // This seems to be too quick...
-      Observable.timer(125).subscribe(o => {
+      Observable.timer(215).subscribe(o => {
         this.isContentLoaded = true;
       });
     } else {
@@ -210,19 +212,19 @@ export class NgBlogPermalinkComponent implements OnInit {
           let contentUrl = this.docEntry.contentUrl;
           this.blogPostService.loadPostContentFromContentUrl(contentUrl, true).subscribe(pc => {
             if (pc && pc.content) {
-          //testing
-          // this.commonMarkEntry.setMarkdownInput(pc.content, entry.imgPrefix, true);
-          // this.commonMarkEntry.setMarkdownInput(pc.content, entry.imgPrefix);
-          this.commonMarkEntry.setMarkdownContent(pc.content, entry.imgPrefix, this.pageLinkPrefix, '', true);
-          // this.commonMarkEntry.setMarkdownContent(pc.content, entry.imgPrefix, this.pageLinkPrefix);
-          //testing
-        } else {
+              //testing
+              // this.commonMarkEntry.setMarkdownInput(pc.content, entry.imgPrefix, true);
+              // this.commonMarkEntry.setMarkdownInput(pc.content, entry.imgPrefix);
+              this.commonMarkEntry.setMarkdownContent(pc.content, entry.imgPrefix, this.pageLinkPrefix, '', true);
+              // this.commonMarkEntry.setMarkdownContent(pc.content, entry.imgPrefix, this.pageLinkPrefix);
+              //testing
+            } else {
               // ???
               // Keep the empy content. Nothing to do. ??
             }
 
             // this.isContentLoaded = true;  // This seems to be too quick...
-            Observable.timer(125).subscribe(o => {
+            Observable.timer(215).subscribe(o => {
               this.isContentLoaded = true;
             });
           });
@@ -233,7 +235,7 @@ export class NgBlogPermalinkComponent implements OnInit {
           // ...
 
           // this.isContentLoaded = true;  // This seems to be too quick...
-          Observable.timer(125).subscribe(o => {
+          Observable.timer(215).subscribe(o => {
             this.isContentLoaded = true;
           });
         }

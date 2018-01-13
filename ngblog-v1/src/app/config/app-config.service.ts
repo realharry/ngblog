@@ -20,7 +20,19 @@ export class AppConfigService {
   }
 
   // TBD:
+  // Move all config reading routines to here, if possible???
 
+
+  // If set to true,
+  // links starting with "#" in markdown will be interpreted as internal routerLinks.
+  // Otherwise, the internal links will reload the app.
+  private _useHashLinkRedirect: boolean;
+  get useHashLinkRedirect(): boolean {
+    if (this._useHashLinkRedirect !== true && this._useHashLinkRedirect !== false) {
+      this._useHashLinkRedirect = this.appConfig.getBoolean("use-hash-link-redirect", false);
+    }
+    return this._useHashLinkRedirect;
+  }
 
 
 }
