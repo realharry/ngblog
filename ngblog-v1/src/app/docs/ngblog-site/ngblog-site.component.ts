@@ -99,12 +99,12 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
   ) {
     this.appConfig = this.appConfigService.appConfig;
 
-    if(this.browserWindowService.window) {
+    if (this.browserWindowService.window) {
       this.hostUrl = this.browserWindowService.window.location.protocol + '//' + this.browserWindowService.window.location.host + '/';
     } else {
       this.hostUrl = '/';   // ???
     }
-    if(isDL()) dl.log(`hostUrl = ${this.hostUrl}`);
+    if (isDL()) dl.log(`hostUrl = ${this.hostUrl}`);
 
     this.siteInfo = new SiteInfo();
     this.contactInfo = new ContactInfo();
@@ -130,12 +130,42 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
   isContentLoaded: boolean = false;
   isEnoughTimePassed: boolean = false;
   ngOnInit() {
-    if(isDL()) dl.log(">>> ngOnInit()");
+    if (isDL()) dl.log(">>> NgBlogSiteComponent::ngOnInit()");
+
+
+    // Experimenting....
+    // Routing trick with hash tags
+    let pagePath = this.router.url;
+    if (pagePath) {
+      let h = pagePath.indexOf('#');
+      if (h != -1) {
+        pagePath = pagePath.substring(0, h);
+      }
+    }
+    if (isDL()) dl.log(`>>> pagePath = ${pagePath}`);
+    this.activatedRoute.fragment.subscribe(fragment => {
+      if (isDL()) dl.log(`>>> fragment = ${fragment}`);
+      if (fragment) {
+        // Treating the fragment as the redirect url path.
+        // let redirectPath = decodeURIComponent(fragment);
+        let redirectPath = fragment;
+        let segments = fragment.split('/');
+        Observable.timer(1).subscribe(i => {
+          this.router.navigate(segments, { replaceUrl: true }).then(suc => {
+            if (isDL()) dl.log(`Redirect navigate() suc = ${suc}; fragment-path = ${redirectPath}`);
+          }).catch(err => {
+            if (isDL()) dl.log(`Redirect navigate() err = ${err}}`);
+          });
+        });
+      }
+    });
+    // Routing trick with hash tags
+
 
     if (this.browserWindowService.window) {
       this.windowWidth = this.browserWindowService.window.innerWidth;
       this.windowHeight = this.browserWindowService.window.innerHeight;
-      if(isDL()) dl.log(`ngOnInit() this.windowWidth = ${this.windowWidth}, this.windowHeight = ${this.windowHeight}`);
+      if (isDL()) dl.log(`ngOnInit() this.windowWidth = ${this.windowWidth}, this.windowHeight = ${this.windowHeight}`);
     }
 
     // // This is needed for pagination.
@@ -181,7 +211,7 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
 
     // TBD: For pagination
     let pageNumber = this.activatedRoute.snapshot.queryParams['page'];
-    if(isDL()) dl.log(`>>> pageNumber = ${pageNumber}.`);
+    if (isDL()) dl.log(`>>> pageNumber = ${pageNumber}.`);
     if (pageNumber) {   // Note: 0 is an invalid pageNumber.
       // this._currentPage = +pageNumber;
       try {
@@ -299,7 +329,7 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
 
 
   ngAfterViewInit() {
-    if(isDL()) dl.log(">>> ngAfterViewInit()");
+    if (isDL()) dl.log(">>> ngAfterViewInit()");
   }
 
 
@@ -310,13 +340,13 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
     //   if(isDL()) dl.log(`openWeeklyDigestPage() suc = ${suc}`);
     // });
     this.router.navigate(['week']).then(suc => {
-      if(isDL()) dl.log(`openWeeklyDigestPage() suc = ${suc}`);
+      if (isDL()) dl.log(`openWeeklyDigestPage() suc = ${suc}`);
     });
   }
 
   private _showWeeklyDigest: boolean;
   get showWeeklyDigest(): boolean {
-    if(this._showWeeklyDigest !== true && this._showWeeklyDigest !== false) {
+    if (this._showWeeklyDigest !== true && this._showWeeklyDigest !== false) {
       this._showWeeklyDigest = this.appConfig.getBoolean("enable-weekly-digest", false);
     }
     return this._showWeeklyDigest;
@@ -329,13 +359,13 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
     //   if(isDL()) dl.log(`openMonthlyDigestPage() suc = ${suc}`);
     // });
     this.router.navigate(['month']).then(suc => {
-      if(isDL()) dl.log(`openMonthlyDigestPage() suc = ${suc}`);
+      if (isDL()) dl.log(`openMonthlyDigestPage() suc = ${suc}`);
     });
   }
 
   private _showMonthlyDigest: boolean;
   get showMonthlyDigest(): boolean {
-    if(this._showMonthlyDigest !== true && this._showMonthlyDigest !== false) {
+    if (this._showMonthlyDigest !== true && this._showMonthlyDigest !== false) {
       this._showMonthlyDigest = this.appConfig.getBoolean("enable-monthly-digest", false);
     }
     return this._showMonthlyDigest;
@@ -346,18 +376,18 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
     // tbd: if "v" param is already set in the URL, use that value???
     // this.visitorTokenService.visitorToken = this.visitorTokenService.adminToken;
     // let qParams = {v: this.visitorTokenService.visitorToken};
-    let qParams = {v: this.visitorTokenService.adminToken};
-    this.router.navigate(['admin'], {queryParams: qParams}).then(suc => {
-      if(isDL()) dl.log(`openAdminHome() suc = ${suc}`);
+    let qParams = { v: this.visitorTokenService.adminToken };
+    this.router.navigate(['admin'], { queryParams: qParams }).then(suc => {
+      if (isDL()) dl.log(`openAdminHome() suc = ${suc}`);
     });
   }
 
   private _showAdminButton: boolean;
   get showAdminButton(): boolean {
-    if(this._showAdminButton !== true && this._showAdminButton !== false) {
+    if (this._showAdminButton !== true && this._showAdminButton !== false) {
       this._showAdminButton = (
         this.appConfig.getBoolean("show-admin-button", false)
-        && !! (this.visitorTokenService.adminToken)
+        && !!(this.visitorTokenService.adminToken)
       );
     }
     return this._showAdminButton;
@@ -368,7 +398,7 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
   get showPlaceholderThumbnail(): boolean {
     if (this._showPlaceholderThumbnail !== true && this._showPlaceholderThumbnail !== false) {
       this._showPlaceholderThumbnail = this.appConfig.getBoolean("show-placeholder-thumbnail", false);
-      if(isDL()) dl.log(`>>>>> this._showPlaceholderThumbnail = ${this._showPlaceholderThumbnail}`);
+      if (isDL()) dl.log(`>>>>> this._showPlaceholderThumbnail = ${this._showPlaceholderThumbnail}`);
     }
     return this._showPlaceholderThumbnail;
   }
@@ -416,12 +446,12 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
   get displayContactEmail(): boolean {
     if (this._displayContactEmail !== true && this._displayContactEmail !== false) {
       let showContactEmail = this.appConfig.getBoolean("show-contact-email", false);
-      if(isDL()) dl.log(`>>>>> showContactEmail = ${showContactEmail}`);
+      if (isDL()) dl.log(`>>>>> showContactEmail = ${showContactEmail}`);
       this._displayContactEmail =
         !!(this.contactEmail) // tbd: validate email?
         &&
         showContactEmail;
-      if(isDL()) dl.log(`>>>>> this._displayContactEmail = ${this._displayContactEmail}`);
+      if (isDL()) dl.log(`>>>>> this._displayContactEmail = ${this._displayContactEmail}`);
     }
     return this._displayContactEmail;
   }
@@ -506,20 +536,20 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
   }
 
   goToPreviousPage() {
-    if(isDL()) dl.log("goToPreviousPage()");
+    if (isDL()) dl.log("goToPreviousPage()");
 
     this.router.navigate(['/'], { queryParams: { page: this.previousPage } }).then(suc => {
-      if(isDL()) dl.log(`goToPreviousPage() suc = ${suc}`);
+      if (isDL()) dl.log(`goToPreviousPage() suc = ${suc}`);
       if (suc) {
         // reload the content.
       }
     });
   }
   goToNextPage() {
-    if(isDL()) dl.log("goToNextPage()");
+    if (isDL()) dl.log("goToNextPage()");
 
     this.router.navigate(['/'], { queryParams: { page: this.nextPage } }).then(suc => {
-      if(isDL()) dl.log(`goToNextPage() suc = ${suc}`);
+      if (isDL()) dl.log(`goToNextPage() suc = ${suc}`);
       if (suc) {
         // reload the content.
       }
@@ -544,10 +574,10 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
   // }
 
   openContentPage(idx: number) {
-    if(isDL()) dl.log("showContentDialog() idx = " + idx);
+    if (isDL()) dl.log("showContentDialog() idx = " + idx);
 
     let entry = this.docEntries[idx];  // TBD: validate idx ???
-    if(isDL()) dl.log("showContentDialog() entry = " + entry);
+    if (isDL()) dl.log("showContentDialog() entry = " + entry);
 
     // tbd:
     // Use config option:
@@ -578,13 +608,13 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
 
       let permalinkPath = entry.permalinkPath;
       this.router.navigate(['', permalinkPath]).then(suc => {
-        if(isDL()) dl.log(`navigate() suc = ${suc}; permalinkPath = ${permalinkPath}`);
+        if (isDL()) dl.log(`navigate() suc = ${suc}; permalinkPath = ${permalinkPath}`);
       });
     }
 
   }
 
-  
+
   navigateBack() {
     this.location.back();
   }

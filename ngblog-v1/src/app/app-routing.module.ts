@@ -99,7 +99,6 @@ const routes: Routes = [
   },
   {
     path: ':path',
-    pathMatch: 'full',
     loadChildren: './posts/post-permalink.module#PostPermalinkModule'
   },
 

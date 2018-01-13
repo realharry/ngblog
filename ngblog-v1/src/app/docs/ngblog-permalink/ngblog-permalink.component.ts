@@ -86,6 +86,38 @@ export class NgBlogPermalinkComponent implements OnInit {
   isContentLoaded: boolean = false;
   isEnoughTimePassed: boolean = false;
   ngOnInit() {
+    if (isDL()) dl.log(">>> NgBlogPermalinkComponent::ngOnInit()");
+
+
+    // Experimenting....
+    // Routing trick with hash tags
+    let pagePath = this.router.url;
+    if (pagePath) {
+      let h = pagePath.indexOf('#');
+      if (h != -1) {
+        pagePath = pagePath.substring(0, h);
+      }
+    }
+    if (isDL()) dl.log(`>>> pagePath = ${pagePath}`);
+    this.activatedRoute.fragment.subscribe(fragment => {
+      if (isDL()) dl.log(`>>> fragment = ${fragment}`);
+      if (fragment) {
+        // Treating the fragment as the redirect url path.
+        // let redirectPath = decodeURIComponent(fragment);
+        let redirectPath = fragment;
+        let segments = fragment.split('/');
+        Observable.timer(1).subscribe(i => {
+          this.router.navigate(segments, { replaceUrl: true }).then(suc => {
+            if (isDL()) dl.log(`Redirect navigate() suc = ${suc}; fragment-path = ${redirectPath}`);
+          }).catch(err => {
+            if (isDL()) dl.log(`Redirect navigate() err = ${err}}`);
+          });
+        });
+      }
+    });
+    // Routing trick with hash tags
+
+
     // let config = this.appConfig.all;
     // for (let k in config) {
     //   if(isDL()) dl.log(`:::config::: key = ${k}; value = ${config[k]}`);
@@ -123,6 +155,7 @@ export class NgBlogPermalinkComponent implements OnInit {
     // this.imgPrefix = postUrl;
 
     let entry = this.blogPostRegistry.getEntry(dateId);
+
     if (entry) {
       if (isDL()) dl.log(`>>> entry found in blogPostRegistry for dateId = ${dateId}`);
 
@@ -132,6 +165,10 @@ export class NgBlogPermalinkComponent implements OnInit {
       this.docEntry.copy(entry);
       this.emailSubject = encodeURIComponent(entry.title + ': ' + this.pageUrl);
       this.emailBody = encodeURIComponent(entry.title + ' - ' + entry.description + '\n' + this.pageUrl + '\n\n');
+
+      // //testing
+      // entry.debugEnabled = true;
+      // //testing
 
       // this.isContentLoaded = true;  // This seems to be too quick...
       Observable.timer(125).subscribe(o => {
@@ -159,14 +196,21 @@ export class NgBlogPermalinkComponent implements OnInit {
           this.emailSubject = encodeURIComponent(entry.title + ': ' + this.pageUrl);
           this.emailBody = encodeURIComponent(entry.title + ' - ' + entry.description + '\n' + this.pageUrl + '\n\n');
 
+          // //testing
+          // entry.debugEnabled = true;
+          // //testing
+
           // tbd:
           // Prepend the summary.md before content.md???
 
           let contentUrl = this.docEntry.contentUrl;
           this.blogPostService.loadPostContentFromContentUrl(contentUrl, true).subscribe(pc => {
             if (pc && pc.content) {
-              this.commonMarkEntry.setMarkdownInput(pc.content, entry.imgPrefix);
-            } else {
+          //testing
+          // this.commonMarkEntry.setMarkdownInput(pc.content, entry.imgPrefix, true);
+          this.commonMarkEntry.setMarkdownInput(pc.content, entry.imgPrefix);
+          //testing
+        } else {
               // ???
               // Keep the empy content. Nothing to do. ??
             }
