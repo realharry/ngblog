@@ -43,13 +43,17 @@ export class DisqusCommentComponent implements OnInit {
     if (isDL()) dl.log(`>>> DisqusCommentComponent::ngOnInit(). identifier = ${this.identifier}`);
 
     if (this.isRunningInBrowser) {
-      this.shortname = this.appConfigService.disqusAuthorShortname;
+      this.shortname = this.appConfigService.disqusWebsiteShortname;
 
-      if (!(this.browserWindowService.window as any).DISQUS) {
-        this.addScriptTag();
-      } else {
-        this.reset();
-      }
+      // TBD: reset() throws Javascript error for some reason....
+      // if (!(this.browserWindowService.window as any).DISQUS) {
+      //   this.addScriptTag();
+      // } else {
+      //   this.reset();
+      // }
+
+      // As a workaround, just reload it every time.... for now...
+      this.addScriptTag();
     }
   }
 
@@ -67,14 +71,15 @@ export class DisqusCommentComponent implements OnInit {
       (this.browserWindowService.window as any).disqus_config = this.getConfig();
 
       if (this.browserWindowService.document && this.browserWindowService.document.body) {
-        let script = this.renderer.createComment('script');
+        let script = this.renderer.createElement('script');
         script.src = `https://${this.shortname}.disqus.com/embed.js`;
         script.async = true;
         script.type = 'text/javascript';
-        // script.setAttribute('data-timestamp', DateTimeUtil.getUnixEpochMillis());
+        script.setAttribute('data-timestamp', DateTimeUtil.getUnixEpochMillis());
 
-        // this.renderer.appendChild(this.el.nativeElement, script);
-        this.renderer.appendChild(this.browserWindowService.document.body, script);  //???
+        // ???
+        this.renderer.appendChild(this.el.nativeElement, script);
+        // this.renderer.appendChild(this.browserWindowService.document.body, script);  //???
       }
     }
   }

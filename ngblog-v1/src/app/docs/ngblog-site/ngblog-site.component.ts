@@ -454,13 +454,16 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
 
   private _displayContactEmail: boolean;
   get displayContactEmail(): boolean {
+    // No room to display email....
+    if (this.windowWidth > 0 && this.windowWidth <= NgBlogSiteComponent.WIDTH_THRESHOLD_2) {
+      return false;
+    }
     if (this._displayContactEmail !== true && this._displayContactEmail !== false) {
       let showContactEmail = this.appConfig.getBoolean("show-contact-email", false);
       if (isDL()) dl.log(`>>>>> showContactEmail = ${showContactEmail}`);
       this._displayContactEmail =
         !!(this.contactEmail) // tbd: validate email?
-        &&
-        showContactEmail;
+        && showContactEmail;
       if (isDL()) dl.log(`>>>>> this._displayContactEmail = ${this._displayContactEmail}`);
     }
     return this._displayContactEmail;

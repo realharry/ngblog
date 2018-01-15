@@ -7,9 +7,9 @@
   padding-bottom: 8px;
 }
 .ngblog-disqus-thread {
-  margin: 8px; 
-  padding-top: 4px; 
-  padding-bottom: 4px;
+  margin: 24px 8px 4px 8px; 
+  padding-top: 8px; 
+  padding-bottom: 0px;
 }
 .ngblog-permalink-header {
   z-index: 2;

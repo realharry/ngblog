@@ -43,12 +43,12 @@ export class AppConfigService {
   }
 
 
-  private _disqusAuthorShortname: (string | null) = null;
-  get disqusAuthorShortname(): string {
-    if (this._disqusAuthorShortname == null) {
-      this._disqusAuthorShortname = this.appConfig.getString("disqus-author-shortname", '');
+  private _disqusWebsiteShortname: (string | null) = null;
+  get disqusWebsiteShortname(): string {
+    if (this._disqusWebsiteShortname == null) {
+      this._disqusWebsiteShortname = this.appConfig.getString("disqus-website-shortname", '');
     }
-    return this._disqusAuthorShortname;
+    return this._disqusWebsiteShortname;
   }
 
 

@@ -25,7 +25,7 @@
   "show-share-on-facebook": true,
   "show-share-on-linkedin": true,
   "enable-disqus-comment": true,
-  "disqus-author-shortname": "ngblog-dev",
+  "disqus-website-shortname": "ngblog-dev",
   "admin-visitor-token": "123456",
   "show-admin-button": true,
   "max-sitemap-age": 180,
