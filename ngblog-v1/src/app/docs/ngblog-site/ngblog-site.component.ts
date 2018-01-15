@@ -297,7 +297,7 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
       this.delayInterval[1] = 500 + Math.floor(250 * Math.sqrt(entryLength));
 
       // this.isContentLoaded = true;  // This seems to be too quick...
-      Observable.timer(215).subscribe(o => {
+      Observable.timer(335).subscribe(o => {
         this.isContentLoaded = true;
       });
     });

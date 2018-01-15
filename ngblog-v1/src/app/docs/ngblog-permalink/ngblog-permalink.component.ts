@@ -198,7 +198,7 @@ export class NgBlogPermalinkComponent implements OnInit {
       // //testing
 
       // this.isContentLoaded = true;  // This seems to be too quick...
-      Observable.timer(215).subscribe(o => {
+      Observable.timer(335).subscribe(o => {
         this.isContentLoaded = true;
       });
     } else {
@@ -246,13 +246,13 @@ export class NgBlogPermalinkComponent implements OnInit {
               }
 
               // this.isContentLoaded = true;  // This seems to be too quick...
-              Observable.timer(215).subscribe(o => {
+              Observable.timer(335).subscribe(o => {
                 this.isContentLoaded = true;
               });
             });
           } else {
             // this.isContentLoaded = true;  // This seems to be too quick...
-            Observable.timer(215).subscribe(o => {
+            Observable.timer(335).subscribe(o => {
               this.isContentLoaded = true;
             });
           }
@@ -263,7 +263,7 @@ export class NgBlogPermalinkComponent implements OnInit {
           // ...
 
           // this.isContentLoaded = true;  // This seems to be too quick...
-          Observable.timer(215).subscribe(o => {
+          Observable.timer(335).subscribe(o => {
             this.isContentLoaded = true;
           });
         }

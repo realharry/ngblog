@@ -177,7 +177,7 @@ export class WeeklyDigestComponent implements OnInit {
       }
 
       // this.isContentLoaded = true;  // This seems to be too quick...
-      Observable.timer(215).subscribe(o => {
+      Observable.timer(335).subscribe(o => {
         this.isContentLoaded = true;
       });
     });
