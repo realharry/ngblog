@@ -11,34 +11,35 @@ PWA: Partially done
 
 SSR: Added support via Angular CLI (Not tested yet)
 
-Image file support (for Markdown post): Partially done. 2017/01/04
+Image file support (for Markdown post): Partially done. 2018/01/04
     Image files can be included in the "Posts" (local or remote) folder.
     Absolute URLs can be used.
 
-Sitemap: Partially done. 2017/01/05
+Sitemap: Partially done. 2018/01/05
     (Manual client-side sitemap generator has been added.)
     (Dynamic sitemap generation requires server-side support.)
 
-Permalink: Done. 2017/01/06
+Permalink: Done. 2018/01/06
     Now dateId post URLs are redirected to permalink URLs.
 
-Social sharing: Done. 2017/01/07
+Social sharing: Done. 2018/01/07
     Supports Share on Twitter/Facebook/LinkedIn, and via email.
 
-Basic admin/author interface: Partially done. 2017/01/07
+Basic admin/author interface: Partially done. 2018/01/07
     Added an admin screen, which is accesible with "admin visitor token".
 
-Weekly/Monthly digest page: Done. 2017/01/09
+Weekly/Monthly digest page: Done. 2018/01/09
 
-Feature module lazy loading: Partially done. 2017/01/12
+Feature module lazy loading: Partially done. 2018/01/12
     Serious bug with AppConfig DI.
     Lazy-loading actually deteriorated the performance.
-
 
 AppConfig DI bug
 (AppConfig instance is not shared in lazy-loaded modules.)
 --> Fixed (Added a workaround) by adding an AppConfig wrapper service.
 
+Integrate Disqus: Done. 2018/01/14
+     Need more testing.
 
 
 Accordion UI bug
@@ -84,7 +85,7 @@ And/or "blog rolls"?
 
 Use auth (and remove visitor token service).
 
-Add commenting system?
+Better commenting system?
 
 "Post module" lazy loading
 
