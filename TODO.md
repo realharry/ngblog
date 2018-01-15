@@ -86,6 +86,7 @@ And/or "blog rolls"?
 Use auth (and remove visitor token service).
 
 Better commenting system?
+Allow disabling comment per post?
 
 "Post module" lazy loading
 
