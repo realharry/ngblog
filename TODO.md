@@ -38,17 +38,20 @@ AppConfig DI bug
 (AppConfig instance is not shared in lazy-loaded modules.)
 --> Fixed (Added a workaround) by adding an AppConfig wrapper service.
 
-Integrate Disqus: Done. 2018/01/14
+"Hash link redirect": Done. 2018/01/13
+    We are now "converting" markdown internal links/urls into Angular router nav links, effectively.
+
+Integrate Disqus: Done (with an open issue). 2018/01/14
      Need more testing.
 
+
+
+Disqus integration bug: Calling reset() throws Javascript error.
+     Need to investigate
 
 Accordion UI bug
 (Index/step is currently used as "state" rather than the post id/date.)
 
-
-
-"Convert" markdown links/urls into Angular nav links
-How ???
 
 
 Client-side search
@@ -73,6 +76,8 @@ Support more than one posts per day
 
 Content/post database ???
 
+
+Better UI: Need to style markdown-converted HTML content.
 
 Better pagination: Currently, the metadta (post.json) of all posts are loaded/fetched regardless of pagination.
 
