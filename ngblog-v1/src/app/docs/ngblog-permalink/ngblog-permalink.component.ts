@@ -94,6 +94,10 @@ export class NgBlogPermalinkComponent implements OnInit {
     return !!(this.browserWindowService.window);
   }
   get isDisqusEnabled(): boolean {
+    // Return false if the page does not content.md ???
+    if (!this.docEntry || !this.docEntry.contentUrl) {  // page does not exist? 
+      return false;
+    }
     return (this.browserWindowService.window) && this.appConfigService.enableDisqusComment;
   }
   get disqusPageIdentifier(): string {
@@ -227,24 +231,31 @@ export class NgBlogPermalinkComponent implements OnInit {
           // Prepend the summary.md before content.md???
 
           let contentUrl = this.docEntry.contentUrl;
-          this.blogPostService.loadPostContentFromContentUrl(contentUrl, true).subscribe(pc => {
-            if (pc && pc.content) {
-              //testing
-              // this.commonMarkEntry.setMarkdownInput(pc.content, entry.imgPrefix, true);
-              // this.commonMarkEntry.setMarkdownInput(pc.content, entry.imgPrefix);
-              this.commonMarkEntry.setMarkdownContent(pc.content, entry.imgPrefix, this.pageLinkPrefix, '', true);
-              // this.commonMarkEntry.setMarkdownContent(pc.content, entry.imgPrefix, this.pageLinkPrefix);
-              //testing
-            } else {
-              // ???
-              // Keep the empy content. Nothing to do. ??
-            }
+          if (contentUrl) {
+            this.blogPostService.loadPostContentFromContentUrl(contentUrl, true).subscribe(pc => {
+              if (pc && pc.content) {
+                //testing
+                // this.commonMarkEntry.setMarkdownInput(pc.content, entry.imgPrefix, true);
+                // this.commonMarkEntry.setMarkdownInput(pc.content, entry.imgPrefix);
+                this.commonMarkEntry.setMarkdownContent(pc.content, entry.imgPrefix, this.pageLinkPrefix, '', true);
+                // this.commonMarkEntry.setMarkdownContent(pc.content, entry.imgPrefix, this.pageLinkPrefix);
+                //testing
+              } else {
+                // ???
+                // Keep the empy content. Nothing to do. ??
+              }
 
+              // this.isContentLoaded = true;  // This seems to be too quick...
+              Observable.timer(215).subscribe(o => {
+                this.isContentLoaded = true;
+              });
+            });
+          } else {
             // this.isContentLoaded = true;  // This seems to be too quick...
             Observable.timer(215).subscribe(o => {
               this.isContentLoaded = true;
             });
-          });
+          }
         } else {
           // ???? This should not happen.
           // this.docEntry.clear();
