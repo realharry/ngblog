@@ -34,5 +34,22 @@ export class AppConfigService {
     return this._useHashLinkRedirect;
   }
 
+  private _enableDisqusComment: boolean;
+  get enableDisqusComment(): boolean {
+    if (this._enableDisqusComment !== true && this._enableDisqusComment !== false) {
+      this._enableDisqusComment = this.appConfig.getBoolean("enable-disqus-comment", false);
+    }
+    return this._enableDisqusComment;
+  }
+
+
+  private _disqusAuthorShortname: (string | null) = null;
+  get disqusAuthorShortname(): string {
+    if (this._disqusAuthorShortname == null) {
+      this._disqusAuthorShortname = this.appConfig.getString("disqus-author-shortname", '');
+    }
+    return this._disqusAuthorShortname;
+  }
+
 
 }

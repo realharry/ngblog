@@ -25,6 +25,7 @@ import { PostListService } from '../services/post-list.service';
 import { BlogPostRegistry } from '../docs/registry/blog-post-registry';
 import { SitemapEntryRegistry } from '../sitemap/sitemap-entry-registry';
 
+import { DisqusCommentComponent } from '../comments/disqus/disqus-comment.component';
 import { NotFoundComponent } from '../errors/not-found/not-found.component';
 
 
@@ -58,9 +59,11 @@ import { NotFoundComponent } from '../errors/not-found/not-found.component';
     // NgCoreNoteModule,
     // NgCoreTimeModule,
     MaterialComponentsModule,
+    DisqusCommentComponent,
     NotFoundComponent,
   ],
   declarations: [
+    DisqusCommentComponent,
     NotFoundComponent
   ],
 })

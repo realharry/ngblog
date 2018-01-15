@@ -23,6 +23,7 @@ import { VisitorTokenService } from '../../services/visitor-token.service';
 import { DailyPostsHelper } from '../../helpers/daily-posts-helper';
 import { BlogPostService } from '../../services/blog-post.service';
 import { BlogPostRegistry } from '../registry/blog-post-registry';
+import { DisqusCommentComponent } from '../../comments/disqus/disqus-comment.component';
 
 
 @Component({
@@ -83,6 +84,18 @@ export class NgBlogPermalinkComponent implements OnInit {
 
     this.docEntry = new MarkdownDocEntry();   // ???
     // this.imgPrefix = '';
+  }
+
+  get isRunningInBrowser(): boolean {
+    return !!(this.browserWindowService.window);
+  }
+  get isDisqusEnabled(): boolean {
+    return (this.browserWindowService.window) && this.appConfigService.enableDisqusComment;
+  }
+  get disqusPageIdentifier(): string {
+    return (this.pageLinkPrefix) ? this.pageLinkPrefix
+      : ((this.docEntry && this.docEntry.id) ? this.docEntry.id
+        : 'post');   // ????
   }
 
   isContentLoaded: boolean = false;

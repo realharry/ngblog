@@ -6,6 +6,11 @@
   padding-top: 4px; 
   padding-bottom: 8px;
 }
+.ngblog-disqus-thread {
+  margin: 8px; 
+  padding-top: 4px; 
+  padding-bottom: 4px;
+}
 .ngblog-permalink-header {
   z-index: 2;
   font-size: 0.9em;
