@@ -8,7 +8,6 @@ import { HttpModule } from '@angular/http';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { ShareModule } from '@ngx-share/core';
 
 import { NgCoreCoreModule } from '@ngcore/core';
 import { NgCoreBaseModule } from '@ngcore/base';
@@ -20,6 +19,7 @@ import { NgCoreMarkModule } from '@ngcore/mark';
 import { NgCoreNoteModule } from '@ngcore/note';
 import { NgCoreTimeModule } from '@ngcore/time';
 
+// import { ShareModule } from '@ngx-share/core';
 // import { MaterialComponentsModule } from './material-components.module';
 import { CoreModule } from './core/core.module';
 
@@ -106,9 +106,9 @@ export function loadAppConfig(config: AppConfig) {
     NgCoreMarkModule.forRoot(),
     NgCoreNoteModule.forRoot(),
     NgCoreTimeModule.forRoot(),
+    // ShareModule.forRoot(),
     // MaterialComponentsModule,
     CoreModule.forRoot(),
-    ShareModule.forRoot(),
   ],
   entryComponents: [
     // AppComponent,

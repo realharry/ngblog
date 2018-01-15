@@ -204,7 +204,13 @@ export class MonthlyDigestComponent implements OnInit {
     let todayId = DateIdUtil.getTodayId();
     return (todayId > this.dateId);
   }
-
+  get canDoNextWeek(): boolean {
+    let todayId = DateIdUtil.getTodayId();
+    return (todayId > this.dateId);
+  }
+  get canDoPreviousWeek(): boolean {
+    return true;
+  }
   get canDoPreviousMonth(): boolean {
     return true;
   }
@@ -221,11 +227,22 @@ export class MonthlyDigestComponent implements OnInit {
       if (isDL()) dl.log(`navigateNextMonth() suc = ${suc}; nextMonthId = ${nextMonthId}`);
     });
   }
-
-
-  // TBD:
-  // There is a bug in calculating prevMonthId.
-  // 2017/7/09 -> 2017/6/08 (instead of 6/09). Why???
+  navigateNextWeek() {
+    let todayId = DateIdUtil.getTodayId();
+    let nextWeekId = DateIdUtil.getNthDayId(this.dateId, 7);
+    if (nextWeekId > todayId) {
+      nextWeekId = todayId;
+    }
+    this.router.navigate(['month', nextWeekId]).then(suc => {
+      if (isDL()) dl.log(`navigateNextWeek() suc = ${suc}; nextWeekId = ${nextWeekId}`);
+    });
+  }
+  navigatePreviousWeek() {
+    let prevWeekId = DateIdUtil.getNthDayId(this.dateId, -7);
+    this.router.navigate(['month', prevWeekId]).then(suc => {
+      if (isDL()) dl.log(`navigatePreviousWeek() suc = ${suc}; prevWeekId = ${prevWeekId}`);
+    });
+  }
   navigatePreviousMonth() {
     // let dt = DateIdUtil.convertToDate(this.dateId);
     // let prevMo = new Date(dt.getFullYear(), dt.getMonth() - 1, dt.getDate());
@@ -236,7 +253,6 @@ export class MonthlyDigestComponent implements OnInit {
       if (isDL()) dl.log(`navigatePreviousMonth() suc = ${suc}; prevMonthId = ${prevMonthId}`);
     });
   }
-
 
 
   get monthDateLabel(): string {

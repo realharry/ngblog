@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 
 import { NgCoreCoreModule } from '@ngcore/core';
@@ -9,6 +9,8 @@ import { NgCoreBaseModule } from '@ngcore/base';
 import { NgCoreIdleModule } from '@ngcore/idle';
 import { NgCoreLinkModule } from '@ngcore/link';
 import { NgCoreMarkModule } from '@ngcore/mark';
+
+import { ShareModule } from '@ngx-share/core';
 
 import { CoreModule } from '../core/core.module';
 
@@ -40,7 +42,7 @@ const routes: Routes = [
 @NgModule({
   imports: [
     CommonModule,
-    HttpClientModule,
+    HttpClientModule, HttpClientJsonpModule,
     HttpModule,
     RouterModule.forChild(routes),
     // NgCoreCoreModule.forRoot(),
@@ -53,6 +55,7 @@ const routes: Routes = [
     NgCoreIdleModule,
     NgCoreLinkModule,
     NgCoreMarkModule,
+    ShareModule.forRoot(),
     // MaterialComponentsModule,
     CoreModule,
   ],

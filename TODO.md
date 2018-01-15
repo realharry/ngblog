@@ -53,6 +53,12 @@ Accordion UI bug
 (Index/step is currently used as "state" rather than the post id/date.)
 
 
+"Next/previous" wordings
+    Currently, the words, next and previous, are used in many different contexts with conflicting meanings. 
+    E.g., Previous/next page, previous/next post/article, previous/next week, etc. ...
+    We need to make the use of terms more consistent.
+    (For example, previous/next means older/newer? Or, prev/next in the list? ...)
+
 
 Client-side search
 
