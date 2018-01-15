@@ -81,6 +81,10 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
 
   pageLinkPrefix: string = '';
 
+  // temporary
+  maxRetries: number = 1;
+  retryInterval: number = 725;
+
   private appConfig: AppConfig;
   constructor(
     // private dialog: MatDialog,

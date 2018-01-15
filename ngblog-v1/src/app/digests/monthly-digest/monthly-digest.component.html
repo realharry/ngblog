@@ -24,6 +24,7 @@
         <div class="ngblog-digest-summary-block">
           <common-mark-entry [delay]="delayInterval" [url]="mde.summaryUrl" [markdown]="mde.summaryContent" [img-prefix]="mde.imgPrefix"
           [link-prefix]="pageLinkPrefix" 
+          [max-retries]="maxRetries" [retry-interval]="retryInterval"        
           [debug-enabled]="mde.debugEnabled" [renderer-options]="mde.rendererOptions"></common-mark-entry>
         </div>
       </mat-card-content>

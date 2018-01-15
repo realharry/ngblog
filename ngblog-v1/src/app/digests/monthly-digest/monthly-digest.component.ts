@@ -55,6 +55,10 @@ export class MonthlyDigestComponent implements OnInit {
 
   pageLinkPrefix: string = '';
 
+  // temporary
+  maxRetries: number = 1;
+  retryInterval: number = 725;
+
   private appConfig: AppConfig;
   constructor(
     private location: Location,
