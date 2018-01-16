@@ -45,6 +45,10 @@ Integrate Disqus: Done (with an open issue). 2018/01/14
      Need more testing.
 
 
+Prev/Next article navigation from the post/permalink page
+
+
+
 
 Disqus integration bug: Calling reset() throws Javascript error.
      Need to investigate
@@ -69,8 +73,6 @@ Tag/label support
 
 RSS feed ?
 
-
-Prev/Next navigation from the post/permalink page
 
 Support custom UI (other than Accordion listing)?
 

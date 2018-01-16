@@ -4,17 +4,6 @@
     <mat-toolbar-row>
       <span style="font-weight: bold;">{{siteInfo.name}} - {{siteInfo.title}}</span>
       <span style="flex: 1 1 auto"></span>
-      <!-- <span [hidden]="!isPaginationEnabled">
-        <mat-chip-list>
-          <button mat-icon-button color="accent" [disabled]="isInFirstPage" matTooltip="Previous Page" (click)="goToPreviousPage()">
-            <mat-icon>chevron_left</mat-icon>
-          </button>
-          <mat-chip color="accent" selected="true">{{pageIndicia}}</mat-chip>
-          <button mat-icon-button color="accent" [disabled]="isInLastPage" matTooltip="Next Page" (click)="goToNextPage()">
-            <mat-icon>chevron_right</mat-icon>
-          </button>
-        </mat-chip-list>
-      </span> -->
       <span>
         <button *ngIf="showWeeklyDigest" mat-icon-button color="" aria-label="This week's digest" matTooltip="This Week" (click)="openWeeklyDigestPage()">
           <mat-icon>date_range</mat-icon>
@@ -97,6 +86,11 @@
           <mat-icon>arrow_back</mat-icon>
         </button>
       </span>
+      <span>
+        <a href="https://ngblog.gitlab.io/" mat-icon-button color="" aria-label="Powered by NgBlog" matTooltip="Powered by NgBlog">
+          <mat-icon>whatshot</mat-icon>
+        </a>        
+      </span>
       <span *ngIf="displaySiteInfoLink" style="font-style: italic; font-size:0.9em;">
         <a mat-button [href]="contactWebsite">Copyright &copy;
           <common-date-year></common-date-year> {{siteInfo.name}}</a>
@@ -115,22 +109,10 @@
         <common-date-year></common-date-year>
       </span>
       <span style="flex: 1 1 auto"></span>
-      <span [hidden]="!isPaginationEnabled">
-        <!-- <mat-chip-list>
-          <button mat-icon-button color="primary" [disabled]="isInFirstPage" matTooltip="Previous Page" (click)="goToPreviousPage()">
-            <mat-icon>chevron_left</mat-icon>
-          </button>
-          <mat-chip color="primary" selected="true">{{pageIndicia}}</mat-chip>
-          <button mat-icon-button color="primary" [disabled]="isInLastPage" matTooltip="Next Page" (click)="goToNextPage()">
-            <mat-icon>chevron_right</mat-icon>
-          </button>
-        </mat-chip-list> -->
-      </span>
-      <span style="flex: 1 1 auto"></span>
       <span *ngIf="displayContactEmail" style="font-style: italic; font-size:0.9em;">
         <a mat-button href="mailto:{{contactEmail}}">{{contactEmail}}</a>
       </span>
-      <span style="font-style: italic; font-size:0.9em;">
+      <span [hidden]="!isPaginationEnabled" style="font-style: italic; font-size:0.9em;">
         <mat-chip-list>
           <button mat-icon-button color="primary" [disabled]="isInFirstPage" aria-label="Previous page" matTooltip="Previous Page"
             (click)="goToPreviousPage()">
