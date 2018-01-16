@@ -106,6 +106,8 @@ export class MarkdownDocEntry extends DocEntry {
     this.date = obj.date;
     this.skipDisplay = obj.skipDisplay;
     this.showContent = obj.showContent;
+    this.newerPostId = obj.newerPostId;
+    this.olderPostId = obj.olderPostId;
     this.imgPrefix = obj.imgPrefix;
     this.permalinkPath = obj.permalinkPath;
     this.lazyLoaded = obj.lazyLoaded;

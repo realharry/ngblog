@@ -11,6 +11,7 @@ import { MarkdownDocEntry } from '../../entry/markdown-doc-entry';
 import { MarkdownEntryUtil } from '../../entry/util/markdown-entry-util';
 
 import { PostListService } from '../../services/post-list.service';
+import { PostMetadata } from '../../blog/post-metadata';
 
 
 @Injectable()
@@ -72,7 +73,7 @@ export class BlogPostRegistry {
       const defMaxDates = 30;
       maxDates = this.appConfig.getNumber("max-post-age", defMaxDates);
     }
-    if(oldPosts == null) {
+    if (oldPosts == null) {
       let oldPostList = this.appConfig.get("old-post-list");
       if (oldPostList) {
         // let opl: string[] = (oldPostList as string[]).slice(0);
@@ -84,12 +85,41 @@ export class BlogPostRegistry {
     return this.postListService.getDailyPosts(maxDates, endDate, oldPosts).map(posts => {
       let map: { [dateId: string]: MarkdownDocEntry } = {};
       let list: MarkdownDocEntry[] = [];
-      for (let pm of posts) {
-        if (isDL()) dl.log(`post metadata = ${pm}`);
-        let entry = MarkdownEntryUtil.buildFromPostMetadata(pm);
-        if (isDL()) dl.log(`entry = ${entry}`);
-        map[entry.id] = entry;
-        list.push(entry);
+
+      // Note: We assume the list is reverse chronologically ordered.
+      let opm: (PostMetadata | null) = null;
+      let npm: (PostMetadata | null) = null;
+      if (posts && posts.length > 0) {
+        let plen = posts.length;
+        for (let r = 0; r < plen; r++) {
+          let pm = posts[r];
+          if (isDL()) dl.log(`post metadata = ${pm}`);
+          let entry = MarkdownEntryUtil.buildFromPostMetadata(pm);
+          if (r > 0) {
+            let nn = r;
+            while (--nn >= 0) {
+              let npm = posts[nn];
+              if (npm.hasContent) {
+                entry.newerPostId = npm.dateId;
+                break;
+              }
+            }
+          }
+          if (r < plen - 1) {
+            let oo = r;
+            while (++oo < plen) {
+              let opm = posts[oo];
+              if (opm.hasContent) {
+                entry.olderPostId = opm.dateId;
+                break;
+              }
+            }
+          }
+          if (isDL()) dl.log(`entry = ${entry}`);
+
+          map[entry.id] = entry;
+          list.push(entry);
+        }
       }
       this.entryMap = map;
       this.entryList = list;

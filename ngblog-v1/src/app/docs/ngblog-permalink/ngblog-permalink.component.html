@@ -4,13 +4,32 @@
     <mat-toolbar-row>
       <span style="font-weight: bold;">{{header}}</span>
       <span style="flex: 1 1 auto"></span>
-      <span>
-        <span style="font-style: italic; font-size:0.9em; margin-right: 16px;">
+      <!-- <mat-chip-list>
+        <button mat-icon-button color="" aria-label="Newer article" matTooltip="Newer post" (click)="openNewerArticle()">
+          <mat-icon>arrow_back</mat-icon>
+        </button>
+        <mat-chip color="" selected="false">{{(docEntry.date) ? docEntry.date.toLocaleDateString() : docEntry.id}}</mat-chip>
+        <button mat-icon-button color="" aria-label="Older article" matTooltip="Older post" (click)="openOlderArticle()">
+          <mat-icon>arrow_forward</mat-icon>
+        </button>
+      </mat-chip-list> -->
+      <span style="margin-right: 16px;">
+        <button mat-icon-button [disabled]="!hasNewerArticle" color="" aria-label="Newer article" matTooltip="Newer post" (click)="openNewerArticle()">
+          <mat-icon>arrow_back</mat-icon>
+        </button>
+        <span style="font-style: italic; font-size:1.0em;">
+          <!-- <a mat-button routerLink="/week/{{docEntry.dateId}}">
+          {{(docEntry.date) ? docEntry.date.toLocaleDateString() : docEntry.id}}</a> -->
           {{(docEntry.date) ? docEntry.date.toLocaleDateString() : docEntry.id}}
         </span>
-        <!-- <button mat-icon-button color="" matTooltip="Back" (click)="navigateBack()">
-          <mat-icon>arrow_back</mat-icon>
-        </button> -->
+        <button mat-icon-button [disabled]="!hasOlderArticle" color="" aria-label="Older article" matTooltip="Older post" (click)="openOlderArticle()">
+          <mat-icon>arrow_forward</mat-icon>
+        </button>
+      </span>
+      <span>
+        <!-- <span style="font-style: italic; font-size:0.9em; margin-right: 16px;">
+          {{(docEntry.date) ? docEntry.date.toLocaleDateString() : docEntry.id}}
+        </span> -->
         <button mat-icon-button color="" aria-label="Home" matTooltip="Home" (click)="navigateHome()">
           <mat-icon>home</mat-icon>
         </button>
@@ -19,6 +38,17 @@
   </mat-toolbar>
 
   <div class="ngblog-permalink-entry">
+    <!-- <div style="position:absolute; top:72px; right:16px; z-index: 3;">
+      <mat-chip-list>
+        <button mat-icon-button color="primary" aria-label="Newer article" matTooltip="Newer post" (click)="openNewerArticle()">
+          <mat-icon>arrow_back</mat-icon>
+        </button>
+        <mat-chip color="primary" selected="false">{{(docEntry.date) ? docEntry.date.toLocaleDateString() : docEntry.id}}</mat-chip>
+        <button mat-icon-button color="primary" aria-label="Older article" matTooltip="Older post" (click)="openOlderArticle()">
+          <mat-icon>arrow_forward</mat-icon>
+        </button>
+      </mat-chip-list>
+    </div> -->
 
     <!-- <common-mark-entry [delay]="[100,500]" [url]="docEntry.contentUrl" [markdown]=""
       [debug-enabled]="docEntry.debugEnabled" [renderer-options]="docEntry.rendererOptions"></common-mark-entry> -->
@@ -42,8 +72,8 @@
       </span>
       <span>
         <a href="https://ngblog.gitlab.io/" mat-icon-button color="" aria-label="Powered by NgBlog" matTooltip="Powered by NgBlog">
-          <mat-icon>whatshot</mat-icon>
-        </a>        
+          <mat-icon>info_outline</mat-icon>
+        </a>
       </span>
       <span *ngIf="displayContactWebsite" style="font-style: italic; font-size:0.9em;">
         <a mat-button [href]="contactWebsite">Copyright &copy;

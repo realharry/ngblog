@@ -44,9 +44,11 @@ AppConfig DI bug
 Integrate Disqus: Done (with an open issue). 2018/01/14
      Need more testing.
 
-
-Prev/Next article navigation from the post/permalink page
-
+Prev/Next article navigation: Partially done. 2018/01/15
+    It currently works only among the posts that are loaded together
+    (e.g., within a weekly page (for a particular week), etc.).
+    Need to implement a way to find/load "neighboring" posts (with content) in the post/permalink page.
+    (Note: Is it even possible? Since older posts are not bounded, there is really no practical way to find the "older post". We may need to limit the time windows around the given post.)
 
 
 
