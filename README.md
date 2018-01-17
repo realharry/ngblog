@@ -4,8 +4,8 @@
 
 ### Live Demos
 
-* [Harry's Blog](https://blog.realharry.com/): I'm using `NgBlog` for my personal blog a la "dogfood'ing". This site is currently hosted on Netlify.
-* [NgBlog Demo Blog](https://ngblog.gitlab.io/ngblog/):  The code snapshot is being deployed via GitLab CI/CD. (Due to the limitations of GitLab Pages, however, the demo app is not fully functional. In particular, you'll run into many broken links.)
+* [Harry's Blog](https://blog.realharry.com/): I'm using `NgBlog` for my personal blog (a la "dogfood'ing"). This site is currently hosted on Netlify.
+* [NgBlog Demo Blog](https://ngblog.gitlab.io/ngblog/): The code snapshot is being deployed via GitLab CI/CD. (Due to the limitations of GitLab Pages, however, the demo app is not fully functional. In particular, you'll run into many broken links.)
 
 
 ## What is NgBlog?
