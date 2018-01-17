@@ -5,7 +5,7 @@
 ### Live Demos
 
 * [Harry's Blog](https://blog.realharry.com/): I'm using `NgBlog` for my personal blog (a la "dogfood'ing"). This site is currently hosted on Netlify.
-* [NgBlog Demo Blog](https://ngblog.gitlab.io/ngblog/): The code snapshot is being deployed via GitLab CI/CD. (Due to the limitations of GitLab Pages, however, the demo app is not fully functional. In particular, you'll run into many broken links.)
+* [NgBlog Demo Blog](https://ngblog.gitlab.io/ngblog/): The code snapshot is being deployed via GitLab CI/CD. (Due to the limitations of GitLab Pages, however, the demo app is not fully functional. In particular, you'll run into many broken links if you use GitHub or GitLab Pages as a hosting service.)
 
 
 ## What is NgBlog?
@@ -18,7 +18,7 @@
 1. `NgBlog` needs to be deployed by the author/developer.
 1. Creating a new post may require a new deployment of the app.
 
-Despite these (severe) limitations and lack of features, `NgBlog` provides other advantanges.
+Despite these limitations/restrictions and lack of features, `NgBlog` provides other benefits.
 
 * Ease of deployment: `NgBlog` is a frontend-only "static site" blogging app. There is no need to set up, and maintain, a backend server. There are no complicated steps for setting up or migrating database tables and what not. You just deploy/upload it to any platform where static web pages can be hosted.
 * Flexibility: `NgBlog` is open-source software with rather open-ended design. You can do just about anything if you are a developer. The code is already "PWA-enabled" and "SSR-enabled" (not fully tested at this point), among other things.
@@ -32,7 +32,7 @@ If you are a developer and want full control over your daily blogging, however, 
 [Angular Material](https://gitlab.com/angularmaterial/setup),
 and it can provide certain advantages over other static website generators, especially if you are an Angular developer.
 
-_Note: Since it's really frontend only, it's not really SEO-friendly. If you want SEO, you may consider using SSR-enabled server-version of the app (aka "Angular Universal"). But, again, it's a tradeoff. Doing so will add a complexity (e.g., in terms of deployment, etc.). It should be noted, as of this writing, SSR has not been tested._
+_Note: Since it's really frontend only, it may not be really SEO-friendly. If you want SEO, you may consider using SSR-enabled server-version of the app (aka "Angular Universal"). But, again, it's a tradeoff. Doing so will add a complexity (e.g., in terms of deployment, etc.). It should be noted, as of this writing, NgBlog SSR has not been tested._
 
 
 ## How to Use `NgBlog`
@@ -40,6 +40,8 @@ _Note: Since it's really frontend only, it's not really SEO-friendly. If you wan
 ### (1) Clone the repo
 
 Clone or fork this repo: [NgBlog/ngblog](https://gitlab.com/ngblog/ngblog).
+You don't have to be a member of GitLab to clone this repo.
+However, "forking" is recommended if you plan to make changes that will not be committed back to the original repo.
 
 
 ### (2) Add app config file
@@ -68,7 +70,7 @@ Add the following three files under today's folder:
 
 * `post.json`: Metadata file.
 * `summary.md`: Summary of the post. Will be displayed in the "listing" page.
-* `content.md`: The post. This is optional. You can put all your content in `summary.md` instead.
+* `content.md`: The post. This is optional. You can put all your content in `summary.md` instead. Note, however, that if you don't use the `content.md` file, the post will not be associated with a permalink.
 
 Refer to the sample folder `posts-dev/20171225` for an example.
 You can also add any image files in the dated post folder
@@ -76,13 +78,19 @@ and refer to them with relative URLs.
 To cite other posts in the blog,
 you can use absolute urls [using permalinks](https://blog.realharry.com/week/20180106).
 Or, you can use relative urls in the form of "post/yyyymmdd".
-Alternatively, you can also [use hash link redirect](https://blog.realharry.com/post/20180117) (e.g., "#post/yyyymmdd") to avoid full page refresh.
+Alternatively, you can also [use hash link redirect (experimental)](https://blog.realharry.com/post/20180117) (e.g., "#post/yyyymmdd") to avoid full page refresh.
 
 Note that we currently support markdown only (simply because I use markdown),
 but it'll be rather easy to add support for simple text format or HTML content format.
 
 
 ### (4) Build
+
+If you haven't done any Angular programming, you'll need to install Angular CLI first:
+
+    npm i -g @angular/cli typescript
+
+Then, you can build NgBlog via `ng build`:
 
     npm i
     ng build --prod
@@ -95,9 +103,10 @@ _(Note: if you use a remote hosting for posts/contents (like S3), rebuiling/rede
 Deploy the `dist` folder to your hosting service. Any service that supports static websites will do,
 including S3 or any other static site hosting services.
 As stated, you can either deploy both the code and the blog content to a single website, 
-or you can deploy them to two separate sites.
+or you can choose to deploy them to two separate sites.
 
-Note that in order to use PWA features, your ngblog app should be served under `https`. (It may require some additional tweaking as well.)
+Note that in order to [use PWA features](https://blog.realharry.com/20180109-pwa-progressive-web-apps), 
+your ngblog app should be served under `https`. (It may require some additional tweaking as well.)
 
 
 ### (6) "Maintenance"
@@ -111,9 +120,10 @@ Or, you can just [use one of the 4 prebuilt themes of Angular Material](https://
 
 #### How to add sitemaps
 
-There is no easy way to add a dynamic client-side sitemap
+There seems to be no easy way to add a dynamic client-side sitemap
 in a SPA app like Angular (with client-side only deployment).
-You can create a sitemap from the sitemaps page (accessible via `<your host url>/admin?v=<admin token>`)
+You can [create a sitemap from the sitemaps page](https://blog.realharry.com/20180105-sitemap-in-angular-client-side-sitemaps) 
+(accessible via `<your host url>/admin?v=<admin token>`)
 and manually update `sitemap.xml` in the app src root directory.
 (Requires re-deployment.)
 
