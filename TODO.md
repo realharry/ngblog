@@ -53,10 +53,14 @@ Prev/Next article navigation: Partially done. 2018/01/15
 
 
 Disqus integration bug: Calling reset() throws Javascript error.
-     Need to investigate
+    Need to investigate
 
-Accordion UI bug
-(Index/step is currently used as "state" rather than the post id/date.)
+Accordion UI bug:
+    (Index/step is currently used as "state" rather than the post id/date.)
+
+Hash link redirect bug: Redirect fails once in a while.
+    When does this happen? and What to do if this happens?
+    Need to investigate
 
 
 "Next/previous" wordings
@@ -64,6 +68,9 @@ Accordion UI bug
     E.g., Previous/next page, previous/next post/article, previous/next week, etc. ...
     We need to make the use of terms more consistent.
     (For example, previous/next means older/newer? Or, prev/next in the list? ...)
+
+
+Better prev/next article navigation
 
 
 Client-side search
