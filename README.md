@@ -41,7 +41,8 @@ _Note: Since it's really frontend only, it may not be really SEO-friendly. If yo
 
 Clone or fork this repo: [NgBlog/ngblog](https://gitlab.com/ngblog/ngblog).
 You don't have to be a member of GitLab to clone this repo.
-However, "forking" is recommended if you plan to make changes that will not be committed back to the original repo.
+However, "forking" is recommended if you plan to make any substantial code changes 
+(that may or may not be committed back to the original repo).
 
 
 ### (2) Add app config file
