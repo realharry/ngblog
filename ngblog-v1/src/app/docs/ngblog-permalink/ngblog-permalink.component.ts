@@ -275,8 +275,8 @@ export class NgBlogPermalinkComponent implements OnInit {
                 //testing
                 // this.commonMarkEntry.setMarkdownInput(pc.content, entry.imgPrefix, true);
                 // this.commonMarkEntry.setMarkdownInput(pc.content, entry.imgPrefix);
-                this.commonMarkEntry.setMarkdownContent(pc.content, entry.imgPrefix, this.pageLinkPrefix, '', true);
-                // this.commonMarkEntry.setMarkdownContent(pc.content, entry.imgPrefix, this.pageLinkPrefix);
+                // this.commonMarkEntry.setMarkdownContent(pc.content, entry.imgPrefix, this.pageLinkPrefix, '#', false);
+                this.commonMarkEntry.setMarkdownContent(pc.content, entry.imgPrefix, this.pageLinkPrefix);
                 //testing
               } else {
                 // ???
