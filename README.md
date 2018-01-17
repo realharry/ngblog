@@ -1,7 +1,18 @@
-# NgBlog
-> A single user blogging app in Angular
+# NgBlog - Angular Blogging App
+> A single user daily blogging app in Angular
 
-`NgBlog` is a blogging app of the developers, by the developers, for the developers.
+
+### Live Demos
+
+I'm currently using `NgBlog` for my personal blog. Also, the current code snapshot is deployed via GitLab CI/CD. (Due to the limitations of GitLab Pages, however, the app is not fully functional.)
+
+* [Harry's Blog](https://blog.realharry.com/)
+* [NgBlog Demo Blog](https://ngblog.gitlab.io/ngblog/)
+
+
+## What is NgBlog?
+
+`NgBlog` is a blogging app of the developers, by the developers, and for the developers.
 
 1. `NgBlog` is not a hosted blogging platform.
 1. `NgBlog` is a single user - single author blogging app.
@@ -9,14 +20,14 @@
 1. `NgBlog` needs to be deployed by the author/developer.
 1. Creating a new post may require a new deployment of the app.
 
-Despite these (severe) limitations and lack of eatures, `NgBlog` provides other advantanges.
+Despite these (severe) limitations and lack of features, `NgBlog` provides other advantanges.
 
-* Ease of deployment: `NgBlog` is a frontend-only blogging app. There is no need to set up, and maintain, a backend server. There are no complicated steps for setting up database tables and what not. You just deploy/upload it to any platform where static web pages can be hosted.
-* Flexibility: `NgBlog` is open-source. You can do just about anything, if you are developer. The code is already "PWA-enabled" and "SSR-enabled" (not fully tested at this point), among other things.
+* Ease of deployment: `NgBlog` is a frontend-only "static site" blogging app. There is no need to set up, and maintain, a backend server. There are no complicated steps for setting up or migrating database tables and what not. You just deploy/upload it to any platform where static web pages can be hosted.
+* Flexibility: `NgBlog` is open-source software with rather open-ended design. You can do just about anything if you are a developer. The code is already "PWA-enabled" and "SSR-enabled" (not fully tested at this point), among other things.
 * Data portablility. In `NgBlog`, a post is a simple markdown file (with JSON metadata). You can easily "export" or migrate your posts to different apps.
 
 
-It's really a trade-off. If you want a hosted service with a nice user interface, use Tumblr. Or, use a CMS platofrm like WordPress. Or, use any of the hundreds of blogging apps out there.
+It's really a trade-off. If you want a hosted service with a nice user interface, use Tumblr. Or, use a CMS platform like WordPress. Or, use any of the hundreds of blogging apps out there.
 If you are a developer and want full control over your daily blogging, however, then `NgBlog` cab be a great app.
 `NgBlog` is developed in 
 [Angular](https://gitlab.com/angulartutor) with 
@@ -103,15 +114,10 @@ and manually update `sitemap.xml` in the app src root directory.
 
 
 
-
 ## Contribute
 
 If you find this app useful, and start making your own modifications,
 please consider contributing back.
-
-In general, I would personally prefer that any (big) new features that could increase the complexity
-should be made optional so that we don't have to go through 12 steps just to deploy a basic version of the app.
-
 Pull requests are greatly appreciated.
 
 
