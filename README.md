@@ -89,9 +89,11 @@ _(Note: if you use a remote hosting for posts/contents (like S3), rebuiling/rede
 ### (5) Deploy
 
 Deploy the `dist` folder to your hosting service. Any service that supports static websites will do,
-including S3 or GitLab Pages, etc.
+including S3 or any other static site hosting services.
+As stated, you can either deploy both the code and the blog content to a single website, 
+or you can deploy them to two separate sites.
 
-Note that in order to use PWA features, your ngblog site should be served under `https`. (It may require some additional tweaking as well.)
+Note that in order to use PWA features, your ngblog app should be served under `https`. (It may require some additional tweaking as well.)
 
 
 ### (6) "Maintenance"
