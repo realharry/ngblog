@@ -73,6 +73,10 @@ Add the following three files under today's folder:
 Refer to the sample folder `posts-dev/20171225` for an example.
 You can also add any image files in the dated post folder
 and refer to them with relative URLs.
+To cite other posts in the blog,
+you can use absolute urls [using permalinks](https://blog.realharry.com/week/20180106).
+Or, you can use relative urls in the form of "post/yyyymmdd".
+Alternatively, you can also [use hash link redirect](https://blog.realharry.com/post/20180117) (e.g., "#post/yyyymmdd") to avoid full page refresh.
 
 Note that we currently support markdown only (simply because I use markdown),
 but it'll be rather easy to add support for simple text format or HTML content format.
@@ -102,6 +106,7 @@ Note that in order to use PWA features, your ngblog app should be served under `
 
 The material theme is defined in `custom-theme.scss`.
 Update the SCSS variables as you see fit.
+Or, you can just [use one of the 4 prebuilt themes of Angular Material](https://gitlab.com/angularmaterial/setup#stylecss).
 
 
 #### How to add sitemaps
