@@ -159,7 +159,7 @@ export class WeeklyDigestComponent implements OnInit {
 
   private loadBlogPostEntries() {
     const maxDates = 7;
-    const endDate = DateIdUtil.getNextDayId(this.dateId);
+    let endDate = this.blogPostRegistry.getRangeEndDate(this.dateId);
     const oldPosts: string[] = [];  // It's important to set it to non-null, empty list
     this.blogPostRegistry.buildEntryMap(maxDates, endDate, oldPosts).subscribe(entries => {
       this.docEntries = [];

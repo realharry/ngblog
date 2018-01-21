@@ -42,7 +42,6 @@ export class AppConfigService {
     return this._enableDisqusComment;
   }
 
-
   private _disqusWebsiteShortname: (string | null) = null;
   get disqusWebsiteShortname(): string {
     if (this._disqusWebsiteShortname == null) {
@@ -51,5 +50,15 @@ export class AppConfigService {
     return this._disqusWebsiteShortname;
   }
 
+
+  // 0 ~ 23.9
+  private _dailyPostStartHour: number = -1;
+  get dailyPostStartHour(): number {
+    if (this._dailyPostStartHour == -1) {
+      this._dailyPostStartHour = this.appConfig.getNumber("daily-post-start-hour", 0);
+      this._dailyPostStartHour %= 24;
+    }
+    return this._dailyPostStartHour;
+  }
 
 }

@@ -247,17 +247,8 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
   }
 
   private loadBlogPostEntries() {
-
-    // this.blogPostRegistry.buildEntryMap().subscribe(map => {
-    //   this.docEntries = [];
-    //   for(let dateId in map) {
-    //     this.docEntries.push(map[dateId]);
-    //   }
-    //   if (this.docEntries.length == 0) {
-    //     this.docEntries.push(docEntryNgBlogHeader);  // Rename this to "placeholder"...
-    //   }
-    // });
-    this.blogPostRegistry.buildEntryMap().subscribe(entries => {
+    let endDate = this.blogPostRegistry.getRangeEndDate(DateIdUtil.getTodayId());
+    this.blogPostRegistry.buildEntryMap(0, endDate).subscribe(entries => {
       this.docEntries = [];
       // tbd: pagination here....
       if (this.isPaginationEnabled) {

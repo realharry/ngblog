@@ -32,6 +32,23 @@ export class BlogPostRegistry {
     // });
   }
 
+  public getRangeEndDate(dateId: string): string {
+    let todayId = DateIdUtil.getTodayId();
+    let endDate: string;
+    if(dateId > todayId) {
+      endDate = DateIdUtil.getTomorrowId();
+    } else if(dateId == todayId) {
+      if(DateTimeUtil.getHourOfTheDay() >= this.appConfigService.dailyPostStartHour) {
+        endDate = DateIdUtil.getTomorrowId();
+      } else {
+        endDate = todayId;
+      }
+    } else {
+      endDate = DateIdUtil.getNextDayId(dateId);
+    }
+    return endDate;
+  }
+
   private _isLoaded = false;
   public get isLoaded(): boolean {
     return this._isLoaded;

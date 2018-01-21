@@ -163,7 +163,8 @@ export class MonthlyDigestComponent implements OnInit {
 
   private loadBlogPostEntries() {
     const maxDates = 31;
-    const endDate = DateIdUtil.getNextDayId(this.dateId);
+    let todayId = DateIdUtil.getTodayId();
+    let endDate = this.blogPostRegistry.getRangeEndDate(this.dateId);
     const oldPosts: string[] = [];  // It's important to set it to non-null, empty list
     this.blogPostRegistry.buildEntryMap(maxDates, endDate, oldPosts).subscribe(entries => {
       this.docEntries = [];
