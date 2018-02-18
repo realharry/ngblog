@@ -32,7 +32,7 @@ If you are a developer and want full control over your daily blogging, however, 
 [Angular Material](https://gitlab.com/angularmaterial/setup),
 and it can provide certain advantages over other static website generators, especially if you are an Angular developer.
 
-_Note: Since it's really frontend only, it may not be really SEO-friendly. If you want SEO, you may consider using SSR-enabled server-version of the app (aka "Angular Universal"). But, again, it's a tradeoff. Doing so will add a complexity (e.g., in terms of deployment, etc.). It should be noted, as of this writing, NgBlog SSR has not been tested._
+_Note: Since it's really frontend only, it may not be really SEO-friendly. If you want SEO, you may consider using SSR-enabled server-version of the app (aka "Angular Universal"). But, again, it's a tradeoff. Doing so will add a complexity (e.g., in terms of deployment, etc.). It should be noted, as of this writing, NgBlog SSR has some minor issues (like styling differences between the server and client versions)._
 
 
 ## How to Use `NgBlog`
@@ -91,26 +91,49 @@ If you haven't done any Angular programming, you'll need to install Angular CLI 
 
     npm i -g @angular/cli typescript
 
-Then, you can build NgBlog via `ng build`:
+Then, you can build NgBlog client app via `ng build`:
 
     npm i
     ng build --prod
 
 _(Note: if you use a remote hosting for posts/contents (like S3), rebuiling/redeployment is not necessary.)_
 
+For the universal/SSR version, you can build both client and server apps as follows:
 
-### (5) Deploy
+    npm i
+    npm run build:universal
 
-Deploy the `dist` folder to your hosting service. Any service that supports static websites will do,
+Note that the current build script setting does not include `--prod` flag for building client apps.
+You may want to add the prod flag when you are ready for deployment.
+
+
+### (5) Run
+
+To run the app locally (e.g., for testing/debugging),
+
+    ng serve
+
+For the universal/SSR version, you can do
+
+    npm run serve:universal
+
+
+### (6) Deploy
+
+Deploy the `dist/browser` folder to your hosting service. Any service that supports static websites will do,
 including S3 or any other static site hosting services.
 As stated, you can either deploy both the code and the blog content to a single website, 
 or you can choose to deploy them to two separate sites.
-
 Note that in order to [use PWA features](https://blog.realharry.com/20180109-pwa-progressive-web-apps), 
 your ngblog app should be served under `https`. (It may require some additional tweaking as well.)
 
+For the universal/SSR version, you deploy the whole `dist` folder, which includes both the client (`browser`) and server (`server`) builds.
+The `dist` folder also includes `server.js` which runs the `NgBlog` app in Express server (Node.js).
+If you plan to deploy the app in other types of platforms (e.g., .Net Core),
+you will need to create a corresponding server program.
 
-### (6) "Maintenance"
+
+### (7) "Maintenance"
 
 #### How to update the theme
 
