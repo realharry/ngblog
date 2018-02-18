@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { APP_INITIALIZER } from '@angular/core';
+import { PLATFORM_ID, APP_ID, Inject } from '@angular/core';
+import { APP_BASE_HREF } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
@@ -60,7 +63,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 // We can potentially load config files from a remote server.
 var configFileUrl: string;
-if(environment.production) {
+if (environment.production) {
   configFileUrl = 'configs/app-config.json';
 } else {
   configFileUrl = 'configs/app-config.dev.json';
@@ -114,6 +117,7 @@ export function loadAppConfig(config: AppConfig) {
     // AppComponent,
   ],
   providers: [
+    { provide: APP_BASE_HREF, useValue: '/' },
     // TBD:
     // Why is AppConfig not shared in lazy-loaded modules ????
     // As a workaround, we reload appConfig in every lazy-loaded module.
@@ -125,7 +129,7 @@ export function loadAppConfig(config: AppConfig) {
     //     (config: AppConfig) => () => config.load().then(o => { console.log("App config loaded."); }),
     //   deps: [AppConfig], multi: true
     // },
-    { provide: APP_INITIALIZER, useFactory: loadAppConfig, deps: [AppConfig], multi: true }, 
+    { provide: APP_INITIALIZER, useFactory: loadAppConfig, deps: [AppConfig], multi: true },
 
     // AppConfigService,
 
@@ -144,11 +148,20 @@ export function loadAppConfig(config: AppConfig) {
 })
 export class AppModule {
   constructor(
+    @Inject(PLATFORM_ID) private platformId: Object,
+    @Inject(APP_ID) private appId: string,
     // private appConfig: AppConfig,
     private overlayContainer: OverlayContainer,
   ) {
     // if(isDL()) dl.log(">>> Loading AppModule");
     // if(isDL()) dl.log(this.appConfig.all);
+
+    // For debugging only.
+    if (isDL()) {
+      const platform = isPlatformBrowser(platformId) ?
+        'in the browser' : 'on the server';
+      dl.log(`Running ${platform} with appId=${appId}`);
+    }
 
     overlayContainer.getContainerElement().classList.add('my-dark-theme');
   }
