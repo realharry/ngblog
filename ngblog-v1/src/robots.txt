@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /assets
+Disallow: /icons
+Disallow: /styles
+Disallow: /configs
+Disallow: /posts
+Allow: /
