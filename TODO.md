@@ -38,17 +38,39 @@ AppConfig DI bug
 (AppConfig instance is not shared in lazy-loaded modules.)
 --> Fixed (Added a workaround) by adding an AppConfig wrapper service.
 
-Integrate Disqus: Done. 2018/01/14
+"Hash link redirect": Done. 2018/01/13
+    We are now "converting" markdown internal links/urls into Angular router nav links, effectively.
+
+Integrate Disqus: Done (with an open issue). 2018/01/14
      Need more testing.
 
+Prev/Next article navigation: Partially done. 2018/01/15
+    It currently works only among the posts that are loaded together
+    (e.g., within a weekly page (for a particular week), etc.).
+    Need to implement a way to find/load "neighboring" posts (with content) in the post/permalink page.
+    (Note: Is it even possible? Since older posts are not bounded, there is really no practical way to find the "older post". We may need to limit the time windows around the given post.)
 
-Accordion UI bug
-(Index/step is currently used as "state" rather than the post id/date.)
 
 
+Disqus integration bug: Calling reset() throws Javascript error.
+    Need to investigate
 
-"Convert" markdown links/urls into Angular nav links
-How ???
+Accordion UI bug:
+    (Index/step is currently used as "state" rather than the post id/date.)
+
+Hash link redirect bug: Redirect fails once in a while.
+    When does this happen? and What to do if this happens?
+    Need to investigate
+
+
+"Next/previous" wordings
+    Currently, the words, next and previous, are used in many different contexts with conflicting meanings. 
+    E.g., Previous/next page, previous/next post/article, previous/next week, etc. ...
+    We need to make the use of terms more consistent.
+    (For example, previous/next means older/newer? Or, prev/next in the list? ...)
+
+
+Better prev/next article navigation
 
 
 Client-side search
@@ -61,8 +83,6 @@ Tag/label support
 RSS feed ?
 
 
-Prev/Next navigation from the post/permalink page
-
 Support custom UI (other than Accordion listing)?
 
 
@@ -73,6 +93,8 @@ Support more than one posts per day
 
 Content/post database ???
 
+
+Better UI: Need to style markdown-converted HTML content.
 
 Better pagination: Currently, the metadta (post.json) of all posts are loaded/fetched regardless of pagination.
 

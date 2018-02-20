@@ -193,12 +193,31 @@ export class NgBlogPermalinkComponent implements OnInit {
       this.emailSubject = encodeURIComponent(entry.title + ': ' + this.pageUrl);
       this.emailBody = encodeURIComponent(entry.title + ' - ' + entry.description + '\n' + this.pageUrl + '\n\n');
 
+      // For article navigation
+      if (this.docEntry.newerPostId) {
+        this._newerArticleId = this.docEntry.newerPostId;
+      } else {
+        // tbd:
+        // need to check if the newer post with content exists..
+        // And, update this._newerArticleId.
+        // ....
+      }
+      if (this.docEntry.olderPostId) {
+        this._olderArticleId = this.docEntry.olderPostId;
+      } else {
+        // tbd:
+        // need to check if the older post with content exists..
+        // And, update this._olderArticleId.
+        // ....
+      }
+      // For article navigation
+
       // //testing
       // entry.debugEnabled = true;
       // //testing
 
       // this.isContentLoaded = true;  // This seems to be too quick...
-      Observable.timer(215).subscribe(o => {
+      Observable.timer(335).subscribe(o => {
         this.isContentLoaded = true;
       });
     } else {
@@ -223,6 +242,25 @@ export class NgBlogPermalinkComponent implements OnInit {
           this.emailSubject = encodeURIComponent(entry.title + ': ' + this.pageUrl);
           this.emailBody = encodeURIComponent(entry.title + ' - ' + entry.description + '\n' + this.pageUrl + '\n\n');
 
+          // For article navigation
+          if (this.docEntry.newerPostId) {
+            this._newerArticleId = this.docEntry.newerPostId;
+          } else {
+            // tbd:
+            // need to check if the newer post with content exists..
+            // And, update this._newerArticleId.
+            // ....
+          }
+          if (this.docEntry.olderPostId) {
+            this._olderArticleId = this.docEntry.olderPostId;
+          } else {
+            // tbd:
+            // need to check if the older post with content exists..
+            // And, update this._olderArticleId.
+            // ....
+          }
+          // For article navigation
+
           // //testing
           // entry.debugEnabled = true;
           // //testing
@@ -237,8 +275,8 @@ export class NgBlogPermalinkComponent implements OnInit {
                 //testing
                 // this.commonMarkEntry.setMarkdownInput(pc.content, entry.imgPrefix, true);
                 // this.commonMarkEntry.setMarkdownInput(pc.content, entry.imgPrefix);
-                this.commonMarkEntry.setMarkdownContent(pc.content, entry.imgPrefix, this.pageLinkPrefix, '', true);
-                // this.commonMarkEntry.setMarkdownContent(pc.content, entry.imgPrefix, this.pageLinkPrefix);
+                // this.commonMarkEntry.setMarkdownContent(pc.content, entry.imgPrefix, this.pageLinkPrefix, '#', false);
+                this.commonMarkEntry.setMarkdownContent(pc.content, entry.imgPrefix, this.pageLinkPrefix);
                 //testing
               } else {
                 // ???
@@ -246,13 +284,13 @@ export class NgBlogPermalinkComponent implements OnInit {
               }
 
               // this.isContentLoaded = true;  // This seems to be too quick...
-              Observable.timer(215).subscribe(o => {
+              Observable.timer(335).subscribe(o => {
                 this.isContentLoaded = true;
               });
             });
           } else {
             // this.isContentLoaded = true;  // This seems to be too quick...
-            Observable.timer(215).subscribe(o => {
+            Observable.timer(335).subscribe(o => {
               this.isContentLoaded = true;
             });
           }
@@ -263,7 +301,7 @@ export class NgBlogPermalinkComponent implements OnInit {
           // ...
 
           // this.isContentLoaded = true;  // This seems to be too quick...
-          Observable.timer(215).subscribe(o => {
+          Observable.timer(335).subscribe(o => {
             this.isContentLoaded = true;
           });
         }
@@ -344,5 +382,34 @@ export class NgBlogPermalinkComponent implements OnInit {
       if (isDL()) dl.log(`navigate() suc = ${suc}`);
     });
   }
+
+
+  // For post/article navigation
+  // Note that the navigation is only among the posts with hasContent == true.
+
+  private _newerArticleId: (string | null) = null;
+  get hasNewerArticle(): boolean {
+    return !!(this._newerArticleId);
+  }
+  openNewerArticle() {
+    if (this._newerArticleId) {
+      this.router.navigate(['post', this._newerArticleId]).then(suc => {
+        if (isDL()) dl.log(`openNewerArticle() suc = ${suc}`);
+      });
+    }
+  }
+
+  private _olderArticleId: (string | null) = null;
+  get hasOlderArticle(): boolean {
+    return !!(this._olderArticleId);
+  }
+  openOlderArticle() {
+    if (this._olderArticleId) {
+      this.router.navigate(['post', this._olderArticleId]).then(suc => {
+        if (isDL()) dl.log(`openOlderArticle() suc = ${suc}`);
+      });
+    }
+  }
+
 
 }

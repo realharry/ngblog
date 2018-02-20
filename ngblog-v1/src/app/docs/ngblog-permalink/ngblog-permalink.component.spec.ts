@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NgblogPermalinkComponent } from './ngblog-permalink.component';
+import { NgBlogPermalinkComponent } from './ngblog-permalink.component';
 
 describe('NgblogPermalinkComponent', () => {
-  let component: NgblogPermalinkComponent;
-  let fixture: ComponentFixture<NgblogPermalinkComponent>;
+  let component: NgBlogPermalinkComponent;
+  let fixture: ComponentFixture<NgBlogPermalinkComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NgblogPermalinkComponent ]
+      declarations: [ NgBlogPermalinkComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NgblogPermalinkComponent);
+    fixture = TestBed.createComponent(NgBlogPermalinkComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

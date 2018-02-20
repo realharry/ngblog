@@ -4,17 +4,6 @@
     <mat-toolbar-row>
       <span style="font-weight: bold;">{{siteInfo.name}} - {{siteInfo.title}}</span>
       <span style="flex: 1 1 auto"></span>
-      <!-- <span [hidden]="!isPaginationEnabled">
-        <mat-chip-list>
-          <button mat-icon-button color="accent" [disabled]="isInFirstPage" matTooltip="Previous Page" (click)="goToPreviousPage()">
-            <mat-icon>chevron_left</mat-icon>
-          </button>
-          <mat-chip color="accent" selected="true">{{pageIndicia}}</mat-chip>
-          <button mat-icon-button color="accent" [disabled]="isInLastPage" matTooltip="Next Page" (click)="goToNextPage()">
-            <mat-icon>chevron_right</mat-icon>
-          </button>
-        </mat-chip-list>
-      </span> -->
       <span>
         <button *ngIf="showWeeklyDigest" mat-icon-button color="" aria-label="This week's digest" matTooltip="This Week" (click)="openWeeklyDigestPage()">
           <mat-icon>date_range</mat-icon>
@@ -60,18 +49,27 @@
               [width]="thumbnailWidth"></common-lazy-image>
           </div>
           <div class="ngblog-summary-block">
-            <common-mark-entry [delay]="(i === step) ? 0 : delayInterval" [url]="mde.summaryUrl" [markdown]="mde.summaryContent" 
-            [img-prefix]="mde.imgPrefix" [link-prefix]="pageLinkPrefix"
-            [max-retries]="maxRetries" [retry-interval]="retryInterval"        
-            [debug-enabled]="mde.debugEnabled" [renderer-options]="mde.rendererOptions"></common-mark-entry>
+            <common-mark-entry [delay]="(i === step) ? 0 : delayInterval" [url]="mde.summaryUrl" [markdown]="mde.summaryContent" [img-prefix]="mde.imgPrefix"
+              [link-prefix]="pageLinkPrefix" [max-retries]="maxRetries" [retry-interval]="retryInterval" [debug-enabled]="mde.debugEnabled"
+              [renderer-options]="mde.rendererOptions"></common-mark-entry>
           </div>
           <!-- <div style="clear:both; font-size:1px;"></div> -->
         </div>
 
         <mat-action-row>
-          <button color="primary" *ngIf="mde.hasContent" mat-icon-button aria-label="Read more" matTooltip="Read more" (click)="openContentPage(i);">
-            <mat-icon>message</mat-icon>
-          </button>
+          <span *ngIf="mde.hasContent">
+            <!-- <span *ngIf="isWidthNotExtraNarrow">Read More</span> -->
+            <button *ngIf="isWidthNotVeryNarrow" mat-button color="primary" (click)="openContentPage(i)">
+              Read More &nbsp;
+              <mat-icon>message</mat-icon>
+            </button>
+            <button *ngIf="!isWidthNotVeryNarrow && isWidthNotExtraNarrow" mat-button color="primary" (click)="openContentPage(i)">
+              Read More
+            </button>
+            <button *ngIf="!isWidthNotExtraNarrow" color="primary" mat-icon-button aria-label="Read more" matTooltip="Read more" (click)="openContentPage(i);">
+              <mat-icon>message</mat-icon>
+            </button>
+          </span>
           <span style="flex: 1 1 auto"></span>
           <button *ngIf="i > 0" mat-button color="primary" (click)="prevStep()">Previous</button>
           <button [disabled]="i >= docEntries.length-1" mat-button color="primary" (click)="nextStep()">Next</button>
@@ -88,31 +86,33 @@
           <mat-icon>arrow_back</mat-icon>
         </button>
       </span>
-      <span *ngIf="displayContactWebsite" style="font-style: italic; font-size:0.9em;">
+      <span>
+        <a href="https://ngblog.gitlab.io/" mat-icon-button color="" aria-label="Powered by NgBlog" matTooltip="Powered by NgBlog">
+          <mat-icon>info_outline</mat-icon>
+        </a>        
+      </span>
+      <span *ngIf="displaySiteInfoLink" style="font-style: italic; font-size:0.9em;">
         <a mat-button [href]="contactWebsite">Copyright &copy;
           <common-date-year></common-date-year> {{siteInfo.name}}</a>
       </span>
-      <span *ngIf="!displayContactWebsite" style="font-style: italic; font-size:0.9em;">
-        Copyright &copy;
+      <span *ngIf="displaySiteInfoOnly" style="font-style: italic; font-size:0.9em;">
+        &nbsp; Copyright &copy;
         <common-date-year></common-date-year> {{siteInfo.name}}
       </span>
-      <span style="flex: 1 1 auto"></span>
-      <span [hidden]="!isPaginationEnabled">
-        <!-- <mat-chip-list>
-          <button mat-icon-button color="primary" [disabled]="isInFirstPage" matTooltip="Previous Page" (click)="goToPreviousPage()">
-            <mat-icon>chevron_left</mat-icon>
-          </button>
-          <mat-chip color="primary" selected="true">{{pageIndicia}}</mat-chip>
-          <button mat-icon-button color="primary" [disabled]="isInLastPage" matTooltip="Next Page" (click)="goToNextPage()">
-            <mat-icon>chevron_right</mat-icon>
-          </button>
-        </mat-chip-list> -->
+      <span *ngIf="displayCopyrightLink" style="font-style: italic; font-size:0.9em;">
+        <a mat-button [href]="contactWebsite">Copyright &copy;
+          <common-date-year></common-date-year>
+        </a>
+      </span>
+      <span *ngIf="displayCopyrightOnly" style="font-style: italic; font-size:0.9em;">
+        &nbsp; Copyright &copy;
+        <common-date-year></common-date-year>
       </span>
       <span style="flex: 1 1 auto"></span>
       <span *ngIf="displayContactEmail" style="font-style: italic; font-size:0.9em;">
         <a mat-button href="mailto:{{contactEmail}}">{{contactEmail}}</a>
       </span>
-      <span style="font-style: italic; font-size:0.9em;">
+      <span [hidden]="!isPaginationEnabled" style="font-style: italic; font-size:0.9em;">
         <mat-chip-list>
           <button mat-icon-button color="primary" [disabled]="isInFirstPage" aria-label="Previous page" matTooltip="Previous Page"
             (click)="goToPreviousPage()">

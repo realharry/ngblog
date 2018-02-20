@@ -14,7 +14,7 @@ export abstract class DocEntry {
 
   // Support "next post", "previous post" from the post page???
   public olderPostId: (string | null) = null;  // previous
-  public nextPostId: (string | null) = null;   // next/more recent
+  public newerPostId: (string | null) = null;   // next/more recent
   // TBD:
   // Due to the way we dynamically load entry lists based on date ranges
   // (sometimes for sitelist, sometimes for weekly lists, monthly lists, etc.),
@@ -62,6 +62,8 @@ export abstract class DocEntry {
     // str += `skipPrinting:${this.skipPrinting};`
     str += `skipDisplay:${this.skipDisplay};`
     str += `showContent:${this.showContent};`
+    str += `olderPostId:${this.olderPostId};`
+    str += `newerPostId:${this.newerPostId};`
     return str;
   }
 

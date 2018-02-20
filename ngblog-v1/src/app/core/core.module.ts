@@ -12,6 +12,8 @@ import { NgCoreMarkModule } from '@ngcore/mark';
 import { NgCoreNoteModule } from '@ngcore/note';
 import { NgCoreTimeModule } from '@ngcore/time';
 
+// import { ShareModule } from '@ngx-share/core';
+
 import { MaterialComponentsModule } from '../material-components.module';
 
 import { AppConfigService } from '../config/app-config.service';
@@ -48,6 +50,7 @@ import { NotFoundComponent } from '../errors/not-found/not-found.component';
     NgCoreMarkModule,
     NgCoreNoteModule,
     NgCoreTimeModule,
+    // ShareModule.forRoot(),
     MaterialComponentsModule,
   ],
   exports: [
@@ -58,6 +61,7 @@ import { NotFoundComponent } from '../errors/not-found/not-found.component';
     // NgCoreMarkModule,
     // NgCoreNoteModule,
     // NgCoreTimeModule,
+    // ShareModule,
     MaterialComponentsModule,
     DisqusCommentComponent,
     NotFoundComponent,

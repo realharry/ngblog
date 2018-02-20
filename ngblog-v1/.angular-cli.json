@@ -6,7 +6,7 @@
   "apps": [
     {
       "root": "src",
-      "outDir": "dist",
+      "outDir": "dist/browser",
       "assets": [
         "assets",
         "icons",
@@ -41,7 +41,7 @@
     },
     {
       "root": "src",
-      "outDir": "dist-server/",
+      "outDir": "dist/server",
       "assets": [
         "assets",
         "icons",

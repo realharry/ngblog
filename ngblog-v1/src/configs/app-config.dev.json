@@ -13,6 +13,7 @@
   "enable-monthly-digest": true,
   "show-contact-email": true,
   "blog-post-folder": "posts-dev/",
+  "daily-post-start-hour": 10.5,
   "max-post-age": 120,
   "old-post-list": ["20171231", "20171225"],
   "item-count-per-page": 20,

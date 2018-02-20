@@ -159,7 +159,7 @@ export class WeeklyDigestComponent implements OnInit {
 
   private loadBlogPostEntries() {
     const maxDates = 7;
-    const endDate = DateIdUtil.getNextDayId(this.dateId);
+    let endDate = this.blogPostRegistry.getRangeEndDate(this.dateId);
     const oldPosts: string[] = [];  // It's important to set it to non-null, empty list
     this.blogPostRegistry.buildEntryMap(maxDates, endDate, oldPosts).subscribe(entries => {
       this.docEntries = [];
@@ -177,7 +177,7 @@ export class WeeklyDigestComponent implements OnInit {
       }
 
       // this.isContentLoaded = true;  // This seems to be too quick...
-      Observable.timer(215).subscribe(o => {
+      Observable.timer(335).subscribe(o => {
         this.isContentLoaded = true;
       });
     });
@@ -200,7 +200,13 @@ export class WeeklyDigestComponent implements OnInit {
     let todayId = DateIdUtil.getTodayId();
     return (todayId > this.dateId);
   }
-
+  get canDoNextDay(): boolean {
+    let todayId = DateIdUtil.getTodayId();
+    return (todayId > this.dateId);
+  }
+  get canDoPreviousDay(): boolean {
+    return true;
+  }
   get canDoPreviousWeek(): boolean {
     return true;
   }
@@ -215,7 +221,22 @@ export class WeeklyDigestComponent implements OnInit {
       if (isDL()) dl.log(`navigateNextWeek() suc = ${suc}; nextWeekId = ${nextWeekId}`);
     });
   }
-
+  navigateNextDay() {
+    let todayId = DateIdUtil.getTodayId();
+    let nextDayId = DateIdUtil.getNextDayId(this.dateId);
+    if (nextDayId > todayId) {
+      nextDayId = todayId;
+    }
+    this.router.navigate(['week', nextDayId]).then(suc => {
+      if (isDL()) dl.log(`navigateNextDay() suc = ${suc}; nextDayId = ${nextDayId}`);
+    });
+  }
+  navigatePreviousDay() {
+    let prevDayId = DateIdUtil.getNthDayId(this.dateId, -1);
+    this.router.navigate(['week', prevDayId]).then(suc => {
+      if (isDL()) dl.log(`navigatePreviousDay() suc = ${suc}; prevDayId = ${prevDayId}`);
+    });
+  }
   navigatePreviousWeek() {
     let prevWeekId = DateIdUtil.getNthDayId(this.dateId, -7);
     this.router.navigate(['week', prevWeekId]).then(suc => {

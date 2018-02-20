@@ -247,17 +247,8 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
   }
 
   private loadBlogPostEntries() {
-
-    // this.blogPostRegistry.buildEntryMap().subscribe(map => {
-    //   this.docEntries = [];
-    //   for(let dateId in map) {
-    //     this.docEntries.push(map[dateId]);
-    //   }
-    //   if (this.docEntries.length == 0) {
-    //     this.docEntries.push(docEntryNgBlogHeader);  // Rename this to "placeholder"...
-    //   }
-    // });
-    this.blogPostRegistry.buildEntryMap().subscribe(entries => {
+    let endDate = this.blogPostRegistry.getRangeEndDate(DateIdUtil.getTodayId());
+    this.blogPostRegistry.buildEntryMap(0, endDate).subscribe(entries => {
       this.docEntries = [];
       // tbd: pagination here....
       if (this.isPaginationEnabled) {
@@ -297,7 +288,7 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
       this.delayInterval[1] = 500 + Math.floor(250 * Math.sqrt(entryLength));
 
       // this.isContentLoaded = true;  // This seems to be too quick...
-      Observable.timer(215).subscribe(o => {
+      Observable.timer(335).subscribe(o => {
         this.isContentLoaded = true;
       });
     });
@@ -447,15 +438,76 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
   }
 
 
-  // temporary
-  get displayContactWebsite(): boolean {
-    return !!this.contactWebsite;
+  private get isWidthNarrow(): boolean {
+    if (this.windowWidth > 0 && this.windowWidth <= NgBlogSiteComponent.WIDTH_THRESHOLD_2) {
+      return true;
+    }
+    return false;
   }
+  private get isWidthVeryNarrow(): boolean {
+    if (this.windowWidth > 0 && this.windowWidth <= NgBlogSiteComponent.WIDTH_THRESHOLD_1) {
+      return true;
+    }
+    return false;
+  }
+  private get isWidthExtraNarrow(): boolean {
+    if (this.windowWidth > 0 && this.windowWidth <= NgBlogSiteComponent.WIDTH_THRESHOLD_0) {
+      return true;
+    }
+    return false;
+  }
+
+  get isWidthNotNarrow(): boolean {
+    if (this.windowWidth > NgBlogSiteComponent.WIDTH_THRESHOLD_2) {
+      return true;
+    }
+    return false;
+  }
+  get isWidthNotVeryNarrow(): boolean {
+    if (this.windowWidth > NgBlogSiteComponent.WIDTH_THRESHOLD_1) {
+      return true;
+    }
+    return false;
+  }
+  get isWidthNotExtraNarrow(): boolean {
+    if (this.windowWidth > NgBlogSiteComponent.WIDTH_THRESHOLD_0) {
+      return true;
+    }
+    return false;
+  }
+
+  // temporary
+  // these are logically if else/if else ...
+  get displaySiteInfoLink(): boolean {
+    if(this.isWidthVeryNarrow) {
+      return false;
+    }
+    return !!(this.contactWebsite);
+  }
+  get displaySiteInfoOnly(): boolean {
+    if(this.isWidthVeryNarrow) {
+      return false;
+    }
+    return !this.displaySiteInfoLink;
+  }
+  get displayCopyrightLink(): boolean {
+    if(! this.isWidthVeryNarrow) {
+      return false;
+    }
+    return !!(this.contactWebsite);
+  }
+  get displayCopyrightOnly(): boolean {
+    if(! this.isWidthVeryNarrow) {
+      return false;
+    }
+    return !this.displayCopyrightLink;
+  }
+  
 
   private _displayContactEmail: boolean;
   get displayContactEmail(): boolean {
     // No room to display email....
-    if (this.windowWidth > 0 && this.windowWidth <= NgBlogSiteComponent.WIDTH_THRESHOLD_2) {
+    if(this.isWidthNarrow) {
       return false;
     }
     if (this._displayContactEmail !== true && this._displayContactEmail !== false) {

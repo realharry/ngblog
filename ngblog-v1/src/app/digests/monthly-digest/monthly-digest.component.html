@@ -48,6 +48,11 @@
           <mat-icon>arrow_back</mat-icon>
         </button>
       </span>
+      <span>
+        <a href="https://ngblog.gitlab.io/" mat-icon-button color="" aria-label="Powered by NgBlog" matTooltip="Powered by NgBlog">
+          <mat-icon>info_outline</mat-icon>
+        </a>        
+      </span>
       <span *ngIf="displayContactWebsite" style="font-style: italic; font-size:0.9em;">
         <a mat-button [href]="contactWebsite">Copyright &copy;
           <common-date-year></common-date-year> {{siteInfo.name}}</a>
@@ -58,11 +63,17 @@
       </span>
       <span style="flex: 1 1 auto"></span>
       <span style="font-style: italic; font-size:0.9em;">
-        <button mat-icon-button color="primary" [disabled]="!canDoNextMonth" aria-label="More recent" matTooltip="More Recent" (click)="navigateNextMonth()">
+        <button mat-icon-button color="primary" [disabled]="!canDoNextMonth" aria-label="Following month" matTooltip="Following Month" (click)="navigateNextMonth()">
+          <mat-icon>first_page</mat-icon>
+        </button>
+        <button mat-icon-button color="primary" [disabled]="!canDoNextWeek" aria-label="Following week" matTooltip="Following Week" (click)="navigateNextWeek()">
           <mat-icon>chevron_left</mat-icon>
         </button>
-        <button mat-icon-button color="primary" [disabled]="!canDoPreviousMonth" aria-label="Previous month" matTooltip="Previous Month" (click)="navigatePreviousMonth()">
+        <button mat-icon-button color="primary" [disabled]="!canDoPreviousWeek" aria-label="Previous week" matTooltip="Previous Week" (click)="navigatePreviousWeek()">
           <mat-icon>chevron_right</mat-icon>
+        </button>
+        <button mat-icon-button color="primary" [disabled]="!canDoPreviousMonth" aria-label="Previous month" matTooltip="Previous Month" (click)="navigatePreviousMonth()">
+          <mat-icon>last_page</mat-icon>
         </button>
       </span>
     </mat-toolbar-row>
