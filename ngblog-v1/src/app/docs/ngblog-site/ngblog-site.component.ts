@@ -246,6 +246,17 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
     });
   }
 
+
+  // TBD:
+  // Cache the blog post list ???
+  // (1) When the app loads first time,
+  //      read the blog post list from the local db first, if exists.
+  //    This will be likely stale, but it will load faster.
+  // (2) Then, load all posts from the network (possibly from service worker),
+  //    And, refresh the list,
+  //    Then, cache the update blog post list into the local db,
+  // ??? Is this really necessary since we already use service worker????
+
   private loadBlogPostEntries() {
     let endDate = this.blogPostRegistry.getRangeEndDate(DateIdUtil.getTodayId());
     this.blogPostRegistry.buildEntryMap(0, endDate).subscribe(entries => {

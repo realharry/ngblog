@@ -52,6 +52,13 @@ Prev/Next article navigation: Partially done. 2018/01/15
 
 
 
+Cache the blog post list?
+(1) Use the cached list (possibly stale) when the app loads the first time,
+(2) Refresh the list from the original content server, and refresh the UI,
+(3) Then, cache the updated the list into the local/browser DB....
+
+
+
 Disqus integration bug: Calling reset() throws Javascript error.
     Need to investigate
 
