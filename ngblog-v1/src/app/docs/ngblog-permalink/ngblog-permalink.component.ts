@@ -280,7 +280,7 @@ export class NgBlogPermalinkComponent implements OnInit {
                 //testing
               } else {
                 // ???
-                // Keep the empy content. Nothing to do. ??
+                // Keep the empty content. Nothing to do. ??
               }
 
               // this.isContentLoaded = true;  // This seems to be too quick...
@@ -289,6 +289,18 @@ export class NgBlogPermalinkComponent implements OnInit {
               });
             });
           } else {
+            // Quick update as of 2/28/2018. (Need to test/verify....)
+            // If contentUrl is not set,
+            // Show summary instead.
+            let summaryUrl = this.docEntry.summaryUrl;
+            if(summaryUrl) {
+              this.blogPostService.loadPostSummaryFromSummaryUrl(summaryUrl, true).subscribe(ps => {
+                if(ps && ps.summary) {
+                  this.commonMarkEntry.setMarkdownContent(ps.summary, entry.imgPrefix, this.pageLinkPrefix);
+                }
+              });
+            }
+
             // this.isContentLoaded = true;  // This seems to be too quick...
             Observable.timer(335).subscribe(o => {
               this.isContentLoaded = true;
