@@ -683,5 +683,15 @@ export class NgBlogSiteComponent implements OnInit, AfterViewInit {
   navigateBack() {
     this.location.back();
   }
+  navigateHome() {
+    // How to clear history stack???
+    // this.location.clear();
+
+    // TBD:
+    // Reset the currently open blog summary, etc. ????
+    this.router.navigate(['/']).then(suc => {
+      if (isDL()) dl.log(`navigate() suc = ${suc}`);
+    });
+  }
 
 }
